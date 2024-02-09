@@ -1,0 +1,48 @@
+.sectionPengumuman-profilUser i{
+    padding: 10px 12px;
+    /* border: 1px solid black; */
+    background-color: rgba(0, 0, 255, 0.11);
+    border-radius: 50px;
+}
+
+.nice-select{
+    padding: 23px 16px;
+    line-height: 10%;
+    color: rgb(119, 119, 119);
+}
+.form-date{
+    padding: 23px 16px;
+    color: rgb(119, 119, 119);
+}.form-date value{
+    font-size: 50px;
+}
+
+/* BUTTON MODIF */
+/* Outline Primary */
+.bg-outline-primary-modif{
+    padding: 16px 16px;
+    background-color: white;
+    color: #335AFF;
+    border: 2px solid #335AFF;
+}.bg-outline-primary-modif:hover{
+    background-color:#335AFF;
+    color: white;
+    border: 2px solid #335AFF;
+}
+.bg-outline-secondary-modif{
+    padding: 16px 16px;
+    background-color: white;
+    color: #6c757d;
+    border: 2px solid #6c757d;
+    text-align: center;
+}.bg-outline-secondary-modif:hover{
+    background-color:#6c757d;
+    color: white;
+    border: 2px solid #6c757d;
+}
+
+/* TEXT COLOR MODIF */
+/* Secondary text */
+.color-secondary{
+    color: #495057;
+}
