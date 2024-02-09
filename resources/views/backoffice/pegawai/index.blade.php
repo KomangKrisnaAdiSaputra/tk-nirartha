@@ -30,7 +30,7 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $value['nama_pegawai'] }}</td>
-                                    <td>{{ $value['jk_pegawai'] }}</td>
+                                    <td>{{ getJkPegawai($value['jk_pegawai']) }}</td>
                                     <td>{{ $value['telp_pegawai'] }}</td>
                                     <td></td>
                                     <td class="d-flex justify-content-center">

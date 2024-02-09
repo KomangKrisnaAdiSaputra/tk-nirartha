@@ -15,3 +15,11 @@ function getStatusPengumuman($key)
     return $item['key'] === $key;
   }))[0]['value'];
 }
+
+function getJkPegawai($key)
+{
+  $data = (new TblPegawai)->get('jk');
+  return array_values(array_filter($data, function ($item) use ($key) {
+    return $item['key'] === $key;
+  }))[0]['value'];
+}

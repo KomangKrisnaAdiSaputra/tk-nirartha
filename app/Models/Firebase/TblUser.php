@@ -50,4 +50,10 @@ class TblUser
     $dataUsers = $this->getDatabase()->getValue();
     return $dataUsers;
   }
+
+  public function getOneDataUser($id)
+  {
+    $data = $this->getDatabase()->getChild($id)->getValue();
+    return $data;
+  }
 }

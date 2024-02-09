@@ -10,16 +10,16 @@ class TblPegawai
   private $database;
   private $table_name = "tbl_pegawai";
   private $field = ['id_pegawai', 'id_user', 'nama_pegawai', 'telp_pegawai', 'jk_pegawai', 'foto_pegawai', 'created_at', 'updated_at'];
-  // private $status = [
-  //   [
-  //     'key' => 0,
-  //     'value' => 'Non-Aktif'
-  //   ],
-  //   [
-  //     'key' => 1,
-  //     'value' => 'Aktif'
-  //   ],
-  // ];
+  private $jk = [
+    [
+      'key' => "1",
+      'value' => 'Wanita'
+    ],
+    [
+      'key' => "2",
+      'value' => 'Laki-Laki'
+    ],
+  ];
 
   public function __construct()
   {

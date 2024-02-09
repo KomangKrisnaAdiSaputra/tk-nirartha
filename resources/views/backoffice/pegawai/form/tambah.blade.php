@@ -10,7 +10,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Tambah {{ ucwords($menu) }}</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('pengumuman.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pegawai.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-12">
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                <input type="password" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="Password" name="password_user" value="" required>
                                 <div class="invalid-feedback">
                                     error
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                <input type="password" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="Konfirmasi Password" name="konfirmasi_password_user" value=""
                                     required>
                                 <div class="invalid-feedback">

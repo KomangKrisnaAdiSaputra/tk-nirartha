@@ -3,32 +3,86 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Form</h1>
-        <p class="mb-4">Form Edit Pengumuman</p>
+        <p class="mb-4">Form Tambah {{ ucwords($menu) }}</p>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edit Pengumuman</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Tambah {{ ucwords($menu) }}</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('pengumuman.update', $data['id_pengumuman']) }}" method="POST">
+                <form action="{{ route('pegawai.update', $dataPegawai['id_pegawai']) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
-                                <textarea class="form-control" id="isi_pengumuman" name="isi_pengumuman" cols="20" rows="5"
-                                    placeholder="Isi Pengumuman">{{ $data['isi_pengumuman'] }}</textarea>
-                                <div class="invalid-feedback" id="error-isi_pengumuman">Alamat pengguna tidak boleh
+                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                    placeholder="Username" name="username_user" value="{{ $dataPegawai['nama_pegawai'] }}"
+                                    required>
+                                <div class="invalid-feedback">
+                                    error
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                    placeholder="Email" name="email_user" value="{{ $dataUserPegawai['email_user'] }}"
+                                    required>
+                                <div class="invalid-feedback">
+                                    error
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-user form-control-lg fs-6"
+                                    placeholder="Password" name="password_user" value="" required>
+                                <div class="invalid-feedback">
+                                    error
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-user form-control-lg fs-6"
+                                    placeholder="Konfirmasi Password" name="konfirmasi_password_user" value=""
+                                    required>
+                                <div class="invalid-feedback">
+                                    error
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-user form-control-lg fs-6"
+                                    placeholder="No Telepon" name="telp_pegawai" value="{{ $dataPegawai['telp_pegawai'] }}"
+                                    required>
+                                <div class="invalid-feedback">
+                                    error
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <select class="form-control" name="jk_pegawai" required>
+                                    <option selected disabled>Jenis Kelamin</option>
+                                    <option value="1" {{ $dataPegawai['jk_pegawai'] === '1' ? 'selected' : '' }}>Wanita
+                                    </option>
+                                    <option value="2" {{ $dataPegawai['jk_pegawai'] === '2' ? 'selected' : '' }}>
+                                        Laki-laki</option>
+                                </select>
+                                <div class="invalid-feedback" id="error-input-gender-pengguna">Gender pengguna tidak boleh
                                     kosong!</div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="date" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="" name="tgl_pengumuman" value="{{ $data['tgl_pengumuman'] }}">
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
+                                <input type="file" class="form-control" id="input-foto-pengguna" name="foto_pegawai"
+                                    placeholder="Foto">
+                                <div class="invalid-feedback" id="error-input-foto-pengguna">Foto pengguna tidak boleh
+                                    kosong!</div>
                             </div>
                         </div>
                     </div>
