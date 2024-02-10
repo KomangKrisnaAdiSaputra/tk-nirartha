@@ -49,6 +49,8 @@ class PegawaiController extends Controller
             $dataUser[$value] = $request->$value;
         }
 
+
+
         foreach ($fieldPegawai as $key => $value) {
             $dataPegawai[$value] = $request->$value;
         }
@@ -60,9 +62,22 @@ class PegawaiController extends Controller
             $dataUser['id_user'] = $customKey;
             $dataUser['password_user'] = Hash::make($dataUser['password_user']);
 
+            $foto = $request->file('foto_pegawai');
+            $ekstensi_diperbolehkan    = array('image/png', 'image/jpg', 'image/jpeg');
+            $ekstensi = $foto->getClientMimeType();
+
+            if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                $path = public_path('image/fotoPegawai/');
+                !is_dir($path) &&
+                    mkdir($path, 0777, true);
+                $nama_gambar = time() . '.' . $request->gambar->extension();
+            } else {
+                return redirect()->back()->with('error', 'Upload Foto Dengan Ekstensi png/jpg/jpeg!');
+            }
+
             $dataPegawai['id_pegawai'] = $customKey;
             $dataPegawai['id_user'] = $customKey;
-            $dataPegawai['foto'] = "";
+            $dataPegawai['foto'] = $nama_gambar;
 
             try {
                 // Cek apakah kunci sudah ada
@@ -87,13 +102,10 @@ class PegawaiController extends Controller
             switch ($e->getMessage()) {
                 case 'The email address is already in use by another account.':
                     return redirect()->back()->with('error', 'Email sudah digunakan.');
-                    break;
                 case 'A password must be a string with at least 6 characters.':
                     return redirect()->back()->with('error', 'Kata sandi minimal 6 karakter.');
-                    break;
                 default:
                     return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-                    break;
             }
         }
     }
@@ -143,6 +155,8 @@ class PegawaiController extends Controller
             $dataUser[$value] = $request->$value;
         }
 
+
+
         foreach ($fieldPegawai as $key => $value) {
             $dataPegawai[$value] = $request->$value;
         }
@@ -181,16 +195,12 @@ class PegawaiController extends Controller
             switch ($e->getMessage()) {
                 case 'The email address is already in use by another account.':
                     return redirect()->back()->with('error', 'Email sudah digunakan.');
-                    break;
                 case 'A password must be a string with at least 6 characters.':
                     return redirect()->back()->with('error', 'Kata sandi minimal 6 karakter.');
-                    break;
                 default:
                     return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-                    break;
             }
         }
-        dd('huhu');
     }
 
     /**
