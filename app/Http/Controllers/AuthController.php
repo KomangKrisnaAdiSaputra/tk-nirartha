@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Firebase\FirebaseDb;
+use App\Models\Firebase\TblOrangTua;
 use App\Models\Firebase\TblUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,10 +79,15 @@ class AuthController extends Controller
 
     public function register_orang_tua(Request $request)
     {
+        $tblOrangTua = (new TblOrangTua);
         $field = $this->tbUser->get('field');
+        $fieldOrangTua = $tblOrangTua->get('field');
 
         foreach ($field as $key => $value) {
             $data[$value] = $request->$value;
+        }
+        foreach ($fieldOrangTua as $key => $value) {
+            $dataOrangTua[$value] = $request->$value ?? "";
         }
 
         try {
@@ -90,6 +96,9 @@ class AuthController extends Controller
             $customKey = $newUser->uid;
             $data['id_user'] = $customKey;
             $data['password_user'] = Hash::make($data['password_user']);
+
+            $dataOrangTua['id_orang_tua'] = $customKey;
+            $dataOrangTua['id_user'] = $customKey;
 
             try {
                 // Cek apakah kunci sudah ada
@@ -102,6 +111,8 @@ class AuthController extends Controller
                     // Jika kunci sudah ada, tambahkan data baru dengan kunci unik
                     $this->tbUser->getDatabase()->push($data);
                 }
+
+                $tblOrangTua->getDatabase(true, $customKey)->set($dataOrangTua);
 
                 // Data berhasil ditambahkan
                 return redirect()->route('auth.login.form_login_orang_tua')->with('success', 'Data berhasil ditambahkan.');
@@ -128,7 +139,29 @@ class AuthController extends Controller
     {
         return view('frontoffice.auth.halaman-masuk-akun');
     }
-    public function login_orang_tua()
+    public function login_orang_tua(Request $request)
     {
+        $email = $request->email;
+        $pass = $request->password;
+
+        try {
+            $signInResult = $this->auth->signInWithEmailAndPassword($email, $pass);
+            Session::put('firebaseUserId', $signInResult->firebaseUserId());
+            Session::put('idToken', $signInResult->idToken());
+            Session::save();
+            return redirect()->route('orangTua.index')->with('success', 'Login Berhasil');
+        } catch (\Throwable $e) {
+            switch ($e->getMessage()) {
+                case 'INVALID_PASSWORD':
+                    return redirect()->back()->with('error', 'Kata sandi salah!.');
+                    break;
+                case 'EMAIL_NOT_FOUND':
+                    return redirect()->back()->with('error', 'Email tidak ditemukan.');
+                    break;
+                default:
+                    return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                    break;
+            }
+        }
     }
 }

@@ -174,7 +174,8 @@ class PegawaiController extends Controller
                 $auth->changeUserPassword($id, $request->password_user);
                 $dataUser['password_user'] = Hash::make($request->password_user);
             } else {
-                unset($dataUser['password_user']);
+                $getUser = $tbUser->getOneDataUser($id);
+                $dataUser['password_user'] = $getUser['password_user'];
             }
 
             $nama_gambar = $getDataPegawai['foto_pegawai'];

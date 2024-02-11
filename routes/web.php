@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KepalaSekolahController;
+use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengumumanController;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,16 @@ Route::group(['middleware' => ['checkauth:0,2']], function () {
 });
 Route::group(['middleware' => ['checkauth:2']], function () {
     Route::resource('kelas', KelasController::class, ['names' => 'kelas']);
+});
+
+Route::group(['middleware' => ['checkauth:3']], function () {
+    Route::get('orang-tua/data', [OrangTuaController::class, 'dataOrangTua'])->name('orangTua.dataOrangTua');
+    Route::get('orang-tua/data-siswa', [OrangTuaController::class, 'dataSiswa'])->name('orangTua.dataSiswa');
+    Route::get('orang-tua/tambah-data-siswa', [OrangTuaController::class, 'tambahDataSiswa'])->name('orangTua.tambahDataSiswa');
+    Route::get('orang-tua/edit-data-siswa/{id}', [OrangTuaController::class, 'editDataSiswa'])->name('orangTua.editDataSiswa');
+    Route::get('orang-tua/detail-data-siswa/{id}', [OrangTuaController::class, 'detailDataSiswa'])->name('orangTua.detailDataSiswa');
+    Route::get('orang-tua/pendaftaran-siswa', [OrangTuaController::class, 'pendaftaranSiswa'])->name('orangTua.pendaftaranSiswa');
+    Route::resource('orang-tua', OrangTuaController::class, ['names' => 'orangTua']);
 });
 
 // Landing
