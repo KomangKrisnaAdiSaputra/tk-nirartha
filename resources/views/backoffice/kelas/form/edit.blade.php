@@ -16,28 +16,29 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Nama Kelas</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
                                     name="nama_kelas" placeholder="Nama Kelas" value="{{ $data['nama_kelas'] }}" required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Isi Pengumuman</label>
                                 <textarea class="form-control" id="catatan_kelas" name="catatan_kelas" cols="20" rows="5"
                                     placeholder="Isi Pengumuman" required>{{ $data['catatan_kelas'] }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Status</label>
                                 <select class="form-control" name="status_kelas" required>
                                     <option selected disabled>Status</option>
-                                    <option value="1" {{ (string) $data['status_kelas'] === '1' ? 'selected' : '' }}>
-                                        Aktif
-                                    </option>
-                                    <option value="0" {{ (string) $data['status_kelas'] === '0' ? 'selected' : '' }}>
-                                        Non-Aktif</option>
+                                    @foreach ($status as $key => $value)
+                                        <option value="{{ $value['key'] }}"
+                                            {{ $value['key'] === $data['status_kelas'] ? 'selected' : '' }}>
+                                            {{ $value['value'] }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <div class="invalid-feedback" id="error-input-gender-pengguna">Gender pengguna tidak boleh
                                     kosong!</div>

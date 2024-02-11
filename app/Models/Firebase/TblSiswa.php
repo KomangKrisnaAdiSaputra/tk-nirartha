@@ -10,6 +10,20 @@ class TblSiswa
   private $database;
   private $table_name = "tbl_siswa";
   private $field = ['id_orang_tua', 'id_siswa', 'id_kelas', 'no_induk', 'tahun_angkatan', 'tgl_diterima_siswa', 'status_siswa', 'nama_siswa', 'agama_siswa', 'jk_siswa', 'tgl_lahir_siswa', 'tmp_lahir_siswa', 'status_anak_siswa', 'jumlah_saudara_siswa', 'foto_siswa', 'bahasa_siswa', 'golongan_darah', 'kartu_kia_siswa', 'warga_negara_siswa', 'kelurahan_siswa', 'kabupaten_siswa', 'provinsi_siswa'];
+  private $status = [
+    [
+      'key' => '0',
+      'value' => 'Non-Aktif'
+    ],
+    [
+      'key' => '1',
+      'value' => 'Terdaftar'
+    ],
+    [
+      'key' => '2',
+      'value' => 'Lulus'
+    ],
+  ];
 
   public function __construct()
   {

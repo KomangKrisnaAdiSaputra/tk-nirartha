@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Firebase\TblKelas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -15,6 +16,9 @@ class KelasController extends Controller
     {
         $menu = 'kelas';
         $data = (new TblKelas)->getDataAllKelas() ?? [];
+        if (count($data) > 0) {
+            unset($data['last_update']);
+        }
         return view('backoffice.kelas.index', compact('menu', 'data'));
     }
 
@@ -24,7 +28,8 @@ class KelasController extends Controller
     public function create()
     {
         $menu = 'kelas';
-        return view('backoffice.kelas.form.tambah', compact('menu'));
+        $status = (new TblKelas)->get('status');
+        return view('backoffice.kelas.form.tambah', compact('menu', 'status'));
     }
 
     /**
@@ -42,15 +47,19 @@ class KelasController extends Controller
             $dataKelas[$value] = $request->$value;
         }
 
-        $dataRef = $tblKelas->getDatabase(true, $idKelas)->getSnapshot();
-
-        if (!$dataRef->exists()) {
-            // Jika kunci belum ada, tambahkan data dengan kunci kustom
-            $tblKelas->getDatabase(true, $idKelas)->set($dataKelas);
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblKelas->getDataKelas($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblKelas->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
         } else {
-            // Jika kunci sudah ada, tambahkan data baru dengan kunci unik
-            $tblKelas->getDatabase()->push($dataKelas);
+            $tblKelas->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
         }
+        $tblKelas->getDatabase(true, $idKelas)->set($dataKelas);
         return redirect()->route('kelas.index');
     }
 
@@ -69,8 +78,9 @@ class KelasController extends Controller
     {
         $menu = 'kelas';
         $data = (new TblKelas)->getDataKelas($id);
+        $status = (new TblKelas)->get('status');
 
-        return view('backoffice.kelas.form.edit', compact('menu', 'data'));
+        return view('backoffice.kelas.form.edit', compact('menu', 'data', 'status'));
     }
 
     /**
@@ -85,6 +95,19 @@ class KelasController extends Controller
 
         foreach ($field as $key => $value) {
             $data[$value] = $request->$value;
+        }
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblKelas->getDataKelas($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblKelas->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tblKelas->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
         }
 
         $update = [

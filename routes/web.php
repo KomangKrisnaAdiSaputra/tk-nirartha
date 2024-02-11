@@ -7,7 +7,11 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KepalaSekolahController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PendaftaranAwalController;
+use App\Http\Controllers\PendaftaranUlangController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +58,10 @@ Route::group(['middleware' => ['checkauth:0,2']], function () {
         Route::get('/kepala-sekolah/tambah', [DashboardController::class, 'tambah_data_kepala_sekolah'])->name('tambah_kepala_sekolah');
     });
 
+    Route::resource('pendaftaran-awal', PendaftaranAwalController::class, ['names' => 'pendaftaranAwal']);
+    Route::resource('pendaftaran-ulang', PendaftaranUlangController::class, ['names' => 'pendaftaranUlang']);
+    Route::resource('pembayaran', PembayaranController::class, ['names' => 'pembayaran']);
+    Route::resource('siswa', SiswaController::class, ['names' => 'siswa']);
     Route::resource('pengumuman', PengumumanController::class, ['names' => 'pengumuman']);
     Route::resource('kepala-sekolah', KepalaSekolahController::class, ['names' => 'kepalaSekolah']);
     Route::resource('data-pegawai', PegawaiController::class, ['names' => 'pegawai']);

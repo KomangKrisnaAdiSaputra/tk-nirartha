@@ -63,21 +63,21 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="buttons.html">Pendaftaran Awal</a>
-                        <a class="collapse-item" href="cards.html">Pendaftaran Ulang</a>
+                        <a class="collapse-item" href="{{ route('pendaftaranAwal.index') }}">Pendaftaran Awal</a>
+                        <a class="collapse-item" href="{{ route('pendaftaranUlang.index') }}">Pendaftaran Ulang</a>
                     </div>
                 </div>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+            <li class="nav-item {{ $menu == 'pembayaran' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('pembayaran.index') }}">
                     <i class="fas fa-money-check"></i>
                     <span>Pembayaran</span>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+            <li class="nav-item {{ $menu == 'siswa' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('siswa.index') }}">
                     <i class="fas fa-user-graduate"></i>
                     <span>Siswa</span>
                 </a>
