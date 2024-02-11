@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Firebase\FirebaseDb;
 use App\Models\Firebase\TblOrangTua;
 use App\Models\Firebase\TblUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -101,16 +102,30 @@ class AuthController extends Controller
             $dataOrangTua['id_user'] = $customKey;
 
             try {
-                // Cek apakah kunci sudah ada
-                $dataRef = $this->tbUser->getDatabase(true, $customKey)->getSnapshot();
 
-                if (!$dataRef->exists()) {
-                    // Jika kunci belum ada, tambahkan data dengan kunci kustom
-                    $this->tbUser->getDatabase(true, $customKey)->set($data);
+                $dataLastUpdate = [
+                    'key' => 'last_update',
+                    'value' => Carbon::now()->toDateTimeString()
+                ];
+                $cek = $this->tbUser->getOneDataUser($dataLastUpdate['key']);
+                if ($cek === null) {
+                    $this->tbUser->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
                 } else {
-                    // Jika kunci sudah ada, tambahkan data baru dengan kunci unik
-                    $this->tbUser->getDatabase()->push($data);
+                    $this->tbUser->getDatabase()->update([
+                        $dataLastUpdate['key'] => $dataLastUpdate['value']
+                    ]);
                 }
+
+                $cek2 = $tblOrangTua->getOneData($dataLastUpdate['key']);
+                if ($cek2 === null) {
+                    $tblOrangTua->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+                } else {
+                    $tblOrangTua->getDatabase()->update([
+                        $dataLastUpdate['key'] => $dataLastUpdate['value']
+                    ]);
+                }
+
+                $this->tbUser->getDatabase(true, $customKey)->set($data);
 
                 $tblOrangTua->getDatabase(true, $customKey)->set($dataOrangTua);
 
