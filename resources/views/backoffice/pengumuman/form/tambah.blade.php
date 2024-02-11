@@ -15,19 +15,29 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Isi Pengumuman</label>
                                 <textarea class="form-control" id="isi_pengumuman" name="isi_pengumuman" cols="20" rows="5"
                                     placeholder="Isi Pengumuman"></textarea>
-                                <div class="invalid-feedback" id="error-isi_pengumuman">Alamat pengguna tidak boleh
-                                    kosong!</div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Tanggal Pengumuman</label>
                                 <input type="date" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="" name="tgl_pengumuman" value="">
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Status Pengumuman</label>
+                                <select class="form-control" name="status_pengumuman" required>
+                                    <option selected disabled>Status</option>
+                                    @foreach ($status as $key => $value)
+                                        <option value="{{ $value['key'] }}">
+                                            {{ $value['value'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

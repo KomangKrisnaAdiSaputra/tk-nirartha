@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Firebase\TblPengumuman;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -16,6 +17,9 @@ class PengumumanController extends Controller
     {
         $menu = 'pengumuman';
         $data = (new TblPengumuman)->getDataPengumuman() ?? [];
+        if (count($data) > 0) {
+            unset($data['last_update']);
+        }
         return view('backoffice.pengumuman.index', compact('menu', 'data'));
     }
 
@@ -25,7 +29,8 @@ class PengumumanController extends Controller
     public function create()
     {
         $menu = 'pengumuman';
-        return view('backoffice.pengumuman.form.tambah', compact('menu'));
+        $status = (new TblPengumuman)->get('status');
+        return view('backoffice.pengumuman.form.tambah', compact('menu', 'status'));
     }
 
     /**
@@ -36,23 +41,27 @@ class PengumumanController extends Controller
         $tbPengumuman = (new TblPengumuman);
         $request->merge(['id_pengumuman' => Str::uuid()->toString()]);
         $request->merge(['id_pegawai' => Session::get('firebaseUserId')]);
-        $request->merge(['status_pengumuman' => 1]);
         $field = $tbPengumuman->get('field');
 
         foreach ($field as $key => $value) {
             $data[$value] = $request->$value;
         }
 
-        $customKey = $request->id_pengumuman;
-        $dataRef = $tbPengumuman->getDatabase(true, $customKey)->getSnapshot();
-
-        if (!$dataRef->exists()) {
-            // Jika kunci belum ada, tambahkan data dengan kunci kustom
-            $tbPengumuman->getDatabase(true, $customKey)->set($data);
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tbPengumuman->getDataPengumuman($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tbPengumuman->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
         } else {
-            // Jika kunci sudah ada, tambahkan data baru dengan kunci unik
-            $tbPengumuman->getDatabase()->push($data);
+            $tbPengumuman->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
         }
+
+        $customKey = $request->id_pengumuman;
+        $tbPengumuman->getDatabase(true, $customKey)->set($data);
         return redirect()->route('pengumuman.index');
     }
 
@@ -71,8 +80,9 @@ class PengumumanController extends Controller
     {
         $menu = 'pengumuman';
         $data = (new TblPengumuman)->getOneDataPengumuman($id);
+        $status = (new TblPengumuman)->get('status');
 
-        return view('backoffice.pengumuman.form.edit', compact('menu', 'data'));
+        return view('backoffice.pengumuman.form.edit', compact('menu', 'data', 'status'));
     }
 
     /**
@@ -88,6 +98,19 @@ class PengumumanController extends Controller
 
         foreach ($field as $key => $value) {
             $data[$value] = $request->$value;
+        }
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tbPengumuman->getDataPengumuman($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tbPengumuman->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tbPengumuman->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
         }
 
         $update = [
