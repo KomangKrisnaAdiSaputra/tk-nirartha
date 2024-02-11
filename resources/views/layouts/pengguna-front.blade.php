@@ -54,7 +54,7 @@
                         <ul class="main-menu d-flex align-items-center">
                             <li><a href="../index.html">Beranda</a></li>
                             <li><a href="../profil.html">Profil</a></li>
-                            <li><a href="../galeri.html">Galeri</a></li>
+                            {{-- <li><a href="../galeri.html">Galeri</a></li> --}}
                             <li><a href="../pengumuman.html">Pengumuman</a></li>
                             <li><a href="kegiatan.html">Kegiatan</a>
                             </li>
@@ -86,7 +86,7 @@
                         </div>
                         <li><a href="index.html">Beranda</a></li>
                         <li><a href="profil.html">Profil</a></li>
-                        <li><a href="galeri.html">Galeri</a></li>
+                        {{-- <li><a href="galeri.html">Galeri</a></li> --}}
                         <li><a href="pengumuman.html">Pengumuman</a></li>
                         <li><a href="kegiatan.html">Kegiatan</a></li>
                         <li><a href="kontak.html">Kontak</a></li>
@@ -123,10 +123,11 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../index.html">Beranda</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Akun</li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ ucwords($data['menu_bottom']) }}</li>
                             </ol>
                         </nav>
-                        <h5>Akun</h5>
+                        <h5>{{ ucwords($data['menu_bottom']) }}</h5>
                     </div>
                 </div>
             </div>
@@ -154,9 +155,15 @@
                                         siswa</a></li>
                                 <li class="list-inline-item"><a href="{{ route('orangTua.pendaftaranSiswa') }}"
                                         class="{{ $data['menu_bottom'] === 'pendaftaran siswa' ? 'active' : '' }}">Pendaftaran
-                                        siswa</a>
+                                        Awal Siswa</a>
                                 </li>
-                                <li class="list-inline-item"><a href="#" class="mr-0">Keluar</a></li>
+                                <li class="list-inline-item mt-4"><a
+                                        href="{{ route('orangTua.pendaftaranUlangSiswa') }}"
+                                        class="{{ $data['menu_bottom'] === 'pendaftaran ulang siswa' ? 'active' : '' }}">Pendaftaran
+                                        Ulang Siswa</a>
+                                </li>
+                                <li class="list-inline-item"><a href="{{ route('logout_orang_tua') }}"
+                                        class="mr-0">Keluar</a></li>
                             </ul>
                         </div>
                         <!-- Dashboard-Nav  End-->
@@ -188,7 +195,7 @@
                         <ul class="quicklink">
                             <li><a href="#">Beranda</a></li>
                             <li><a href="#">Profil</a></li>
-                            <li><a href="#">Galeri</a></li>
+                            {{-- <li><a href="#">Galeri</a></li> --}}
                             <li><a href="#">Pengumuman</a></li>
                             <li><a href="#">Kegiatan</a></li>
                             <li><a href="#">Kontak</a></li>

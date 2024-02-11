@@ -4,10 +4,10 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Tabel Pendaftaran Awal</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Tabel Pendaftaran Ulang</h6>
             </div>
             <div class="card-body">
-                <a href="{{ route('orangTua.formPendaftaranSiswa') }}">
+                <a href="{{ route('orangTua.formPendaftaranUlangSiswa') }}">
                     <button type="button" class="btn btn-primary mb-4">Form Pendaftaran</button>
                 </a>
                 <div class="table-responsive" id="canvasTabel-tabelPengguna">
@@ -24,15 +24,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data['pendaftaran_awal'] as $key => $value)
+                            @foreach ($data['pendaftaran_ulang'] as $key => $value)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $value['id_siswa'] }}</td>
-                                    <td><a href="{{ asset('image/pendaftaranAwal/' . $value['bukti_pembayaran_pendaftaran_awal']) }}"
-                                            target="_blank">{{ $value['bukti_pembayaran_pendaftaran_awal'] }}</a></td>
-                                    <td>{{ $value['catatan_pendaftaran_awal'] }}</td>
-                                    <td>{{ getStatusDaftarAwal($value['status_pendaftaran_awal']) }}</td>
-                                    <td>{{ $value['tgl_pendaftaran_awal'] }}</td>
+                                    <td><a href="{{ asset('image/pendaftaranUlang/' . $value['bukti_pembayaran_pendaftaran_ulang']) }}"
+                                            target="_blank">{{ $value['bukti_pembayaran_pendaftaran_ulang'] }}</a></td>
+                                    <td>{{ $value['catatan_pendaftaran_ulang'] }}</td>
+                                    <td>{{ getStatusDaftarAwal($value['status_pendaftaran_ulang']) }}</td>
+                                    <td>{{ $value['tgl_pendaftaran_ulang'] }}</td>
                                     <td class="d-flex justify-content-center">
                                         {{-- <a href="{{ route('orangTua.editDataSiswa', $value['id_siswa']) }}"
                                             class="btn btn-info btn-circle">

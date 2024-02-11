@@ -2,6 +2,7 @@
 
 use App\Models\Firebase\TblKelas;
 use App\Models\Firebase\TblPegawai;
+use App\Models\Firebase\TblPendaftaranAwal;
 use App\Models\Firebase\TblPengumuman;
 use App\Models\Firebase\TblUser;
 
@@ -35,4 +36,12 @@ function getDataKelas($key)
 {
   $data = (new TblKelas)->getDataKelas($key);
   return $data;
+}
+
+function getStatusDaftarAwal($key)
+{
+  $data = (new TblPendaftaranAwal)->get('status');
+  return array_values(array_filter($data, function ($item) use ($key) {
+    return $item['key'] === $key;
+  }))[0]['value'];
 }

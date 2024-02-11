@@ -164,4 +164,17 @@ class AuthController extends Controller
             }
         }
     }
+
+    function logout_orang_tua()
+    {
+        if (Session::has('firebaseUserId') && Session::has('idToken')) {
+            $this->auth->revokeRefreshTokens(Session::get('firebaseUserId'));
+            Session::forget('firebaseUserId');
+            Session::forget('idToken');
+            Session::save();
+            return redirect()->route('auth.login.form_login_orang_tua')->with('success', 'Logout Berhasil');
+        } else {
+            return redirect()->back()->with('error', 'Anda Belum Login');
+        }
+    }
 }

@@ -65,10 +65,19 @@ Route::group(['middleware' => ['checkauth:2']], function () {
 Route::group(['middleware' => ['checkauth:3']], function () {
     Route::get('orang-tua/data', [OrangTuaController::class, 'dataOrangTua'])->name('orangTua.dataOrangTua');
     Route::get('orang-tua/data-siswa', [OrangTuaController::class, 'dataSiswa'])->name('orangTua.dataSiswa');
+
     Route::get('orang-tua/tambah-data-siswa', [OrangTuaController::class, 'tambahDataSiswa'])->name('orangTua.tambahDataSiswa');
     Route::get('orang-tua/edit-data-siswa/{id}', [OrangTuaController::class, 'editDataSiswa'])->name('orangTua.editDataSiswa');
     Route::get('orang-tua/detail-data-siswa/{id}', [OrangTuaController::class, 'detailDataSiswa'])->name('orangTua.detailDataSiswa');
-    Route::get('orang-tua/pendaftaran-siswa', [OrangTuaController::class, 'pendaftaranSiswa'])->name('orangTua.pendaftaranSiswa');
+
+    Route::get('orang-tua/pendaftaran-awal-siswa', [OrangTuaController::class, 'pendaftaranAwalSiswa'])->name('orangTua.pendaftaranSiswa');
+    Route::get('orang-tua/from-pendaftaran-awal-siswa', [OrangTuaController::class, 'formPendaftaranAwalSiswa'])->name('orangTua.formPendaftaranSiswa');
+
+    Route::get('orang-tua/pendaftaran-ulang-siswa', [OrangTuaController::class, 'pendaftaranUlangSiswa'])->name('orangTua.pendaftaranUlangSiswa');
+    Route::get('orang-tua/from-pendaftaran-ulang-siswa', [OrangTuaController::class, 'formPendaftaranUlangSiswa'])->name('orangTua.formPendaftaranUlangSiswa');
+
+    Route::get('/logout-orang-tua', [AuthController::class, 'logout_orang_tua'])->name('logout_orang_tua');
+
     Route::resource('orang-tua', OrangTuaController::class, ['names' => 'orangTua']);
 });
 
