@@ -32,7 +32,10 @@
                                     <td>{{ $value['nama_pegawai'] }}</td>
                                     <td>{{ getJkPegawai($value['jk_pegawai']) }}</td>
                                     <td>{{ $value['telp_pegawai'] }}</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="{{ asset('image/fotoPegawai/' . $value['foto_pegawai']) }}"
+                                            target="_blank">{{ $value['foto_pegawai'] }}</a>
+                                    </td>
                                     <td class="d-flex justify-content-center">
                                         <a href="{{ route('pegawai.edit', $value['id_pegawai']) }}"
                                             class="btn btn-info btn-circle">

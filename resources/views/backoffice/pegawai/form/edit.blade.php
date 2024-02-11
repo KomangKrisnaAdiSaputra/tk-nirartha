@@ -17,73 +17,62 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Username User</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="Username" name="username_user" value="{{ $dataPegawai['nama_pegawai'] }}"
                                     required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Email User</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="Email" name="email_user" value="{{ $dataUserPegawai['email_user'] }}"
                                     required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Password User</label>
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="Password" name="password_user" id="password_user" value=""
                                     onchange="validasiPass()">
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Konfirmasi Password User</label>
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="Konfirmasi Password" name="konfirmasi_password_user"
                                     id="konfirmasi_password_user" value="" onchange="validasiPass()">
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Telepon Pegawai</label>
                                 <input type="number" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="No Telepon" name="telp_pegawai" value="{{ $dataPegawai['telp_pegawai'] }}"
                                     required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Jenis Kelamin</label>
                                 <select class="form-control" name="jk_pegawai" required>
                                     <option selected disabled>Jenis Kelamin</option>
-                                    <option value="1" {{ $dataPegawai['jk_pegawai'] === '1' ? 'selected' : '' }}>Wanita
-                                    </option>
-                                    <option value="2" {{ $dataPegawai['jk_pegawai'] === '2' ? 'selected' : '' }}>
-                                        Laki-laki</option>
+                                    @foreach ($jenis_kelamin as $key => $value)
+                                        <option value="{{ $value['key'] }}"
+                                            {{ $dataPegawai['jk_pegawai'] === $value['key'] ? 'selected' : '' }}>
+                                            {{ $value['value'] }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                                <div class="invalid-feedback" id="error-input-gender-pengguna">Gender pengguna tidak boleh
-                                    kosong!</div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="file" class="form-control" id="input-foto-pengguna" name="foto_pegawai"
-                                    placeholder="Foto">
-                                <div class="invalid-feedback" id="error-input-foto-pengguna">Foto pengguna tidak boleh
-                                    kosong!</div>
+                                <label for="">Foto Pegawai</label>
+                                <input type="file" class="form-control" name="foto_pegawai" placeholder="Foto">
                             </div>
                         </div>
                     </div>

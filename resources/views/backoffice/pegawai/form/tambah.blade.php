@@ -15,68 +15,57 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Username User</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="Username" name="username_user" value="" required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
+                                    placeholder="Username" name="username_user" required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Email User</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="Email" name="email_user" value="" required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
+                                    placeholder="Email" name="email_user" required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Password</label>
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="Password" name="password_user" id="password_user" value=""
-                                    onchange="validasiPass()" required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
+                                    placeholder="Password" name="password_user" id="password_user" onchange="validasiPass()"
+                                    required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Konfirmasi Password</label>
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
                                     placeholder="Konfirmasi Password" name="konfirmasi_password_user"
-                                    id="konfirmasi_password_user" value="" onchange="validasiPass()" required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
+                                    id="konfirmasi_password_user" onchange="validasiPass()" required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Telepon Pegawai</label>
                                 <input type="number" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="No Telepon" name="telp_pegawai" value="" required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
+                                    placeholder="No Telepon" name="telp_pegawai" required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Jenis Kelamin</label>
                                 <select class="form-control" name="jk_pegawai" required>
                                     <option selected disabled>Jenis Kelamin</option>
-                                    <option value="1">Wanita</option>
-                                    <option value="2">Laki-laki</option>
+                                    @foreach ($jenis_kelamin as $key => $value)
+                                        <option value="{{ $value['key'] }}">{{ $value['value'] }}</option>
+                                    @endforeach
                                 </select>
-                                <div class="invalid-feedback" id="error-input-gender-pengguna">Gender pengguna tidak boleh
-                                    kosong!</div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Foto Pegawai</label>
                                 <input type="file" class="form-control" id="input-foto-pengguna" name="foto_pegawai"
                                     placeholder="Foto" accept="image/png, image/jpeg, image/jpg">
-                                <div class="invalid-feedback" id="error-input-foto-pengguna">Foto pengguna tidak boleh
-                                    kosong!</div>
                             </div>
                         </div>
                     </div>

@@ -127,6 +127,20 @@ class PengumumanController extends Controller
     public function destroy(string $id)
     {
         $tbPengumuman = (new TblPengumuman);
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tbPengumuman->getDataPengumuman($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tbPengumuman->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tbPengumuman->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+
         $tbPengumuman->getDatabase(true, $id)->remove();
         return redirect()->back();
     }

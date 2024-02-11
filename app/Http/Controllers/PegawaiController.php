@@ -21,10 +21,11 @@ class PegawaiController extends Controller
         $tbUser = (new TblUser);
         $data = (new TblPegawai)->getDataAllPegawai() ?? [];
         if (count($data) > 0) {
+            unset($data['last_update']);
             $data = array_values(array_filter($data, function ($item) use ($tbUser) {
                 $cekDataUser = $tbUser->getOneDataUser($item['id_user']);
                 if ($cekDataUser != null) {
-                    return $cekDataUser['tipe_user'] === 2 && $item['id_user'] != session('firebaseUserId');
+                    return $cekDataUser['tipe_user'] === "2" && $item['id_user'] != session('firebaseUserId');
                 }
             }));
         }
@@ -37,7 +38,8 @@ class PegawaiController extends Controller
     public function create()
     {
         $menu = 'pegawai';
-        return view('backoffice.pegawai.form.tambah', compact('menu'));
+        $jenis_kelamin = (new TblPegawai)->get('jk');
+        return view('backoffice.pegawai.form.tambah', compact('menu', 'jenis_kelamin'));
     }
 
     /**
@@ -91,25 +93,32 @@ class PegawaiController extends Controller
             $dataPegawai['id_user'] = $customKey;
             $dataPegawai['foto_pegawai'] = $nama_gambar;
 
-            try {
-                // Cek apakah kunci sudah ada
-                $dataRef = $tbUser->getDatabase(true, $customKey)->getSnapshot();
-
-                if (!$dataRef->exists()) {
-                    // Jika kunci belum ada, tambahkan data dengan kunci kustom
-                    $tbUser->getDatabase(true, $customKey)->set($dataUser);
-                } else {
-                    // Jika kunci sudah ada, tambahkan data baru dengan kunci unik
-                    $tbUser->getDatabase()->push($dataUser);
-                }
-                $tbPegawai->getDatabase(true, $customKey)->set($dataPegawai);
-
-                // Data berhasil ditambahkan
-                return redirect()->route('pegawai.index')->with('success', 'Data berhasil ditambahkan.');
-            } catch (\Exception $e) {
-                // Tangani kesalahan jika ada
-                return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            $dataLastUpdate = [
+                'key' => 'last_update',
+                'value' => Carbon::now()->toDateTimeString()
+            ];
+            $cek = $tbUser->getDataUsers($dataLastUpdate['key']);
+            if ($cek === null) {
+                $tbUser->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tbUser->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
             }
+            $cek2 = $tbPegawai->getDataAllPegawai($dataLastUpdate['key']);
+            if ($cek2 === null) {
+                $tbPegawai->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tbPegawai->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
+            }
+
+
+            $tbUser->getDatabase(true, $customKey)->set($dataUser);
+            $tbPegawai->getDatabase(true, $customKey)->set($dataPegawai);
+
+            return redirect()->route('pegawai.index')->with('success', 'Data berhasil ditambahkan.');
         } catch (\Throwable $e) {
             switch ($e->getMessage()) {
                 case 'The email address is already in use by another account.':
@@ -138,8 +147,9 @@ class PegawaiController extends Controller
         $menu = 'pegawai';
         $dataPegawai = (new TblPegawai)->getDataPegawai($id);
         $dataUserPegawai = (new TblUser)->getOneDataUser($id);
+        $jenis_kelamin = (new TblPegawai)->get('jk');
 
-        return view('backoffice.pegawai.form.edit', compact('menu', 'dataPegawai', 'dataUserPegawai'));
+        return view('backoffice.pegawai.form.edit', compact('menu', 'dataPegawai', 'dataUserPegawai', 'jenis_kelamin'));
     }
 
     /**
@@ -156,7 +166,7 @@ class PegawaiController extends Controller
 
         $request->merge(['id_user' => $id]);
         $request->merge(['id_pegawai' => $id]);
-        $request->merge(['tipe_user' => 2]);
+        $request->merge(['tipe_user' => "2"]);
         $request->merge(['nama_pegawai' => $request->username_user]);
         $request->merge(['created_at' => Carbon::now()->toDateString()]);
         $request->merge(['updated_at' => Carbon::now()->toDateString()]);
@@ -204,6 +214,27 @@ class PegawaiController extends Controller
             }
             $dataPegawai['foto_pegawai'] = $nama_gambar;
 
+            $dataLastUpdate = [
+                'key' => 'last_update',
+                'value' => Carbon::now()->toDateTimeString()
+            ];
+            $cek = $tbUser->getDataUsers($dataLastUpdate['key']);
+            if ($cek === null) {
+                $tbUser->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tbUser->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
+            }
+            $cek2 = $tbPegawai->getDataAllPegawai($dataLastUpdate['key']);
+            if ($cek2 === null) {
+                $tbPegawai->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tbPegawai->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
+            }
+
             $updatePegawai = [
                 $id => $dataPegawai
             ];
@@ -241,10 +272,33 @@ class PegawaiController extends Controller
         if (File::exists($imagePath)) {
             File::delete($imagePath);
         }
+        $tbUser = (new TblUser);
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tbUser->getDataUsers($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tbUser->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tbUser->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+        $cek2 = $tbPegawai->getDataAllPegawai($dataLastUpdate['key']);
+        if ($cek2 === null) {
+            $tbPegawai->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tbPegawai->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+
         $tbPegawai->getDatabase(true, $id)->remove();
 
-        $tbUser = (new TblUser);
         $tbUser->getDatabase(true, $id)->remove();
+
 
         return redirect()->back();
     }

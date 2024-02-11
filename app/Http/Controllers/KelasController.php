@@ -124,6 +124,20 @@ class KelasController extends Controller
     public function destroy(string $id)
     {
         $tbKelas = (new TblKelas);
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tbKelas->getDataKelas($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tbKelas->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tbKelas->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+
         $tbKelas->getDatabase(true, $id)->remove();
         return redirect()->back();
     }
