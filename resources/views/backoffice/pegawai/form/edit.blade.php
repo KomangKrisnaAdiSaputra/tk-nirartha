@@ -7,7 +7,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Tambah {{ ucwords($menu) }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Edit {{ ucwords($menu) }}</h6>
             </div>
             <div class="card-body">
                 <form action="{{ route('pegawai.update', $dataPegawai['id_pegawai']) }}" method="POST"
@@ -38,7 +38,8 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="Password" name="password_user" value="" required>
+                                    placeholder="Password" name="password_user" id="password_user" value=""
+                                    onchange="validasiPass()">
                                 <div class="invalid-feedback">
                                     error
                                 </div>
@@ -47,8 +48,8 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="Konfirmasi Password" name="konfirmasi_password_user" value=""
-                                    required>
+                                    placeholder="Konfirmasi Password" name="konfirmasi_password_user"
+                                    id="konfirmasi_password_user" value="" onchange="validasiPass()">
                                 <div class="invalid-feedback">
                                     error
                                 </div>
@@ -87,8 +88,8 @@
                         </div>
                     </div>
                     <div class="col d-flex pr-0 justify-content-end">
-                        <a href="{{ route('pengumuman.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
-                        <button type="submit" class="btn bg-primary text-white">Simpan</button>
+                        <a href="{{ route('pegawai.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
+                        <button type="submit" class="btn bg-primary text-white" id="btn_simpan">Simpan</button>
                     </div>
                 </form>
             </div>

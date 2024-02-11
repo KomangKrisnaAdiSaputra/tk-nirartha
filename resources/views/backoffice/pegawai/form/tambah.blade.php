@@ -34,7 +34,8 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="Password" name="password_user" value="" required>
+                                    placeholder="Password" name="password_user" id="password_user" value=""
+                                    onchange="validasiPass()" required>
                                 <div class="invalid-feedback">
                                     error
                                 </div>
@@ -43,8 +44,8 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                                    placeholder="Konfirmasi Password" name="konfirmasi_password_user" value=""
-                                    required>
+                                    placeholder="Konfirmasi Password" name="konfirmasi_password_user"
+                                    id="konfirmasi_password_user" value="" onchange="validasiPass()" required>
                                 <div class="invalid-feedback">
                                     error
                                 </div>
@@ -73,15 +74,15 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input type="file" class="form-control" id="input-foto-pengguna" name="foto_pegawai"
-                                    placeholder="Foto">
+                                    placeholder="Foto" accept="image/png, image/jpeg, image/jpg">
                                 <div class="invalid-feedback" id="error-input-foto-pengguna">Foto pengguna tidak boleh
                                     kosong!</div>
                             </div>
                         </div>
                     </div>
                     <div class="col d-flex pr-0 justify-content-end">
-                        <a href="{{ route('pengumuman.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
-                        <button type="submit" class="btn bg-primary text-white">Simpan</button>
+                        <a href="{{ route('pegawai.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
+                        <button type="submit" class="btn bg-primary text-white" id="btn_simpan">Simpan</button>
                     </div>
                 </form>
             </div>

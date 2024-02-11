@@ -59,7 +59,7 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="form-check-input"
-                                                    id="inputCheck-showPassword">
+                                                    id="inputCheck-showPassword" onclick="showPass('password')">
                                                 <label class="form-check-label" for="customCheck">Show Password</label>
                                             </div>
                                         </div>
@@ -90,6 +90,16 @@
     <script src="{{ asset('/back/js/main.js') }}"></script>
     <script src="{{ asset('/back/js/custom.js') }}"></script>
 
+    <script>
+        function showPass(id) {
+            var input = $(`#${id}`);
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -36,6 +36,7 @@ class AuthController extends Controller
     {
         $email = $request->email;
         $pass = $request->password;
+
         try {
             $signInResult = $this->auth->signInWithEmailAndPassword($email, $pass);
             Session::put('firebaseUserId', $signInResult->firebaseUserId());

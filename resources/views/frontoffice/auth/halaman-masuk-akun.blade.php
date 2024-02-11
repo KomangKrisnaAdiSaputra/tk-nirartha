@@ -11,13 +11,15 @@
                             <h5 class="text-center">Akun</h5>
                             <form action="#">
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user form-control-lg fs-6" placeholder="Username akun..." name="input-password-aktif" value="">
+                                    <input type="password" class="form-control form-control-user form-control-lg fs-6"
+                                        placeholder="Username akun..." name="input-password-aktif" value="">
                                     <div class="invalid-feedback">
                                         error
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user form-control-lg fs-6" placeholder="Password aukn..." name="input-password-aktif" value="">
+                                    <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                        placeholder="Password aukn..." name="input-password-aktif" value="">
                                     <div class="invalid-feedback">
                                         error
                                     </div>
@@ -30,7 +32,8 @@
                                 </div>
                                 <a href="dashboard-pengguna.html" class="btn bg-primary">Masuk Akun</a>
                                 <div class="col mt-4">
-                                    <p>Belum punya akun? <a href="{{ url('secure/auth/register/orangtua') }}">Daftar disini!</a></p>
+                                    <p>Belum punya akun? <a href="{{ url('secure/auth/register/orangtua') }}">Daftar
+                                            disini!</a></p>
                                 </div>
                             </form>
                         </div>

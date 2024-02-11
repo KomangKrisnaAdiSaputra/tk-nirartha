@@ -3,6 +3,7 @@
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KepalaSekolahController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengumumanController;
@@ -44,7 +45,7 @@ Route::prefix('secure/auth/')->name('auth.')->group(function () {
 });
 
 // Dashboard Pengguna Back
-Route::group(['middleware' => ['checkauth:0']], function () {
+Route::group(['middleware' => ['checkauth:0,2']], function () {
     Route::prefix('dashboard/')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard_index');
         Route::get('/logout-pegawai', [AuthController::class, 'logout_pegawai'])->name('logout_pegawai');
@@ -55,6 +56,9 @@ Route::group(['middleware' => ['checkauth:0']], function () {
     Route::resource('pengumuman', PengumumanController::class, ['names' => 'pengumuman']);
     Route::resource('kepala-sekolah', KepalaSekolahController::class, ['names' => 'kepalaSekolah']);
     Route::resource('data-pegawai', PegawaiController::class, ['names' => 'pegawai']);
+});
+Route::group(['middleware' => ['checkauth:2']], function () {
+    Route::resource('kelas', KelasController::class, ['names' => 'kelas']);
 });
 
 // Landing

@@ -83,7 +83,7 @@ class PengumumanController extends Controller
         $tbPengumuman = (new TblPengumuman);
         $request->merge(['id_pengumuman' => $id]);
         $request->merge(['id_pegawai' => Session::get('firebaseUserId')]);
-        $request->merge(['status_pengumuman' => 1]);
+        $request->merge(['status_pengumuman' => $request->status_pengumuman]);
         $field = $tbPengumuman->get('field');
 
         foreach ($field as $key => $value) {

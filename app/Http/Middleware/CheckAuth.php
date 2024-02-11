@@ -30,7 +30,7 @@ class CheckAuth
     {
         if (isset($request->session()->all()['firebaseUserId']) && isset($request->session()->all()['idToken'])) {
             $dataRef = $this->database->getReference('tbl_user/' . $request->session()->all()['firebaseUserId'])->getSnapshot();
-            if ($dataRef->exists() && in_array($dataRef->getValue()['tipe_user'], $Roles)) {
+            if ($dataRef->exists() && in_array((string) $dataRef->getValue()['tipe_user'], $Roles)) {
                 return $next($request);
             }
         }
