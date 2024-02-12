@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Firebase\TblPendaftaranUlang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PendaftaranUlangController extends Controller
@@ -14,7 +15,9 @@ class PendaftaranUlangController extends Controller
     {
         $menu = 'pendaftaran ulang';
         $tblPendaftaranUlang = (new TblPendaftaranUlang);
-        $data = $tblPendaftaranUlang->getDataAll();
+        $data = $tblPendaftaranUlang->getDataAll() ?? [];
+
+        if (count($data) > 0) unset($data['last_update']);
         return view('backoffice.pendaftaran-ulang.index', compact('menu', 'data'));
     }
 
@@ -66,6 +69,19 @@ class PendaftaranUlangController extends Controller
         $dataUpdate = [
             $id => $dataPendaftaranUlang
         ];
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblPendaftaranUlang->getOneData($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblPendaftaranUlang->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tblPendaftaranUlang->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
 
         $tblPendaftaranUlang->getDatabase()->update($dataUpdate);
         return redirect()->route('pendaftaranUlang.index');

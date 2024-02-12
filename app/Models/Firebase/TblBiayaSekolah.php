@@ -9,7 +9,7 @@ class TblBiayaSekolah
 
   private $database;
   private $table_name = "tbl_biaya_sekolah";
-  private $field = ['id_biaya', 'id_siswa', 'nama_biaya', 'bulan_biaya', 'tahun_biaya', 'tgl_pembayaran', 'status_biaya'];
+  private $field = ['id_biaya', 'id_siswa', 'nama_biaya', 'bulan_biaya', 'tahun_biaya', 'tgl_pembayaran_biaya', 'status_biaya'];
   private $status = [
     [
       'key' => "0",

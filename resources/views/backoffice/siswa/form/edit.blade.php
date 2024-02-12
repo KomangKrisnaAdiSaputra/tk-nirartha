@@ -7,16 +7,17 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Tambah {{ ucwords($menu) }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Edit {{ ucwords($menu) }}</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('kelas.store') }}" method="POST">
+                <form action="{{ route('siswa.update', $data['id_siswa']) }}" method="POST">
                     @csrf
+                    @method('put')
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="">Kelas</label>
-                                <select class="form-control" name="id_siswa" required>
+                                <select class="form-control" name="id_kelas" required>
                                     <option selected disabled>List Kelas</option>
                                     @foreach ($dataKelas as $key => $value)
                                         <option value="{{ $value['id_kelas'] }}"
@@ -37,13 +38,13 @@
                             <div class="form-group">
                                 <label for="">Tanggal Diterima</label>
                                 <input type="date" class="form-control form-control-user form-control-lg fs-6"
-                                    name="tgl_diterima_siswa"
+                                    name="tgl_diterima_siswa" min="{{ carbon()->toDateString() }}"
                                     {{ $data['tgl_diterima_siswa'] === '' ? 'required' : 'readonly' }}>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="">Status Pembayaran</label>
+                                <label for="">Status Siswa</label>
                                 <select class="form-control" name="status_siswa" required>
                                     <option selected disabled>Status</option>
                                     @foreach ($statusSiswa as $key => $value)

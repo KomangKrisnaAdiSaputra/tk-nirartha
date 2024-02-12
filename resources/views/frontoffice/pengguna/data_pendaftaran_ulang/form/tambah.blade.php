@@ -16,6 +16,7 @@
                 <input type="hidden" value="pendaftaran_ulang" name="type">
                 <div class="col-12 mb-4">
                     <div class="form-group">
+                        <label for="">Nama Siswa</label>
                         <select class="form-control" name="id_siswa" required>
                             <option selected>Nama Siswa</option>
                             @foreach ($data['siswa'] as $key => $value)
@@ -26,12 +27,14 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Catatan Pendaftaran Ulang</label>
                         <textarea class="form-control" id="catatan_pendaftaran_ulang" name="catatan_pendaftaran_ulang" cols="20"
                             rows="5" placeholder="Catatan Pendaftaran Ulang" required></textarea>
                     </div>
                 </div>
                 <div class="col-12 mb-3">
                     <div class="form-group">
+                        <label for="">Bukti Pembayaran</label>
                         <input type="file" class="form-control form-control-user form-control-lg"
                             id="bukti_pembayaran_pendaftaran_ulang" name="bukti_pembayaran_pendaftaran_ulang"
                             accept="image/png, image/jpeg, image/jpg" required>

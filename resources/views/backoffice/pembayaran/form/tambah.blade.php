@@ -10,7 +10,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Tambah {{ ucwords($menu) }}</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('kelas.store') }}" method="POST">
+                <form action="{{ route('pembayaran.store') }}" method="POST">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-12">

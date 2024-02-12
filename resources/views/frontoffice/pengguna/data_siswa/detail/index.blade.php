@@ -19,7 +19,7 @@
             </div>
             @if (count($data['siswa']) > 0)
                 <div class="col-12 mb-4 mt-4 d-flex justify-content-between">
-                    <span>Status Siswa : {{ $data['siswa']['status_siswa'] }}</span>
+                    <span>Status Siswa : {{ getStatusSiswa($data['siswa']['status_siswa']) }}</span>
                     <span>Tanggal Diterima : {{ $data['siswa']['tgl_diterima_siswa'] }}</span>
                 </div>
                 <div class="col-12 mb-4 mt-4 d-flex justify-content-center">
@@ -160,7 +160,7 @@
             </div>
             <div class="col-12 mb-3">
                 @if (isset($data['siswa']['kartu_kia_siswa']))
-                    <label for="">Kartu Kia Siswa</label>
+                    <label for="">Kartu Kia Siswa</label><br>
                     <img src="{{ asset('image/fotoKartuSiaSiswa/' . $data['siswa']['kartu_kia_siswa']) }}"
                         class="img-fluid rounded mx-auto" id="canvas-foto-siswa" alt="foto siswa" style="width: 20%;">
                 @else

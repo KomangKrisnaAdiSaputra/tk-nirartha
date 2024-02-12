@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Firebase\TblKelas;
 use App\Models\Firebase\TblSiswa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
@@ -15,6 +16,8 @@ class SiswaController extends Controller
     {
         $menu = 'siswa';
         $data = (new TblSiswa)->getDataAll() ?? [];
+
+        if (count($data) > 0) unset($data['last_update']);
         return view('backoffice.siswa.index', compact('menu', 'data'));
     }
 
@@ -49,7 +52,9 @@ class SiswaController extends Controller
     {
         $menu = 'siswa';
         $data = (new TblSiswa)->getOneData($id);
-        $dataKelas = (new TblKelas)->getDataAllKelas();
+        $dataKelas = (new TblKelas)->getDataAllKelas() ?? [];
+        if (count($dataKelas) > 0) unset($dataKelas['last_update']);
+
         $statusSiswa = (new TblSiswa)->get('status');
         return view('backoffice.siswa.form.edit', compact('menu', 'data', 'dataKelas', 'statusSiswa'));
     }
@@ -59,7 +64,35 @@ class SiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tblSiswa = (new TblSiswa);
+        $field = $tblSiswa->get('field');
+
+        $getDataSiswa = $tblSiswa->getOneData($id);
+
+        $getDataSiswa['id_kelas'] = $request->id_kelas;
+        $getDataSiswa['status_siswa'] = $request->status_siswa;
+        $getDataSiswa['tgl_diterima_siswa'] = $request->tgl_diterima_siswa;
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblSiswa->getOneData($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblSiswa->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tblSiswa->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+
+        $dataUpdate = [
+            $id => $getDataSiswa
+        ];
+
+        $tblSiswa->getDatabase()->update($dataUpdate);
+
+        return redirect()->route('siswa.index');
     }
 
     /**

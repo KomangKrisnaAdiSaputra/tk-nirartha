@@ -30,7 +30,7 @@
                                     <td>{{ $value['nama_siswa'] }}</td>
                                     <td>{{ getJkPegawai($value['jk_siswa']) }}</td>
                                     <td>
-                                        {{ $value['id_kelas'] != '' ? getDataKelas($value['id_kelas']) : 'Kelas Tidak Ditemukan!' }}
+                                        {{ $value['id_kelas'] != '' ? getDataKelas($value['id_kelas'])['nama_kelas'] : 'Kelas Tidak Ditemukan!' }}
                                     </td>
                                     <td>{{ getStatusSiswa($value['status_siswa']) }}</td>
                                     <td>{{ $value['tgl_diterima_siswa'] === '' ? '-' : $value['tgl_diterima_siswa'] }}</td>

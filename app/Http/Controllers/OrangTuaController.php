@@ -270,6 +270,19 @@ class OrangTuaController extends Controller
                 }
             } // End Bukti Pembayaran
 
+            $dataLastUpdate = [
+                'key' => 'last_update',
+                'value' => Carbon::now()->toDateTimeString()
+            ];
+            $cek = $tblPendaftaranAwal->getOneData($dataLastUpdate['key']);
+            if ($cek === null) {
+                $tblPendaftaranAwal->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tblPendaftaranAwal->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
+            }
+
             $tblPendaftaranAwal->getDatabase(true, $request->id_siswa)->set($dataPendaftaranAwal);
             return redirect()->route('orangTua.pendaftaranSiswa');
         } elseif ($request->type === 'pendaftaran_ulang') {
@@ -301,6 +314,19 @@ class OrangTuaController extends Controller
                     return redirect()->back()->with('error', 'Upload Kartu Sia Siswa Dengan Ekstensi png/jpg/jpeg!');
                 }
             } // End Bukti Pembayaran
+
+            $dataLastUpdate = [
+                'key' => 'last_update',
+                'value' => Carbon::now()->toDateTimeString()
+            ];
+            $cek = $tblPendaftaranUlang->getOneData($dataLastUpdate['key']);
+            if ($cek === null) {
+                $tblPendaftaranUlang->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tblPendaftaranUlang->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
+            }
 
             $tblPendaftaranUlang->getDatabase(true, $request->id_siswa)->set($dataPendaftaranUlang);
             return redirect()->route('orangTua.pendaftaranUlangSiswa');
@@ -383,6 +409,8 @@ class OrangTuaController extends Controller
         $tblSiswa = (new TblSiswa);
         $tblPendaftaranAwal = (new TblPendaftaranAwal)->getDataAll() ?? [];
 
+        if (count($tblPendaftaranAwal) > 0) unset($tblPendaftaranAwal['last_update']);
+
         $dataPendaftaranAwal = array_values(array_filter($tblPendaftaranAwal, function ($item) use ($tblSiswa) {
             $cekData = $tblSiswa->getOneData($item['id_siswa']);
             if ($cekData['id_orang_tua'] === session('firebaseUserId')) {
@@ -400,9 +428,9 @@ class OrangTuaController extends Controller
 
     function formPendaftaranAwalSiswa()
     {
-        $tblSiswa = (new TblSiswa)->getDataAll();
+        $tblSiswa = (new TblSiswa)->getDataAll() ?? [];
         $tblPendaftaranAwal = (new TblPendaftaranAwal);
-
+        if (count($tblSiswa) > 0) unset($tblSiswa['last_update']);
         $dataSiswa = array_values(array_filter($tblSiswa, function ($item) use ($tblPendaftaranAwal) {
             if ($item['id_orang_tua'] === session('firebaseUserId')) {
                 $cekData = $tblPendaftaranAwal->getOneData($item['id_siswa']);
@@ -424,6 +452,8 @@ class OrangTuaController extends Controller
         $tblSiswa = (new TblSiswa);
         $tblPendaftaranUlang = (new TblPendaftaranUlang)->getDataAll() ?? [];
 
+        if (count($tblPendaftaranUlang) > 0) unset($tblPendaftaranUlang['last_update']);
+
         $dataPendaftaranUlang = array_values(array_filter($tblPendaftaranUlang, function ($item) use ($tblSiswa) {
             $cekData = $tblSiswa->getOneData($item['id_siswa']);
             if ($cekData['id_orang_tua'] === session('firebaseUserId')) {
@@ -441,13 +471,20 @@ class OrangTuaController extends Controller
 
     function formPendaftaranUlangSiswa()
     {
-        $tblSiswa = (new TblSiswa)->getDataAll();
+        $tblSiswa = (new TblSiswa)->getDataAll() ?? [];
+        $tblPendaftaranAwal = (new TblPendaftaranAwal);
         $tblPendaftaranUlang = (new TblPendaftaranUlang);
+        if (count($tblSiswa) > 0) unset($tblSiswa['last_update']);
 
-        $dataSiswa = array_values(array_filter($tblSiswa, function ($item) use ($tblPendaftaranUlang) {
+        $dataSiswa = array_values(array_filter($tblSiswa, function ($item) use ($tblPendaftaranUlang, $tblPendaftaranAwal) {
             if ($item['id_orang_tua'] === session('firebaseUserId')) {
-                $cekData = $tblPendaftaranUlang->getOneData($item['id_siswa']);
-                return $cekData === null;
+                $daftarAwal = $tblPendaftaranAwal->getOneData($item['id_siswa']);
+                if ($daftarAwal != null) {
+                    if ($daftarAwal['status_pendaftaran_awal'] === "1") {
+                        $cekData = $tblPendaftaranUlang->getOneData($item['id_siswa']);
+                        return $cekData === null;
+                    }
+                }
             }
         }));
 

@@ -79,9 +79,9 @@ function getDataPendidikan()
   return ['TK', 'SMP', 'SMA', 'Sarjana', 'Magister', 'Doctor'];
 }
 
-function carbon()
+function carbon($parse = false, $key = null)
 {
-  return Carbon::now();
+  return ($parse) ?  Carbon::parse($key) : Carbon::now();
 }
 
 function golDarah()

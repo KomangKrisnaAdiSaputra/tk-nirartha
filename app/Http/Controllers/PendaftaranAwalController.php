@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Firebase\TblPendaftaranAwal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PendaftaranAwalController extends Controller
@@ -14,7 +15,8 @@ class PendaftaranAwalController extends Controller
     {
         $menu = 'pendaftaran awal';
         $tblPendaftaranAwal = (new TblPendaftaranAwal);
-        $data = $tblPendaftaranAwal->getDataAll();
+        $data = $tblPendaftaranAwal->getDataAll() ?? [];
+        if (count($data) > 0) unset($data['last_update']);
         return view('backoffice.pendaftaran-awal.index', compact('menu', 'data'));
     }
 
@@ -66,6 +68,19 @@ class PendaftaranAwalController extends Controller
         $dataUpdate = [
             $id => $dataPendaftaranAwal
         ];
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblPendaftaranAwal->getOneData($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblPendaftaranAwal->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tblPendaftaranAwal->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
 
         $tblPendaftaranAwal->getDatabase()->update($dataUpdate);
         return redirect()->route('pendaftaranAwal.index');

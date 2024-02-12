@@ -27,7 +27,7 @@
                             @foreach ($data['pendaftaran_ulang'] as $key => $value)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ $value['id_siswa'] }}</td>
+                                    <td>{{ getDataSiswa($value['id_siswa'])['nama_siswa'] }}</td>
                                     <td><a href="{{ asset('image/pendaftaranUlang/' . $value['bukti_pembayaran_pendaftaran_ulang']) }}"
                                             target="_blank">{{ $value['bukti_pembayaran_pendaftaran_ulang'] }}</a></td>
                                     <td>{{ $value['catatan_pendaftaran_ulang'] }}</td>
