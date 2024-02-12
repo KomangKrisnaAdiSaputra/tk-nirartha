@@ -8,25 +8,31 @@
                 @csrf
                 <div class="form-group">
                     <input type="hidden" name="type" value="data_akun">
+                    <label for="">Username User</label>
                     <input type="text" class="form-control form-control-user form-control-lg fs-6"
                         placeholder="Username akun..." name="username_user"
                         value="{{ getDataUser(session('firebaseUserId'))['username_user'] }}" required>
                 </div>
                 <div class="form-group">
+                    <label for="">Email User</label>
                     <input type="text" class="form-control form-control-user form-control-lg fs-6"
                         placeholder="Email akun..." name="email_user"
                         value="{{ getDataUser(session('firebaseUserId'))['email_user'] }}" required>
                 </div>
                 <div class="form-group">
+                    <label for="">Password Baru</label>
                     <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                        placeholder="Password baru..." name="password_user" value="">
+                        placeholder="Password baru..." name="password_user" id="password_user" onchange="validasiPass()">
                 </div>
                 <div class="form-group">
+                    <label for="">Konfirmasi Password Baru</label>
                     <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                        placeholder="Konfirmasi Password baru..." name="konfirmasi_password_user" value="">
+                        placeholder="Konfirmasi Password baru..." name="konfirmasi_password_user"
+                        id="konfirmasi_password_user" onchange="validasiPass()">
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="submit" class="btn bg-outline-secondary-modif" style="border: 2px solid #6c757d;">Edit
+                    <button type="submit" class="btn bg-outline-secondary-modif" style="border: 2px solid #6c757d;"
+                        id="btn_simpan">Edit
                         Data
                         Akun</button>
                 </div>

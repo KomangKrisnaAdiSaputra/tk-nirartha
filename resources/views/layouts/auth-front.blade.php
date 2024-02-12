@@ -71,5 +71,14 @@
                 input2.attr("type", "password");
             }
         }
+
+        function showPassOne(id) {
+            var input = $(`#${id}`);
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        }
     </script>
 </body>

@@ -76,13 +76,28 @@ class OrangTuaController extends Controller
             foreach ($field as $key => $value) {
                 $dataUser[$value] = $request->$value;
             }
+
+            $getDataUser = $tbUser->getOneDataUser($id);
             try {
                 $auth->changeUserEmail($id, $request->email_user);
                 if ($request->password_user != null) {
                     $auth->changeUserPassword($id, $request->password_user);
                     $dataUser['password_user'] = Hash::make($request->password_user);
                 } else {
-                    unset($dataUser['password_user']);
+                    $dataUser['password_user'] = $getDataUser['password_user'];
+                }
+
+                $dataLastUpdate = [
+                    'key' => 'last_update',
+                    'value' => Carbon::now()->toDateTimeString()
+                ];
+                $cek = $tbUser->getDataUsers($dataLastUpdate['key']);
+                if ($cek === null) {
+                    $tbUser->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+                } else {
+                    $tbUser->getDatabase()->update([
+                        $dataLastUpdate['key'] => $dataLastUpdate['value']
+                    ]);
                 }
 
                 $updateUser = [
@@ -109,6 +124,19 @@ class OrangTuaController extends Controller
 
             foreach ($fieldOrangTua as $key => $value) {
                 $dataOrangTua[$value] = $request->$value ?? "";
+            }
+
+            $dataLastUpdate = [
+                'key' => 'last_update',
+                'value' => Carbon::now()->toDateTimeString()
+            ];
+            $cek = $tblOrangTua->getOneData($dataLastUpdate['key']);
+            if ($cek === null) {
+                $tblOrangTua->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tblOrangTua->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
             }
 
             $updateOrangTua = [
@@ -190,6 +218,18 @@ class OrangTuaController extends Controller
                 }
             } // End Kartu Sia Siswa
 
+            $dataLastUpdate = [
+                'key' => 'last_update',
+                'value' => Carbon::now()->toDateTimeString()
+            ];
+            $cek = $tblSiswa->getOneData($dataLastUpdate['key']);
+            if ($cek === null) {
+                $tblSiswa->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tblSiswa->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
+            }
 
             if ($request->data_apa === 'tambah') {
                 $tblSiswa->getDatabase(true, $idSiswa)->set($dataSiswa);
@@ -197,7 +237,6 @@ class OrangTuaController extends Controller
                 $updateSiswa = [
                     $idSiswa => $dataSiswa
                 ];
-
                 $tblSiswa->getDatabase()->update($updateSiswa);
             }
             return redirect()->route('orangTua.dataSiswa');
@@ -290,6 +329,7 @@ class OrangTuaController extends Controller
     function dataSiswa()
     {
         $dataSiswa = (new TblSiswa)->getDataAll() ?? [];
+        if (count($dataSiswa) > 0) unset($dataSiswa['last_update']);
         $data = [
             'menu' => 'orang tua',
             'menu_bottom' => 'data siswa',
@@ -313,6 +353,7 @@ class OrangTuaController extends Controller
     function editDataSiswa($id)
     {
         $dataSiswa = (new TblSiswa)->getDataAll() ?? [];
+        if (count($dataSiswa) > 0) unset($dataSiswa['last_update']);
         $data = [
             'menu' => 'orang tua',
             'menu_bottom' => 'data siswa',
@@ -326,6 +367,7 @@ class OrangTuaController extends Controller
     function detailDataSiswa($id)
     {
         $dataSiswa = (new TblSiswa)->getDataAll() ?? [];
+        if (count($dataSiswa) > 0) unset($dataSiswa['last_update']);
         $data = [
             'menu' => 'orang tua',
             'menu_bottom' => 'data siswa',

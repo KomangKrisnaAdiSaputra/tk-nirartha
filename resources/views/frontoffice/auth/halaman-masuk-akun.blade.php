@@ -12,22 +12,19 @@
                             <form action="{{ route('auth.login.login_orang_tua') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
+                                    <label for="">Email</label>
                                     <input type="text" class="form-control form-control-user form-control-lg fs-6"
-                                        placeholder="Email akun..." name="email" value="" required>
-                                    <div class="invalid-feedback">
-                                        error
-                                    </div>
+                                        placeholder="Email akun..." name="email" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Password</label>
                                     <input type="password" class="form-control form-control-user form-control-lg fs-6"
-                                        placeholder="Password akun..." name="password" value="" required>
-                                    <div class="invalid-feedback">
-                                        error
-                                    </div>
+                                        placeholder="Password akun..." name="password" id="password_user" required>
                                 </div>
                                 <div class="password-info d-flex align-items-center justify-content-between flex-wrap">
                                     <div class="password-info-left">
-                                        <input type="checkbox" id="showpass" class="mb-0">
+                                        <input type="checkbox" id="showpass" onclick="showPassOne('password_user')"
+                                            class="mb-0">
                                         <label for="showpass" class="mb-0">Tampil Password</label>
                                     </div>
                                 </div>

@@ -7,6 +7,7 @@ use App\Models\Firebase\TblPendaftaranUlang;
 use App\Models\Firebase\TblPengumuman;
 use App\Models\Firebase\TblSiswa;
 use App\Models\Firebase\TblUser;
+use Carbon\Carbon;
 
 function getDataPegawai($id)
 {
@@ -66,4 +67,24 @@ function getDataPendaftaran($key)
 {
   $data = (new TblPendaftaranUlang)->getOneData($key);
   return $data;
+}
+
+function getDataAgama()
+{
+  return ['Islam', 'Kristen Protestan', 'Kristen Katolik', 'Hindu', 'Buddha', 'Konghucu'];
+}
+
+function getDataPendidikan()
+{
+  return ['TK', 'SMP', 'SMA', 'Sarjana', 'Magister', 'Doctor'];
+}
+
+function carbon()
+{
+  return Carbon::now();
+}
+
+function golDarah()
+{
+  return ['A', 'B', 'AB', 'O'];
 }

@@ -9,6 +9,7 @@
                 @csrf
                 <input type="hidden" value="data_siswa" name="type">
                 <input type="hidden" value="tambah" name="data_apa">
+                <input type="hidden" value="0" name="status_siswa">
                 <div class="row">
                     <div class="col-12 mb-3 text-center px-0">
                         @if (isset($data['siswa']['foto_siswa']))
@@ -17,6 +18,7 @@
                                 alt="foto siswa">
                         @else
                             <div class="form-group">
+                                <label for="">Foto Siswa</label>
                                 <input type="file" class="form-control form-control-user form-control-lg" id="foto_siswa"
                                     name="foto_siswa" placeholder="Foto Siswa" accept="image/png, image/jpeg, image/jpg"
                                     required>
@@ -35,6 +37,7 @@
                 @endif
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">No Induk Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg" name="no_induk"
                             placeholder="No Induk"
                             value="{{ isset($data['siswa']['no_induk']) ? $data['siswa']['no_induk'] : '' }}" required>
@@ -42,6 +45,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Tahun Angkatan Siswa</label>
                         <input type="number" class="form-control form-control-user form-control-lg" name="tahun_angkatan"
                             placeholder="Tahun Angkatan" min="1900" max="2099"
                             value="{{ isset($data['siswa']['tahun_angkatan']) ? $data['siswa']['tahun_angkatan'] : '' }}"
@@ -50,6 +54,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Nama Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg" name="nama_siswa"
                             placeholder="Nama Siswa"
                             value="{{ isset($data['siswa']['nama_siswa']) ? $data['siswa']['nama_siswa'] : '' }}" required>
@@ -57,56 +62,46 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Agama Siswa</label>
                         <select class="form-control" name="agama_siswa" required>
-                            <option selected disabled>Agama Siswa</option>
-                            <option value="Islam"
-                                {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === 'Islam' ? 'selected' : '' }}>
-                                Islam</option>
-                            <option value="Kristen Protestan"
-                                {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === 'Kristen Protestan' ? 'selected' : '' }}>
-                                Kristen
-                                Protestan</option>
-                            <option value="Kristen Katolik"
-                                {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === 'Kristen Katolik' ? 'selected' : '' }}>
-                                Kristen
-                                Katolik</option>
-                            <option value="Hindu"
-                                {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === 'Hindu' ? 'selected' : '' }}>
-                                Hindu</option>
-                            <option value="Buddha"
-                                {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === 'Buddha' ? 'selected' : '' }}>
-                                Buddha
-                            </option>
-                            <option value="Konghucu"
-                                {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === 'Konghucu' ? 'selected' : '' }}>
-                                Konghucu
-                            </option>
+                            <option selected disabled>Pilih Agama</option>
+                            @foreach (getDataAgama() as $key => $a)
+                                <option value="{{ $a }}"
+                                    {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '' === $a) ? 'selected' : '' }}>
+                                    {{ $a }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="col-12" style="margin-top: 18%;">
+                <div class="col-12" style="margin-top: 13%;">
                     <div class="form-group">
+                        <label for="">Jenis Kelamin Siswa</label>
                         <select class="form-control" name="jk_siswa" required>
                             <option selected disabled>Jenis Kelamin</option>
                             <option value="1"
                                 {{ (isset($data['siswa']['jk_siswa']) ? (string) $data['siswa']['jk_siswa'] : '') === '1' ? 'selected' : '' }}>
-                                Wanita</option>
+                                Wanita
+                            </option>
                             <option value="2"
                                 {{ (isset($data['siswa']['jk_siswa']) ? (string) $data['siswa']['jk_siswa'] : '') === '2' ? 'selected' : '' }}>
-                                Laki-laki</option>
+                                Laki-laki
+                            </option>
                         </select>
                     </div>
                 </div>
-                <div class="col-12" style="margin-top: 32%;">
+                <div class="col-12" style="margin-top: 13%;">
                     <div class="form-group">
+                        <label for="">Tanggal Lahir Siswa</label>
                         <input type="date" class="form-control form-control-user form-control-lg" name="tgl_lahir_siswa"
                             placeholder="Tanggal Lahir Siswa"
                             value="{{ isset($data['siswa']['tgl_lahir_siswa']) ? $data['siswa']['tgl_lahir_siswa'] : '' }}"
-                            required>
+                            max="{{ carbon()->toDateString() }}" required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Tempat Lahir Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg" name="tmp_lahir_siswa"
                             placeholder="Tempat Lahir Siswa"
                             value="{{ isset($data['siswa']['tmp_lahir_siswa']) ? $data['siswa']['tmp_lahir_siswa'] : '' }}"
@@ -115,6 +110,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Status Anak Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg"
                             name="status_anak_siswa" placeholder="Status Anak Siswa"
                             value="{{ isset($data['siswa']['status_anak_siswa']) ? $data['siswa']['status_anak_siswa'] : '' }}"
@@ -123,14 +119,16 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Jumlah Saudara Siswa</label>
                         <input type="number" class="form-control form-control-user form-control-lg"
-                            name="jumlah_saudara_siswa" placeholder="Jumlah Saudara Siswa"
+                            name="jumlah_saudara_siswa" min="1" placeholder="Jumlah Saudara Siswa"
                             value="{{ isset($data['siswa']['jumlah_saudara_siswa']) ? $data['siswa']['jumlah_saudara_siswa'] : '' }}"
                             required>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Bahasa Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg" name="bahasa_siswa"
                             placeholder="Bahasa Siswa"
                             value="{{ isset($data['siswa']['bahasa_siswa']) ? $data['siswa']['bahasa_siswa'] : '' }}"
@@ -139,14 +137,21 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user form-control-lg"
-                            name="golongan_darah" placeholder="Golongan Darah"
-                            value="{{ isset($data['siswa']['golongan_darah']) ? $data['siswa']['golongan_darah'] : '' }}"
-                            required>
+                        <label for="">Golongan Darah</label>
+                        <select class="form-control" name="golongan_darah" required>
+                            <option selected disabled>Pilih golongan Darah</option>
+                            @foreach (golDarah() as $key => $gd)
+                                <option value="{{ $gd }}"
+                                    {{ (isset($data['siswa']['golongan_darah']) ? $data['siswa']['golongan_darah'] : '' === $gd) ? 'selected' : '' }}>
+                                    {{ $gd }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="margin-top: 13%;">
                     <div class="form-group">
+                        <label for="">Warga Negara Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg"
                             name="warga_negara_siswa" placeholder="Warga Negara Siswa"
                             value="{{ isset($data['siswa']['warga_negara_siswa']) ? $data['siswa']['warga_negara_siswa'] : '' }}"
@@ -155,6 +160,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Kelurahan Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg"
                             name="kelurahan_siswa" placeholder="Kelurahan Siswa"
                             value="{{ isset($data['siswa']['kelurahan_siswa']) ? $data['siswa']['kelurahan_siswa'] : '' }}"
@@ -163,6 +169,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Kabupaten Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg"
                             name="kabupaten_siswa" placeholder="Kabupaten Siswa"
                             value="{{ isset($data['siswa']['kabupaten_siswa']) ? $data['siswa']['kabupaten_siswa'] : '' }}"
@@ -171,6 +178,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group">
+                        <label for="">Provinsi Siswa</label>
                         <input type="text" class="form-control form-control-user form-control-lg"
                             name="provinsi_siswa" placeholder="Provinsi Siswa"
                             value="{{ isset($data['siswa']['provinsi_siswa']) ? $data['siswa']['provinsi_siswa'] : '' }}"
@@ -184,6 +192,7 @@
                             style="width: 20%;">
                     @else
                         <div class="form-group">
+                            <label for="">Kartu Kia Siswa</label>
                             <input type="file" class="form-control form-control-user form-control-lg"
                                 id="kartu_kia_siswa" name="kartu_kia_siswa" placeholder="Kartu Kia Siswa"
                                 accept="image/png, image/jpeg, image/jpg" required>
