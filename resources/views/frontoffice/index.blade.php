@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </section>
         <!--Banner Area End -->
@@ -36,86 +36,30 @@
                 </div>
                 <div class="features-wrapper">
                     <div class="features-active">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="{{ asset('front/dist/images/pengumuman/pengumuman-1.jpg') }}" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
+                        @foreach ($pengumuman as $key => $value)
+                            <div class="product-item">
+                                <div class="product-item-image">
+                                    <a href="#"><img
+                                            src="{{ asset('front/dist/images/pengumuman/pengumuman-1.jpg') }}"
+                                            alt="Product Name" class="img-fluid"></a>
+                                    <div class="cart-icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="detail-pengumuman.html">Pendaftaran Gelombang 1</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
+                                <div class="product-item-info">
+                                    <a href="#">{{ $value['isi_pengumuman'] }}</a>
+                                    <div class="d-flex sectionPengumuman-profilUser">
+                                        <i class="fa fa-user"></i>
+                                        <div class="d-grid ml-2">
+                                            <p>Admin</p>
+                                            <p>{{ carbon(true, $value['tgl_pengumuman'], 'Y-m-d', 'd F Y') }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="{{ asset('front/dist/images/pengumuman/pengumuman-1.jpg') }}" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="detail-pengumuman.html">Pendaftaran Gelombang 1</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="{{ asset('front/dist/images/pengumuman/pengumuman-1.jpg') }}" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="detail-pengumuman.html">Pendaftaran Gelombang 1</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="{{ asset('front/dist/images/pengumuman/pengumuman-1.jpg') }}" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Pendaftaran Gelombang 1</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
                     </div>
                     <div class="slider-arrows">
                         <div class="prev-arrow">
@@ -161,7 +105,9 @@
                         <div class="col-lg-6">
                             <div class="about-area-content-text">
                                 <h3>TK Kumaran II</h3>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto minus aliquam maxime tenetur magni, quia, nesciunt facilis totam recusandae magnam hic cupiditate, reprehenderit accusantium vitae sunt perspiciatis sit! Fugit, ex?.</p>
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto minus aliquam maxime
+                                    tenetur magni, quia, nesciunt facilis totam recusandae magnam hic cupiditate,
+                                    reprehenderit accusantium vitae sunt perspiciatis sit! Fugit, ex?.</p>
                                 <div class="icon-area-content">
                                     <div class="icon-area">
                                         <i class="far fa-check-circle"></i>
@@ -191,7 +137,7 @@
         <!-- Section End -->
 
         <!-- Section Strat -->
-        <section class="populerproduct">
+        {{-- <section class="populerproduct">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
@@ -273,7 +219,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- Section End -->
 
         <!-- Section Start -->
@@ -287,118 +233,29 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
+                    @foreach ($pegawai as $key => $value)
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                            <div class="productcategory text-center">
+                                <div class="productcategory-img">
+                                    <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}"
+                                            alt="images"></a>
+                                </div>
+                                <div class="productcategory-text">
+                                    <a href="#">
+                                        <h6>{{ $value['nama_pegawai'] }}</h6>
+                                        {{-- <span>Mulai Berkarya 01 Oktober 2023</span> --}}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="{{ asset('front/dist/images/profil-guru/profil-1.jpg') }}" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Tree Dasher</h6>
-                                    <span>Mulai Berkarya 01 Oktober 2023</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    @endforeach
                 </div>
             </div>
         </section>
         <!-- Section End -->
 
         <!-- Section Start -->
-        <section class="customersreview">
+        {{-- <section class="customersreview">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
@@ -459,7 +316,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- Section End -->
     </main>
 @endsection

@@ -34,7 +34,9 @@ class PembayaranController extends Controller
             return $item['id_kelas'] != "";
         }));
 
-        return view('backoffice.pembayaran.form.tambah', compact('menu', 'data'));
+        $status = (new TblBiayaSekolah)->get('status');
+
+        return view('backoffice.pembayaran.form.tambah', compact('menu', 'data', 'status'));
     }
 
     /**
@@ -44,11 +46,11 @@ class PembayaranController extends Controller
     {
         $tblPembayaran = (new TblBiayaSekolah);
         $field = $tblPembayaran->get('field');
-        $dataTahunBulan = Carbon::parse($request->{'bulan&tahun'});
         $id_biaya = Str::uuid()->toString();
+        $bulan_tahun = explode('-', $request->{'bulan&tahun'});
         $request->merge(['id_biaya' => $id_biaya]);
-        $request->merge(['bulan_biaya' => $dataTahunBulan->format('m')]);
-        $request->merge(['tahun_biaya' => $dataTahunBulan->format('Y')]);
+        $request->merge(['bulan_biaya' => $bulan_tahun[1]]);
+        $request->merge(['tahun_biaya' => $bulan_tahun[0]]);
 
         foreach ($field as $key => $value) {
             $dataPembayaran[$value] = $request->$value;
@@ -84,7 +86,11 @@ class PembayaranController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $menu = 'pembayaran';
+        $data = (new TblBiayaSekolah)->getOneData($id);
+        $status = (new TblBiayaSekolah)->get('status');
+
+        return view('backoffice.pembayaran.form.edit', compact('menu', 'data', 'status'));
     }
 
     /**
@@ -92,7 +98,36 @@ class PembayaranController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tblPembayaran = (new TblBiayaSekolah);
+        $field = $tblPembayaran->get('field');
+        $bulan_tahun = explode('-', $request->{'bulan&tahun'});
+        $request->merge(['id_biaya' => $id]);
+        $request->merge(['bulan_biaya' => $bulan_tahun[1]]);
+        $request->merge(['tahun_biaya' => $bulan_tahun[0]]);
+
+        foreach ($field as $key => $value) {
+            $dataPembayaran[$value] = $request->$value;
+        }
+
+        $dataUpdate = [
+            $id => $dataPembayaran
+        ];
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblPembayaran->getOneData($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblPembayaran->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tblPembayaran->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+
+        $tblPembayaran->getDatabase()->update($dataUpdate);
+        return redirect()->route('pembayaran.index');
     }
 
     /**

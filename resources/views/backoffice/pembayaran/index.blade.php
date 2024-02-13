@@ -14,7 +14,7 @@
                     <button type="button" class="btn btn-primary mb-4">Tambah {{ ucwords($menu) }}</button>
                 </a>
                 <div class="table-responsive" id="canvasTabel-tabelPengguna">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered DataTables" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N0</th>
@@ -33,7 +33,7 @@
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ getDataSiswa($value['id_siswa'])['nama_siswa'] }}</td>
                                     <td>{{ $value['nama_biaya'] }}</td>
-                                    <td>{{ $value['bulan_biaya'] }}</td>
+                                    <td>{{ carbon(true, $value['bulan_biaya'], 'm', 'F') }}</td>
                                     <td>{{ $value['tahun_biaya'] }}</td>
                                     <td>{{ $value['tgl_pembayaran_biaya'] }}</td>
                                     <td>{{ getStatusDaftarAwal($value['status_biaya']) }}</td>

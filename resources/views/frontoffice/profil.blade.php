@@ -11,16 +11,25 @@
                             <div class="about-area-content-text">
                                 <h3>Profil TK Kumaran II</h3>
                                 <p style="text-align: justify;">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae illo, obcaecati voluptates laudantium ducimus placeat praesentium aliquid aspernatur commodi veritatis non explicabo, nihil voluptatum amet sint dolorem corporis consectetur culpa?
-                                Nesciunt consequatur esse molestias, aspernatur doloribus fugit tenetur tempore earum dolor debitis, incidunt ipsum mollitia est. Debitis, modi dolores iste asperiores laborum et! Nam voluptatibus laboriosam cupiditate fugiat vitae inventore!
-                                Aut aliquid beatae at nihil excepturi delectus repellendus rerum earum dolorum, sit iusto minima nostrum veniam voluptatum iure vel modi sunt nulla fuga, aliquam harum reiciendis voluptate corrupti! Ipsa, minima?
-                                Reprehenderit ad nam veniam, explicabo maxime culpa quam nostrum inventore. Reprehenderit dolor, dolore adipisci quibusdam doloremque aliquam corrupti libero enim distinctio obcaecati provident placeat quidem mollitia tempora sint tempore modi.
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae illo, obcaecati
+                                    voluptates laudantium ducimus placeat praesentium aliquid aspernatur commodi veritatis
+                                    non explicabo, nihil voluptatum amet sint dolorem corporis consectetur culpa?
+                                    Nesciunt consequatur esse molestias, aspernatur doloribus fugit tenetur tempore earum
+                                    dolor debitis, incidunt ipsum mollitia est. Debitis, modi dolores iste asperiores
+                                    laborum et! Nam voluptatibus laboriosam cupiditate fugiat vitae inventore!
+                                    Aut aliquid beatae at nihil excepturi delectus repellendus rerum earum dolorum, sit
+                                    iusto minima nostrum veniam voluptatum iure vel modi sunt nulla fuga, aliquam harum
+                                    reiciendis voluptate corrupti! Ipsa, minima?
+                                    Reprehenderit ad nam veniam, explicabo maxime culpa quam nostrum inventore.
+                                    Reprehenderit dolor, dolore adipisci quibusdam doloremque aliquam corrupti libero enim
+                                    distinctio obcaecati provident placeat quidem mollitia tempora sint tempore modi.
                                 </p>
                             </div>
                         </div>
                         <div class="col-lg-5">
-                            <div class="about-area-content-img"> 
-                                <img src="dist/images/beranda-2.jpg" class="img-fluid" alt="" style="border-radius: 86px 24px 0 24px;">
+                            <div class="about-area-content-img">
+                                <img src="dist/images/beranda-2.jpg" class="img-fluid" alt=""
+                                    style="border-radius: 86px 24px 0 24px;">
                             </div>
                         </div>
                     </div>
@@ -42,7 +51,9 @@
                             <div class="about-area-content-text">
                                 <h3>Visi </h3>
                                 <p style="text-align: justify;">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque expedita earum accusamus illum modi tempore, adipisci aspernatur in illo vitae quisquam. Nulla eaque amet ea accusantium sed doloribus porro non.
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque expedita earum
+                                    accusamus illum modi tempore, adipisci aspernatur in illo vitae quisquam. Nulla eaque
+                                    amet ea accusantium sed doloribus porro non.
                                 </p>
                                 <h3>Misi</h3>
                                 <div class="icon-area-content">
@@ -72,7 +83,7 @@
         <!-- About Area End -->
 
         <!-- Section Start -->
-        <section class="customersreview">
+        {{-- <section class="customersreview">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 mt-4">
@@ -133,7 +144,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- Section End -->
     </main>
 @endsection

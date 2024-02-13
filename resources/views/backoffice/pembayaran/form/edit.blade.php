@@ -10,42 +10,59 @@
                 <h6 class="m-0 font-weight-bold text-primary">Edit {{ ucwords($menu) }}</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('kelas.update', $data['id_kelas']) }}" method="POST">
+                <form action="{{ route('pembayaran.update', $data['id_biaya']) }}" method="POST">
                     @method('put')
                     @csrf
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
-                                    name="nama_kelas" placeholder="Nama Kelas" value="{{ $data['nama_kelas'] }}" required>
-                                <div class="invalid-feedback">
-                                    error
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <textarea class="form-control" id="catatan_kelas" name="catatan_kelas" cols="20" rows="5"
-                                    placeholder="Isi Pengumuman" required>{{ $data['catatan_kelas'] }}</textarea>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <select class="form-control" name="status_kelas" required>
-                                    <option selected disabled>Status</option>
-                                    <option value="1" {{ (string) $data['status_kelas'] === '1' ? 'selected' : '' }}>
-                                        Aktif
+                                <label for="">Nama Siswa</label>
+                                <select class="form-control" name="id_siswa" required>
+                                    <option value="{{ $data['id_siswa'] }}" selected>
+                                        {{ getDataSiswa($data['id_siswa'])['nama_siswa'] }}
                                     </option>
-                                    <option value="0" {{ (string) $data['status_kelas'] === '0' ? 'selected' : '' }}>
-                                        Non-Aktif</option>
                                 </select>
-                                <div class="invalid-feedback" id="error-input-gender-pengguna">Gender pengguna tidak boleh
-                                    kosong!</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Nama Biaya</label>
+                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                    name="nama_biaya" placeholder="Nama Biaya" value="{{ $data['nama_biaya'] }}" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Bulan & Tahun</label>
+                                <input type="month" class="form-control form-control-user form-control-lg fs-6"
+                                    name="bulan&tahun" value="{{ $data['tahun_biaya'] . '-' . $data['bulan_biaya'] }}"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Tanggal Pembayaran</label>
+                                <input type="date" class="form-control form-control-user form-control-lg fs-6"
+                                    name="tgl_pembayaran_biaya" value="{{ $data['tgl_pembayaran_biaya'] }}" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Status Pembayaran</label>
+                                <select class="form-control" name="status_biaya" required>
+                                    <option selected disabled>Status</option>
+                                    @foreach ($status as $key => $s)
+                                        <option value="{{ $s['key'] }}"
+                                            {{ $s['key'] === $data['status_biaya'] ? 'selected' : '' }}>
+                                            {{ $s['value'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="col d-flex pr-0 justify-content-end">
-                        <a href="{{ route('pengumuman.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
+                        <a href="{{ route('pembayaran.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
                         <button type="submit" class="btn bg-primary text-white">Simpan</button>
                     </div>
                 </form>

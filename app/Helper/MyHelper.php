@@ -79,9 +79,9 @@ function getDataPendidikan()
   return ['TK', 'SMP', 'SMA', 'Sarjana', 'Magister', 'Doctor'];
 }
 
-function carbon($parse = false, $key = null)
+function carbon($parse = false, $key = null, $format_before = null, $format_after = null)
 {
-  return ($parse) ?  Carbon::parse($key) : Carbon::now();
+  return ($parse) ?  Carbon::createFromFormat($format_before, $key)->format($format_after) : Carbon::now();
 }
 
 function golDarah()

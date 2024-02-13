@@ -62,11 +62,11 @@ Route::group(['middleware' => ['checkauth:0,2']], function () {
     Route::resource('pendaftaran-ulang', PendaftaranUlangController::class, ['names' => 'pendaftaranUlang']);
     Route::resource('pembayaran', PembayaranController::class, ['names' => 'pembayaran']);
     Route::resource('siswa', SiswaController::class, ['names' => 'siswa']);
-    Route::resource('pengumuman', PengumumanController::class, ['names' => 'pengumuman']);
     Route::resource('kepala-sekolah', KepalaSekolahController::class, ['names' => 'kepalaSekolah']);
     Route::resource('data-pegawai', PegawaiController::class, ['names' => 'pegawai']);
 });
 Route::group(['middleware' => ['checkauth:2']], function () {
+    Route::resource('pengumuman', PengumumanController::class, ['names' => 'pengumuman']);
     Route::resource('kelas', KelasController::class, ['names' => 'kelas']);
 });
 

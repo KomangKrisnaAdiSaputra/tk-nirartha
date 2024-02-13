@@ -34,7 +34,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="">Bulan & Tahun</label>
-                                <input type="date" class="form-control form-control-user form-control-lg fs-6"
+                                <input type="month" class="form-control form-control-user form-control-lg fs-6"
                                     name="bulan&tahun" required>
                             </div>
                         </div>
@@ -50,15 +50,15 @@
                                 <label for="">Status Pembayaran</label>
                                 <select class="form-control" name="status_biaya" required>
                                     <option selected disabled>Status</option>
-                                    <option value="0">Proses</option>
-                                    <option value="1">Selesai</option>
-                                    <option value="2">In-Valid</option>
+                                    @foreach ($status as $key => $s)
+                                        <option value="{{ $s['key'] }}">{{ $s['value'] }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="col d-flex pr-0 justify-content-end">
-                        <a href="{{ route('pengumuman.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
+                        <a href="{{ route('pembayaran.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>
                         <button type="submit" class="btn bg-primary text-white">Simpan</button>
                     </div>
                 </form>

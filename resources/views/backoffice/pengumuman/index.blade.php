@@ -14,7 +14,7 @@
                     <button type="button" class="btn btn-primary mb-4">Tambah Pengumuman</button>
                 </a>
                 <div class="table-responsive" id="canvasTabel-tabelPengguna">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered DataTables" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N0</th>

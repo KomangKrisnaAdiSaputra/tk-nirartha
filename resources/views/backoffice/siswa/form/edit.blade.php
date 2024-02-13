@@ -39,6 +39,7 @@
                                 <label for="">Tanggal Diterima</label>
                                 <input type="date" class="form-control form-control-user form-control-lg fs-6"
                                     name="tgl_diterima_siswa" min="{{ carbon()->toDateString() }}"
+                                    value="{{ $data['tgl_diterima_siswa'] }}"
                                     {{ $data['tgl_diterima_siswa'] === '' ? 'required' : 'readonly' }}>
                             </div>
                         </div>

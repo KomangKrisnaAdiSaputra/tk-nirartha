@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Firebase\TblPegawai;
+use App\Models\Firebase\TblPengumuman;
 use Illuminate\Http\Request;
 use Kreait\Firebase\Contract\Database;
 use App\Models\Firebase\TblUser;
@@ -11,8 +13,19 @@ class LandingController extends Controller
 
     public function index()
     {
+        $tblPengumuman = ((new TblPengumuman))->getDataPengumuman() ?? [];
+        if (count($tblPengumuman) > 0) unset($tblPengumuman['last_update']);
+        $dataPengumuman = array_values(array_filter($tblPengumuman, function ($item) {
+            return $item['status_pengumuman'] === "1";
+        }));
+
+        $tblPegawai = ((new TblPegawai))->getDataAllPegawai() ?? [];
+        if (count($tblPegawai) > 0) unset($tblPegawai['last_update']);
+
         $data = [
-            'menu' => 'beranda'
+            'menu' => 'beranda',
+            'pengumuman' => $dataPengumuman,
+            'pegawai' => $tblPegawai
         ];
         return view('frontoffice.index', $data);
     }

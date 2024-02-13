@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('back/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet">
 
 </head>
 
@@ -89,22 +90,20 @@
                         <span>Kelas</span>
                     </a>
                 </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Aktivitas
+                </div>
+                <li class="nav-item {{ $menu == 'pengumuman' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('pengumuman.index') }}">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Pengumuman</span>
+                    </a>
+                </li>
             @endif
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Aktivitas
-            </div>
-
-            <li class="nav-item {{ $menu == 'pengumuman' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('pengumuman.index') }}">
-                    <i class="fas fa-user-graduate"></i>
-                    <span>Pengumuman</span>
-                </a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -316,7 +315,19 @@
                 <script src="{{ asset('back/js/demo/chart-area-demo.js') }}"></script>
                 <script src="{{ asset('back/js/demo/chart-pie-demo.js') }}"></script>
             @endif
+
+            <script src="{{ asset('DataTables/datatables.js') }}"></script>
+
             <script>
+                $(document).ready(function() {
+                    $('.DataTables').DataTable({
+                        pageLength: 10,
+                        language: {
+                            url: "{{ asset('/DataTables/bahasa.json') }}",
+                        }
+                    });
+                });
+
                 function validasiPass() {
                     var password_baru = document.getElementById('password_user');
                     var konfirmasi_password = document.getElementById('konfirmasi_password_user');

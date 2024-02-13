@@ -54,7 +54,6 @@ class SiswaController extends Controller
         $data = (new TblSiswa)->getOneData($id);
         $dataKelas = (new TblKelas)->getDataAllKelas() ?? [];
         if (count($dataKelas) > 0) unset($dataKelas['last_update']);
-
         $statusSiswa = (new TblSiswa)->get('status');
         return view('backoffice.siswa.form.edit', compact('menu', 'data', 'dataKelas', 'statusSiswa'));
     }
@@ -65,7 +64,6 @@ class SiswaController extends Controller
     public function update(Request $request, string $id)
     {
         $tblSiswa = (new TblSiswa);
-        $field = $tblSiswa->get('field');
 
         $getDataSiswa = $tblSiswa->getOneData($id);
 

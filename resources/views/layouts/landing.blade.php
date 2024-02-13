@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TK Niratha I - Beranda</title>
-    <link rel="stylesheet" href="{{ asset('front/dist/main.css')}}">
-    <link rel="stylesheet" href="{{ asset('front/dist/style-custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('front/dist/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/dist/style-custom.css') }}">
 </head>
 
 <body>
@@ -47,20 +47,28 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="{{ url('landing/') }}"><h2>TK Niratha I</h2></a>
+                            <a href="{{ url('landing/') }}">
+                                <h2>TK Niratha I</h2>
+                            </a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a class="{{ ($menu == 'beranda') ? 'active' : '' }}" href="{{ url('landing/') }}">Beranda</a></li>
-                            <li><a class="{{ ($menu == 'profil') ? 'active' : '' }}" href="{{ url('landing/profil') }}">Profil</a></li>
-                            <li><a class="{{ ($menu == 'galeri') ? 'active' : '' }}" href="{{ url('landing/galeri') }}">Galeri</a></li>
-                            <li><a class="{{ ($menu == 'pengumuman') ? 'active' : '' }}" href="{{ url('landing/pengumuman') }}">Pengumuman</a></li>
-                            <li><a class="{{ ($menu == 'kegiatan') ? 'active' : '' }}" href="{{ url('landing/kegiatan') }}">Kegiatan</a></li>
-                            <li><a class="{{ ($menu == 'kontak') ? 'active' : '' }}" href="{{ url('landing/kontak') }}">Kontak</a></li>
+                            <li><a class="{{ $menu == 'beranda' ? 'active' : '' }}"
+                                    href="{{ url('landing/') }}">Beranda</a></li>
+                            <li><a class="{{ $menu == 'profil' ? 'active' : '' }}"
+                                    href="{{ url('landing/profil') }}">Profil</a></li>
+                            {{-- <li><a class="{{ ($menu == 'galeri') ? 'active' : '' }}" href="{{ url('landing/galeri') }}">Galeri</a></li> --}}
+                            <li><a class="{{ $menu == 'pengumuman' ? 'active' : '' }}"
+                                    href="{{ url('landing/pengumuman') }}">Pengumuman</a></li>
+                            {{-- <li><a class="{{ ($menu == 'kegiatan') ? 'active' : '' }}" href="{{ url('landing/kegiatan') }}">Kegiatan</a></li> --}}
+                            <li><a class="{{ $menu == 'kontak' ? 'active' : '' }}"
+                                    href="{{ url('landing/kontak') }}">Kontak</a></li>
                         </ul>
                         <div class="col align-items-center">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a class="btn btn-link me-md-2" href="{{ url('secure/auth/login/orangtua') }}">Masuk</a>
-                                <a class="btn bg-primary" href="{{ url('secure/auth/register/orangtua') }}">Pendaftaran</a>
+                                <a class="btn btn-link me-md-2"
+                                    href="{{ url('secure/auth/login/orangtua') }}">Masuk</a>
+                                <a class="btn bg-primary"
+                                    href="{{ url('secure/auth/register/orangtua') }}">Pendaftaran</a>
                             </div>
                         </div>
                     </nav>
@@ -86,7 +94,9 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="#"><h2>TK Kumara II</h2></a>
+                            <a href="#">
+                                <h2>TK Kumara II</h2>
+                            </a>
                         </div>
                         <div class="hamburger-menu">
                             <a style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</a>
@@ -153,7 +163,7 @@
                 <div class="col-lg-12">
                     <div class="copyright d-flex justify-content-between align-items-center">
                         <div class="copyright-text order-2 order-lg-1">
-                            <p>&copy; {{ date("Y") }}. TK Kumara II</p>
+                            <p>&copy; {{ date('Y') }}. TK Kumara II</p>
                         </div>
                         <div class="copyright-links order-1 order-lg-2">
                             <a href="#" class="ml-0"><i class="fab fa-facebook-f"></i></a>
@@ -170,30 +180,32 @@
 
     <!-- firebase -->
     <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+        import {
+            getAnalytics
+        } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
 
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-        apiKey: "AIzaSyBp3KnLn0QdFhKIA7S8zf-lfFDeJNHJnVM",
-        authDomain: "tk-nirartha.firebaseapp.com",
-        databaseURL: "https://tk-nirartha-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "tk-nirartha",
-        storageBucket: "tk-nirartha.appspot.com",
-        messagingSenderId: "893394044292",
-        appId: "1:893394044292:web:c5c8f7dd54d9ad3228c9d1",
-        measurementId: "G-ZTTXZ0DF0B"
-    };
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBp3KnLn0QdFhKIA7S8zf-lfFDeJNHJnVM",
+            authDomain: "tk-nirartha.firebaseapp.com",
+            databaseURL: "https://tk-nirartha-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "tk-nirartha",
+            storageBucket: "tk-nirartha.appspot.com",
+            messagingSenderId: "893394044292",
+            appId: "1:893394044292:web:c5c8f7dd54d9ad3228c9d1",
+            measurementId: "G-ZTTXZ0DF0B"
+        };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-
-    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
     </script>
 
     <!-- asset -->

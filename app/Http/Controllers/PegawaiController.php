@@ -25,7 +25,7 @@ class PegawaiController extends Controller
             $data = array_values(array_filter($data, function ($item) use ($tbUser) {
                 $cekDataUser = $tbUser->getOneDataUser($item['id_user']);
                 if ($cekDataUser != null) {
-                    return $cekDataUser['tipe_user'] === "2" && $item['id_user'] != session('firebaseUserId');
+                    return (string) $cekDataUser['tipe_user'] === "2" && $item['id_user'] != session('firebaseUserId');
                 }
             }));
         }
