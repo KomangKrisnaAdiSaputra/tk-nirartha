@@ -83,6 +83,7 @@ class PendaftaranAwalController extends Controller
         }
 
         $tblPendaftaranAwal->getDatabase()->update($dataUpdate);
+        session()->put('daftar_awal', $dataLastUpdate['value']);
         return redirect()->route('pendaftaranAwal.index');
     }
 
@@ -92,5 +93,21 @@ class PendaftaranAwalController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    function cek()
+    {
+        $cek = (new TblPendaftaranAwal)->getDataAll() ?? [];
+        if (isset($cek['last_update'])) {
+            if (session()->has('daftar_awal')) {
+                if (session('daftar_awal') != $cek['last_update']) {
+                    session()->put('daftar_awal', $cek['last_update']);
+                    return true;
+                }
+            } else {
+                session()->put('daftar_awal', $cek['last_update']);
+            }
+        }
+        return false;
     }
 }

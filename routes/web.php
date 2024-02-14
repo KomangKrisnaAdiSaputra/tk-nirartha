@@ -10,6 +10,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PendaftaranAwalController;
 use App\Http\Controllers\PendaftaranUlangController;
+use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
@@ -51,19 +52,34 @@ Route::prefix('secure/auth/')->name('auth.')->group(function () {
 
 // Dashboard Pengguna Back
 Route::group(['middleware' => ['checkauth:0,2']], function () {
+    Route::get('cek-pendaftaran-awal', [PendaftaranAwalController::class, 'cek'])->name('cek_pendaftaran_awal');
+    Route::resource('pendaftaran-awal', PendaftaranAwalController::class, ['names' => 'pendaftaranAwal']);
+
+    Route::get('cek-pendaftaran-ulang', [PendaftaranUlangController::class, 'cek'])->name('cek_pendaftaran_ulang');
+    Route::resource('pendaftaran-ulang', PendaftaranUlangController::class, ['names' => 'pendaftaranUlang']);
+
+    Route::get('cek-pembayaran', [PembayaranController::class, 'cek'])->name('cek_pembayaran');
+    Route::resource('pembayaran', PembayaranController::class, ['names' => 'pembayaran']);
+
+    Route::get('cek-siswa', [SiswaController::class, 'cek'])->name('cek_siswa');
+    Route::resource('siswa', SiswaController::class, ['names' => 'siswa']);
+
+    Route::resource('kepala-sekolah', KepalaSekolahController::class, ['names' => 'kepalaSekolah']);
+
+    Route::get('cek-pegawai', [PegawaiController::class, 'cekPegawai'])->name('cek_pegawai');
+    Route::resource('data-pegawai', PegawaiController::class, ['names' => 'pegawai']);
+
+    Route::resource('pengaturan', PengaturanController::class, ['names' => 'pengaturan']);
+});
+Route::group(['middleware' => ['checkauth:0,1,2']], function () {
     Route::prefix('dashboard/')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard_index');
+        Route::get('/daftar-ulang', [DashboardController::class, 'dataDaftarUlang'])->name('daftar_ulang');
+        Route::get('/data-user', [DashboardController::class, 'dataUser'])->name('data_user');
         Route::get('/logout-pegawai', [AuthController::class, 'logout_pegawai'])->name('logout_pegawai');
         Route::get('/kepala-sekolah', [DashboardController::class, 'tampil_data_kepala_sekolah'])->name('tampil_kepala_sekolah');
         Route::get('/kepala-sekolah/tambah', [DashboardController::class, 'tambah_data_kepala_sekolah'])->name('tambah_kepala_sekolah');
     });
-
-    Route::resource('pendaftaran-awal', PendaftaranAwalController::class, ['names' => 'pendaftaranAwal']);
-    Route::resource('pendaftaran-ulang', PendaftaranUlangController::class, ['names' => 'pendaftaranUlang']);
-    Route::resource('pembayaran', PembayaranController::class, ['names' => 'pembayaran']);
-    Route::resource('siswa', SiswaController::class, ['names' => 'siswa']);
-    Route::resource('kepala-sekolah', KepalaSekolahController::class, ['names' => 'kepalaSekolah']);
-    Route::resource('data-pegawai', PegawaiController::class, ['names' => 'pegawai']);
 });
 Route::group(['middleware' => ['checkauth:2']], function () {
     Route::resource('pengumuman', PengumumanController::class, ['names' => 'pengumuman']);

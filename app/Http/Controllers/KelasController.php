@@ -60,6 +60,7 @@ class KelasController extends Controller
             ]);
         }
         $tblKelas->getDatabase(true, $idKelas)->set($dataKelas);
+        session()->put('kelas', $dataLastUpdate['value']);
         return redirect()->route('kelas.index');
     }
 
@@ -115,6 +116,8 @@ class KelasController extends Controller
         ];
 
         $tblKelas->getDatabase()->update($update);
+        session()->put('kelas', $dataLastUpdate['value']);
+
         return redirect()->route('kelas.index');
     }
 
@@ -139,6 +142,26 @@ class KelasController extends Controller
         }
 
         $tbKelas->getDatabase(true, $id)->remove();
+
+        session()->put('kelas', $dataLastUpdate['value']);
+
         return redirect()->back();
+    }
+
+
+    function cek()
+    {
+        $cek = (new TblKelas)->getDataAllKelas() ?? [];
+        if (isset($cek['last_update'])) {
+            if (session()->has('kelas')) {
+                if (session('kelas') != $cek['last_update']) {
+                    session()->put('kelas', $cek['last_update']);
+                    return true;
+                }
+            } else {
+                session()->put('kelas', $cek['last_update']);
+            }
+        }
+        return false;
     }
 }

@@ -117,7 +117,7 @@ class PegawaiController extends Controller
 
             $tbUser->getDatabase(true, $customKey)->set($dataUser);
             $tbPegawai->getDatabase(true, $customKey)->set($dataPegawai);
-
+            session()->put('pegawai', $dataLastUpdate['value']);
             return redirect()->route('pegawai.index')->with('success', 'Data berhasil ditambahkan.');
         } catch (\Throwable $e) {
             switch ($e->getMessage()) {
@@ -245,6 +245,7 @@ class PegawaiController extends Controller
 
             $tbPegawai->getDatabase()->update($updatePegawai);
             $tbUser->getDatabase()->update($updateUser);
+            session()->put('pegawai', $dataLastUpdate['value']);
 
             return redirect()->route('pegawai.index');
         } catch (\Throwable $e) {
@@ -299,7 +300,24 @@ class PegawaiController extends Controller
 
         $tbUser->getDatabase(true, $id)->remove();
 
+        session()->put('pegawai', $dataLastUpdate['value']);
 
         return redirect()->back();
+    }
+
+    function cekPegawai()
+    {
+        $cek = (new TblPegawai)->getDataAllPegawai() ?? [];
+        if (isset($cek['last_update'])) {
+            if (session()->has('pegawai')) {
+                if (session('pegawai') != $cek['last_update']) {
+                    session()->put('pegawai', $cek['last_update']);
+                    return true;
+                }
+            } else {
+                session()->put('pegawai', $cek['last_update']);
+            }
+        }
+        return false;
     }
 }

@@ -174,7 +174,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('pengaturan.index') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -317,6 +317,7 @@
             @endif
 
             <script src="{{ asset('DataTables/datatables.js') }}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             <script>
                 $(document).ready(function() {
@@ -326,6 +327,34 @@
                             url: "{{ asset('/DataTables/bahasa.json') }}",
                         }
                     });
+                    if ('{{ session()->has('success') }}') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: '{{ session('success') }}',
+                            showConfirmButton: false,
+                            timer: 3300,
+
+                        })
+                    } else if ('{{ session()->has('warning') }}') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'warning',
+                            title: '{{ session('warning') }}',
+                            showConfirmButton: false,
+                            timer: 3300,
+
+                        })
+                    } else if ('{{ session()->has('error') }}') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: '{{ session('error') }}',
+                            showConfirmButton: false,
+                            timer: 3300,
+
+                        })
+                    }
                 });
 
                 function validasiPass() {
@@ -367,7 +396,7 @@
                     this.style.borderColor = "";
                 });
             </script>
-
+            @yield('js')
 </body>
 
 </html>

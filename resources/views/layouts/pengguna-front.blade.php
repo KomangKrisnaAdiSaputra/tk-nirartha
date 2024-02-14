@@ -1,3 +1,4 @@
+s
 <!DOCTYPE html>
 <html lang="en">
 
@@ -246,6 +247,47 @@
     <script src="{{ asset('front/src/scss/vendors/plugin/js/slick.min.js') }}"></script>
     <script src="{{ asset('front/src/scss/vendors/plugin/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('front/dist/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.DataTables').DataTable({
+                pageLength: 10,
+                language: {
+                    url: "{{ asset('/DataTables/bahasa.json') }}",
+                }
+            });
+            if ('{{ session()->has('success') }}') {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 3300,
+
+                })
+            } else if ('{{ session()->has('warning') }}') {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: '{{ session('warning') }}',
+                    showConfirmButton: false,
+                    timer: 3300,
+
+                })
+            } else if ('{{ session()->has('error') }}') {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: '{{ session('error') }}',
+                    showConfirmButton: false,
+                    timer: 3300,
+
+                })
+            }
+        });
+    </script>
+
     <script>
         function openNav() {
 

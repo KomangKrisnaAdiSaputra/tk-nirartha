@@ -47,4 +47,23 @@
             </div>
         </div>
     </div>
+@section('js')
+    <script>
+        setInterval(function() {
+            $.get("{{ route('cek_pegawai') }}", {}, function(data, status) {
+                if (data) {
+                    Swal.fire({
+                        title: "Terdapat Data Baru Refresh Sekarang?",
+                        showCancelButton: true,
+                        confirmButtonText: "Refresh",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        }, 10000);
+    </script>
+@endsection
 @endsection

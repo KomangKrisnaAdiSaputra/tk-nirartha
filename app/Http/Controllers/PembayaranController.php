@@ -70,6 +70,8 @@ class PembayaranController extends Controller
         }
 
         $tblPembayaran->getDatabase(true, $id_biaya)->set($dataPembayaran);
+        session()->put('pembayaran', $dataLastUpdate['value']);
+
         return redirect()->route('pembayaran.index');
     }
 
@@ -127,6 +129,8 @@ class PembayaranController extends Controller
         }
 
         $tblPembayaran->getDatabase()->update($dataUpdate);
+        session()->put('pembayaran', $dataLastUpdate['value']);
+
         return redirect()->route('pembayaran.index');
     }
 
@@ -136,5 +140,21 @@ class PembayaranController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    function cek()
+    {
+        $cek = (new TblBiayaSekolah)->getAllData() ?? [];
+        if (isset($cek['last_update'])) {
+            if (session()->has('pembayaran')) {
+                if (session('pembayaran') != $cek['last_update']) {
+                    session()->put('pembayaran', $cek['last_update']);
+                    return true;
+                }
+            } else {
+                session()->put('pembayaran', $cek['last_update']);
+            }
+        }
+        return false;
     }
 }

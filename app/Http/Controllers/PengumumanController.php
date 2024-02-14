@@ -62,6 +62,8 @@ class PengumumanController extends Controller
 
         $customKey = $request->id_pengumuman;
         $tbPengumuman->getDatabase(true, $customKey)->set($data);
+        session()->put('pengumuman', $dataLastUpdate['value']);
+
         return redirect()->route('pengumuman.index');
     }
 
@@ -118,6 +120,8 @@ class PengumumanController extends Controller
         ];
 
         $tbPengumuman->getDatabase()->update($update);
+        session()->put('pengumuman', $dataLastUpdate['value']);
+
         return redirect()->route('pengumuman.index');
     }
 
@@ -142,6 +146,24 @@ class PengumumanController extends Controller
         }
 
         $tbPengumuman->getDatabase(true, $id)->remove();
+        session()->put('pengumuman', $dataLastUpdate['value']);
+
         return redirect()->back();
+    }
+
+    function cek()
+    {
+        $cek = (new TblPengumuman)->getDataPengumuman() ?? [];
+        if (isset($cek['last_update'])) {
+            if (session()->has('pengumuman')) {
+                if (session('pengumuman') != $cek['last_update']) {
+                    session()->put('pengumuman', $cek['last_update']);
+                    return true;
+                }
+            } else {
+                session()->put('pengumuman', $cek['last_update']);
+            }
+        }
+        return false;
     }
 }

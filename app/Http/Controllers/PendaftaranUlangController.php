@@ -84,6 +84,7 @@ class PendaftaranUlangController extends Controller
         }
 
         $tblPendaftaranUlang->getDatabase()->update($dataUpdate);
+        session()->put('daftar_ulang', $dataLastUpdate['value']);
         return redirect()->route('pendaftaranUlang.index');
     }
 
@@ -93,5 +94,21 @@ class PendaftaranUlangController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    function cek()
+    {
+        $cek = (new TblPendaftaranUlang)->getDataAll() ?? [];
+        if (isset($cek['last_update'])) {
+            if (session()->has('daftar_ulang')) {
+                if (session('daftar_ulang') != $cek['last_update']) {
+                    session()->put('daftar_ulang', $cek['last_update']);
+                    return true;
+                }
+            } else {
+                session()->put('daftar_ulang', $cek['last_update']);
+            }
+        }
+        return false;
     }
 }

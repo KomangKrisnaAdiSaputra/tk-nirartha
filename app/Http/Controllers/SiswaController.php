@@ -89,7 +89,7 @@ class SiswaController extends Controller
         ];
 
         $tblSiswa->getDatabase()->update($dataUpdate);
-
+        session()->put('siswa', $dataLastUpdate['value']);
         return redirect()->route('siswa.index');
     }
 
@@ -99,5 +99,21 @@ class SiswaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    function cek()
+    {
+        $cek = (new TblSiswa)->getDataAll() ?? [];
+        if (isset($cek['last_update'])) {
+            if (session()->has('siswa')) {
+                if (session('siswa') != $cek['last_update']) {
+                    session()->put('siswa', $cek['last_update']);
+                    return true;
+                }
+            } else {
+                session()->put('siswa', $cek['last_update']);
+            }
+        }
+        return false;
     }
 }
