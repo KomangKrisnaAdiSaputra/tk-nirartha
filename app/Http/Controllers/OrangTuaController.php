@@ -242,7 +242,7 @@ class OrangTuaController extends Controller
             return redirect()->route('orangTua.dataSiswa');
         } elseif ($request->type === 'pendaftaran_awal') {
             $tblPendaftaranAwal = (new TblPendaftaranAwal);
-            $request->merge(['id_pendaftaran_awal' => Str::uuid()->toString()]);
+            $request->merge(['id_pendaftaran_awal' => $this->idPendaftaran('pendaftaran_awal')]);
             $request->merge(['tgl_pendaftaran_awal' => Carbon::now()->toDateString()]);
             $request->merge(['status_pendaftaran_awal' => "0"]);
             $field = $tblPendaftaranAwal->get('field');
@@ -287,7 +287,7 @@ class OrangTuaController extends Controller
             return redirect()->route('orangTua.pendaftaranSiswa');
         } elseif ($request->type === 'pendaftaran_ulang') {
             $tblPendaftaranUlang = (new TblPendaftaranUlang);
-            $request->merge(['id_pendaftaran_ulang' => Str::uuid()->toString()]);
+            $request->merge(['id_pendaftaran_ulang' => $this->idPendaftaran('pendaftaran_ulang')]);
             $request->merge(['tgl_pendaftaran_ulang' => Carbon::now()->toDateString()]);
             $request->merge(['status_pendaftaran_ulang' => "0"]);
             $field = $tblPendaftaranUlang->get('field');
@@ -495,5 +495,36 @@ class OrangTuaController extends Controller
         ];
 
         return view('frontoffice.pengguna.data_pendaftaran_ulang.form.tambah', compact('data'));
+    }
+
+    function idPendaftaran($status)
+    {
+        if ($status === "pendaftaran_awal") {
+            $tb = (new TblPendaftaranAwal)->getDataAll() ?? [];
+            $code = "DA";
+            $key = "id_pendaftaran_awal";
+        } elseif ($status === "pendaftaran_ulang") {
+            $tb = (new TblPendaftaranUlang)->getDataAll() ?? [];
+            $code = "DU";
+            $key = "id_pendaftaran_ulang";
+        }
+        if (count($tb) > 0) unset($tb['last_update']);
+
+        $year = date('y');
+        $month = date('m');
+        $prefix = "{$code}-{$year}{$month}-";
+        $order = array_values(array_filter($tb, function ($item) use ($prefix, $key) {
+            return strpos(strtolower((string) $item[$key]), strtolower($prefix)) !== false;
+        }));
+        $id_pendaftaran_awal = array_column($order, $key);
+        array_multisort($id_pendaftaran_awal, SORT_DESC, $order);
+        if ($order) {
+            $num = explode('-', $id_pendaftaran_awal[0])[2];
+            $num = (int)$num + 1;
+            $num = str_pad($num, 4, '0', STR_PAD_LEFT);
+            return $prefix . $num;
+        } else {
+            return ($prefix . '0001');
+        }
     }
 }

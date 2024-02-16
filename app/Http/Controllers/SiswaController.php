@@ -68,6 +68,8 @@ class SiswaController extends Controller
         $getDataSiswa = $tblSiswa->getOneData($id);
 
         $getDataSiswa['id_kelas'] = $request->id_kelas;
+        $getDataSiswa['nama_siswa'] = $request->nama_siswa;
+        $getDataSiswa['no_induk'] = $request->no_induk;
         $getDataSiswa['status_siswa'] = $request->status_siswa;
         $getDataSiswa['tgl_diterima_siswa'] = $request->tgl_diterima_siswa;
 

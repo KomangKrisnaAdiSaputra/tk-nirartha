@@ -1,4 +1,3 @@
-s
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,18 +47,18 @@ s
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="#">
+                            <a href="{{ route('/') }}">
                                 <h2>TK Niratha II</h2>
                             </a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a href="../index.html">Beranda</a></li>
-                            <li><a href="../profil.html">Profil</a></li>
+                            <li><a href="{{ route('landing./') }}">Beranda</a></li>
+                            <li><a href="{{ route('landing.landing_profil') }}">Profil</a></li>
                             {{-- <li><a href="../galeri.html">Galeri</a></li> --}}
-                            <li><a href="../pengumuman.html">Pengumuman</a></li>
-                            <li><a href="kegiatan.html">Kegiatan</a>
+                            <li><a href="{{ route('landing.landing_pengumuman') }}">Pengumuman</a></li>
+                            <li><a href="{{ route('landing.landing_kegiatan') }}">Kegiatan</a>
                             </li>
-                            <li><a href="../kontak.html">Kontak</a></li>
+                            <li><a href="{{ route('landing.landing_kontak') }}">Kontak</a></li>
                         </ul>
                         <div class="col align-items-center">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -170,7 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // 
-        Kreait\Laravel\Firebase\ServiceProvider::class
+        Kreait\Laravel\Firebase\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ])->toArray(),
 
     /*

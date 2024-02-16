@@ -13,6 +13,9 @@ use App\Http\Controllers\PendaftaranUlangController;
 use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
+use App\Models\Firebase\TblPendaftaranAwal;
+use App\Models\Firebase\TblPendaftaranUlang;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,6 +83,14 @@ Route::group(['middleware' => ['checkauth:0,1,2']], function () {
         Route::get('/kepala-sekolah', [DashboardController::class, 'tampil_data_kepala_sekolah'])->name('tampil_kepala_sekolah');
         Route::get('/kepala-sekolah/tambah', [DashboardController::class, 'tambah_data_kepala_sekolah'])->name('tambah_kepala_sekolah');
     });
+
+    Route::get('get-data-pendaftaran-ulang', function () {
+        $tb = (new TblPendaftaranUlang)->getDataAll() ?? [];
+        if (count($tb) > 0) unset($tb['last_update']);
+        $data['data'] = $tb;
+        $pdf = Pdf::loadView('backoffice.pdf.daftar_ulang', $data);
+        return $pdf->stream();
+    })->name('getDataPendaftaranUlang');
 });
 Route::group(['middleware' => ['checkauth:2']], function () {
     Route::resource('pengumuman', PengumumanController::class, ['names' => 'pengumuman']);

@@ -29,9 +29,16 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">No Induk Siswa</label>
+                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                    name="no_induk" placeholder="No Induk Siswa" value="{{ $data['no_induk'] }}" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
                                 <label for="">Nama Siswa</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
-                                    name="nama_siswa" placeholder="Nama Siswa" value="{{ $data['nama_siswa'] }}" readonly>
+                                    name="nama_siswa" placeholder="Nama Siswa" value="{{ $data['nama_siswa'] }}" required>
                             </div>
                         </div>
                         <div class="col-12">

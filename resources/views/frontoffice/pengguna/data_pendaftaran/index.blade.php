@@ -15,26 +15,27 @@
                         <thead>
                             <tr>
                                 <th>N0</th>
+                                <th>Id Pendaftaran</th>
                                 <th>Nama</th>
                                 <th>Bukti Pendaftaran</th>
                                 <th>Catatan</th>
                                 <th>Status</th>
                                 <th>Tanggal Pendaftaran</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data['pendaftaran_awal'] as $key => $value)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $value['id_pendaftaran_awal'] }}</td>
                                     <td>{{ getDataSiswa($value['id_siswa'])['nama_siswa'] }}</td>
                                     <td><a href="{{ asset('image/pendaftaranAwal/' . $value['bukti_pembayaran_pendaftaran_awal']) }}"
                                             target="_blank">{{ $value['bukti_pembayaran_pendaftaran_awal'] }}</a></td>
                                     <td>{{ $value['catatan_pendaftaran_awal'] }}</td>
                                     <td>{{ getStatusDaftarAwal($value['status_pendaftaran_awal']) }}</td>
                                     <td>{{ $value['tgl_pendaftaran_awal'] }}</td>
-                                    <td class="d-flex justify-content-center">
-                                        {{-- <a href="{{ route('orangTua.editDataSiswa', $value['id_siswa']) }}"
+                                    {{-- <td class="d-flex justify-content-center"> --}}
+                                    {{-- <a href="{{ route('orangTua.editDataSiswa', $value['id_siswa']) }}"
                                             class="btn btn-info btn-circle">
                                             <i class="fas fa-edit"></i>
                                         </a>&emsp;
@@ -42,14 +43,14 @@
                                             class="btn btn-primary btn-circle">
                                             <i class="fas fa-info"></i>
                                         </a> --}}
-                                        {{-- <form action="{{ route('pegawai.destroy', $value['id_pegawai']) }}" method="post">
+                                    {{-- <form action="{{ route('pegawai.destroy', $value['id_pegawai']) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-hapus-data-kulkul">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form> --}}
-                                    </td>
+                                    {{-- </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label for="">Nama Siswa</label>
                         <select class="form-control" name="id_siswa" required>
-                            <option selected>Nama Siswa</option>
+                            <option value="" selected>Nama Siswa</option>
                             @foreach ($data['siswa'] as $key => $value)
                                 <option value="{{ $value['id_siswa'] }}">{{ $value['nama_siswa'] }}</option>
                             @endforeach

@@ -16,6 +16,13 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="">Id Pendaftaran</label>
+                                <input type="text" class="form-control form-control-user form-control-lg fs-6"
+                                    value="{{ $data['id_pendaftaran_awal'] }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
                                 <label for="">Nama Siswa</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
                                     name="nama_siswa" placeholder="Nama Siswa"

@@ -10,7 +10,7 @@
                         <div class="banner-area__content">
                             <h2>Prioritas Tepat Masa Depan Cerah.</h2>
                             <p>Menghadirkan masa depan yang cerah, manjadi tujuan utama kami bagi putra dan putri anda.</p>
-                            <a class="btn bg-primary" href="#">Pendaftaran</a>
+                            {{-- <a class="btn bg-primary" href="#">Pendaftaran</a> --}}
                         </div>
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
@@ -127,7 +127,7 @@
                                     </div>
                                 </div>
 
-                                <a class="btn bg-primary" href="#">Pendaftaran</a>
+                                {{-- <a class="btn bg-primary" href="#">Pendaftaran</a> --}}
                             </div>
                         </div>
                     </div>
