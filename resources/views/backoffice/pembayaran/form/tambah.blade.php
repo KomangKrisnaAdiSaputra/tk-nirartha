@@ -38,14 +38,14 @@
                                     name="bulan&tahun" required>
                             </div>
                         </div>
-                        <div class="col-12">
+                        {{-- <div class="col-12">
                             <div class="form-group">
                                 <label for="">Tanggal Pembayaran</label>
                                 <input type="date" class="form-control form-control-user form-control-lg fs-6"
                                     name="tgl_pembayaran_biaya" required>
                             </div>
-                        </div>
-                        <div class="col-12">
+                        </div> --}}
+                        {{-- <div class="col-12">
                             <div class="form-group">
                                 <label for="">Status Pembayaran</label>
                                 <select class="form-control" name="status_biaya" required>
@@ -55,7 +55,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col d-flex pr-0 justify-content-end">
                         <a href="{{ route('pembayaran.index') }}" class="btn bg-outline-secondary-modif mr-3">Kembali</a>

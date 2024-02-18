@@ -305,19 +305,19 @@ class PegawaiController extends Controller
         return redirect()->back();
     }
 
-    function cekPegawai()
+    public function cekPegawai()
     {
         $cek = (new TblPegawai)->getDataAllPegawai() ?? [];
         if (isset($cek['last_update'])) {
             if (session()->has('pegawai')) {
                 if (session('pegawai') != $cek['last_update']) {
                     session()->put('pegawai', $cek['last_update']);
-                    return true;
+                    return response()->json(true);
                 }
             } else {
                 session()->put('pegawai', $cek['last_update']);
             }
         }
-        return false;
+        return response()->json(false);
     }
 }

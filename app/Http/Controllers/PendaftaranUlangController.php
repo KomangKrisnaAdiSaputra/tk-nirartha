@@ -103,12 +103,12 @@ class PendaftaranUlangController extends Controller
             if (session()->has('daftar_ulang')) {
                 if (session('daftar_ulang') != $cek['last_update']) {
                     session()->put('daftar_ulang', $cek['last_update']);
-                    return true;
+                    return response()->json(true);
                 }
             } else {
                 session()->put('daftar_ulang', $cek['last_update']);
             }
         }
-        return false;
+        return response()->json(false);
     }
 }

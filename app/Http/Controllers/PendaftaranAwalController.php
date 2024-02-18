@@ -102,12 +102,12 @@ class PendaftaranAwalController extends Controller
             if (session()->has('daftar_awal')) {
                 if (session('daftar_awal') != $cek['last_update']) {
                     session()->put('daftar_awal', $cek['last_update']);
-                    return true;
+                    return response()->json(true);
                 }
             } else {
                 session()->put('daftar_awal', $cek['last_update']);
             }
         }
-        return false;
+        return response()->json(false);
     }
 }

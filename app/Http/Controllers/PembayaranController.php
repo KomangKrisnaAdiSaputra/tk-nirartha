@@ -49,11 +49,12 @@ class PembayaranController extends Controller
         $id_biaya = Str::uuid()->toString();
         $bulan_tahun = explode('-', $request->{'bulan&tahun'});
         $request->merge(['id_biaya' => $id_biaya]);
+        $request->merge(['status_biaya' => "0"]);
         $request->merge(['bulan_biaya' => $bulan_tahun[1]]);
         $request->merge(['tahun_biaya' => $bulan_tahun[0]]);
 
         foreach ($field as $key => $value) {
-            $dataPembayaran[$value] = $request->$value;
+            $dataPembayaran[$value] = $request->$value ?? "";
         }
 
         $dataLastUpdate = [
@@ -108,7 +109,7 @@ class PembayaranController extends Controller
         $request->merge(['tahun_biaya' => $bulan_tahun[0]]);
 
         foreach ($field as $key => $value) {
-            $dataPembayaran[$value] = $request->$value;
+            $dataPembayaran[$value] = $request->$value ?? "";
         }
 
         $dataUpdate = [
@@ -149,12 +150,12 @@ class PembayaranController extends Controller
             if (session()->has('pembayaran')) {
                 if (session('pembayaran') != $cek['last_update']) {
                     session()->put('pembayaran', $cek['last_update']);
-                    return true;
+                    return response()->json(true);
                 }
             } else {
                 session()->put('pembayaran', $cek['last_update']);
             }
         }
-        return false;
+        return response()->json(false);
     }
 }

@@ -110,12 +110,12 @@ class SiswaController extends Controller
             if (session()->has('siswa')) {
                 if (session('siswa') != $cek['last_update']) {
                     session()->put('siswa', $cek['last_update']);
-                    return true;
+                    return response()->json(true);
                 }
             } else {
                 session()->put('siswa', $cek['last_update']);
             }
         }
-        return false;
+        return response()->json(false);
     }
 }

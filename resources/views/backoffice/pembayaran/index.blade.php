@@ -23,6 +23,7 @@
                                 <th>Bulan Biaya</th>
                                 <th>Tahun Biaya</th>
                                 <th>Tanggal Pembayaran Biaya</th>
+                                <th>Bukti Pembayaran</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -35,7 +36,17 @@
                                     <td>{{ $value['nama_biaya'] }}</td>
                                     <td>{{ carbon(true, $value['bulan_biaya'], 'm', 'F') }}</td>
                                     <td>{{ $value['tahun_biaya'] }}</td>
-                                    <td>{{ $value['tgl_pembayaran_biaya'] }}</td>
+                                    <td>
+                                        {{ $value['tgl_pembayaran_biaya'] != '' ? $value['tgl_pembayaran_biaya'] : 'Belum Melakukan Pembayaran' }}
+                                    </td>
+                                    <td>
+                                        @if ($value['foto_pembayaran'] != '')
+                                            <a href="{{ asset('image/fotoPembayaran/' . $value['foto_pembayaran']) }}"
+                                                target="_blank">{{ $value['foto_pembayaran'] }}</a>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td>{{ getStatusDaftarAwal($value['status_biaya']) }}</td>
                                     <td class="d-flex justify-content-center">
                                         <a href="{{ route('pembayaran.edit', $value['id_biaya']) }}"
@@ -53,21 +64,27 @@
     </div>
 @section('js')
     <script>
-        setInterval(function() {
-            $.get("{{ route('cek_pegawai') }}", {}, function(data, status) {
-                if (data) {
-                    Swal.fire({
-                        title: "Terdapat Data Baru Refresh Sekarang?",
-                        showCancelButton: true,
-                        confirmButtonText: "Refresh",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload();
+        $(document).ready(function() {
+            setInterval(function() {
+                $.get("{{ route('cek_pembayaran') }}", {})
+                    .done(function(data, status) {
+                        if (data) {
+                            Swal.fire({
+                                title: "Terdapat Data Baru Refresh Sekarang?",
+                                showCancelButton: true,
+                                confirmButtonText: "Refresh",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
                         }
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        console.error("Error:", errorThrown);
                     });
-                }
-            });
-        }, 10000);
+            }, 10000);
+        });
     </script>
 @endsection
 @endsection

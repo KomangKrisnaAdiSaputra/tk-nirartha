@@ -158,12 +158,12 @@ class PengumumanController extends Controller
             if (session()->has('pengumuman')) {
                 if (session('pengumuman') != $cek['last_update']) {
                     session()->put('pengumuman', $cek['last_update']);
-                    return true;
+                    return response()->json(true);
                 }
             } else {
                 session()->put('pengumuman', $cek['last_update']);
             }
         }
-        return false;
+        return response()->json(false);
     }
 }

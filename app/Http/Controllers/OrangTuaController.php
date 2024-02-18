@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Firebase\FirebaseDb;
+use App\Models\Firebase\TblBiayaSekolah;
 use App\Models\Firebase\TblOrangTua;
 use App\Models\Firebase\TblPendaftaranAwal;
 use App\Models\Firebase\TblPendaftaranUlang;
@@ -330,6 +331,52 @@ class OrangTuaController extends Controller
 
             $tblPendaftaranUlang->getDatabase(true, $request->id_siswa)->set($dataPendaftaranUlang);
             return redirect()->route('orangTua.pendaftaranUlangSiswa');
+        } elseif ($request->type === 'data_pembayaran') {
+            $tblPembayaran = (new TblBiayaSekolah);
+            $idPembayaran = $request->id_biaya;
+            $dataPembayaran = $tblPembayaran->getOneData($idPembayaran);
+            $dataPembayaran['tgl_pembayaran_biaya'] = Carbon::now()->toDateString();
+
+            // Bukti Pembayaran
+            if ($request->hasFile('foto_pembayaran') === true) {
+                $buktiPembayaran = $request->file('foto_pembayaran');
+                $ekstensi_diperbolehkan    = array('image/png', 'image/jpg', 'image/jpeg');
+                $ekstensi = $buktiPembayaran->getClientMimeType();
+
+                if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                    $path = public_path('image/fotoPembayaran/');
+                    !is_dir($path) &&
+                        mkdir($path, 0777, true);
+
+                    $foto_pembayaran = time() . '.' . $buktiPembayaran->extension();
+                    $buktiPembayaran->move($path, $foto_pembayaran);
+                    $dataPembayaran['foto_pembayaran'] = $foto_pembayaran;
+                } else {
+                    return redirect()->back()->with('error', 'Upload Kartu Sia Siswa Dengan Ekstensi png/jpg/jpeg!');
+                }
+            } // End Bukti Pembayaran
+
+
+            $dataLastUpdate = [
+                'key' => 'last_update',
+                'value' => Carbon::now()->toDateTimeString()
+            ];
+            $cek = $tblPembayaran->getOneData($dataLastUpdate['key']);
+            if ($cek === null) {
+                $tblPembayaran->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+            } else {
+                $tblPembayaran->getDatabase()->update([
+                    $dataLastUpdate['key'] => $dataLastUpdate['value']
+                ]);
+            }
+
+            $dataUpdate = [
+                $idPembayaran => $dataPembayaran
+            ];
+
+            $tblPembayaran->getDatabase()->update($dataUpdate);
+
+            return redirect()->route('orangTua.dataPembayaranSiswa')->with('success', 'Berhasil Edit Data!');
         }
     }
 
@@ -495,6 +542,44 @@ class OrangTuaController extends Controller
         ];
 
         return view('frontoffice.pengguna.data_pendaftaran_ulang.form.tambah', compact('data'));
+    }
+
+    function dataPembayaranSiswa()
+    {
+        $id = session('firebaseUserId');
+        $dataSiswa = (new TblSiswa)->getDataAll() ?? [];
+        if (count($dataSiswa) > 0) unset($dataSiswa['last_update']);
+
+        $dataPembayaran = (new TblBiayaSekolah)->getAllData() ?? [];
+        if (count($dataPembayaran) > 0) unset($dataPembayaran['last_update']);
+
+        $siswa = array_values(array_filter($dataSiswa, function ($item) use ($id) {
+            return $item['id_orang_tua'] === $id;
+        }));
+
+        $id_siswa = array_column($siswa, 'id_siswa');
+        $pembayaran = array_values(array_filter($dataPembayaran, function ($item) use ($id_siswa) {
+            return in_array($item['id_siswa'], $id_siswa);
+        }));
+
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'pembayaran',
+            'pembayaran' => $pembayaran
+        ];
+        return view('frontoffice.pengguna.data_pembayaran.index', compact('data'));
+    }
+
+    function formPembayaranSiswa($id)
+    {
+        $dataPembayaran = (new TblBiayaSekolah)->getOneData($id);
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'pembayaran',
+            'pembayaran' => $dataPembayaran
+        ];
+
+        return view('frontoffice.pengguna.data_pembayaran.form.edit', compact('data'));
     }
 
     function idPendaftaran($status)

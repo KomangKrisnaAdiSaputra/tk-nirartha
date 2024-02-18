@@ -43,19 +43,29 @@
                             <div class="form-group">
                                 <label for="">Tanggal Pembayaran</label>
                                 <input type="date" class="form-control form-control-user form-control-lg fs-6"
-                                    name="tgl_pembayaran_biaya" value="{{ $data['tgl_pembayaran_biaya'] }}" required>
+                                    name="tgl_pembayaran_biaya" value="{{ $data['tgl_pembayaran_biaya'] }}" readonly>
                             </div>
                         </div>
+                        <input type="hidden" value="{{ $data['foto_pembayaran'] }}" name="foto_pembayaran">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="">Status Pembayaran</label>
                                 <select class="form-control" name="status_biaya" required>
                                     <option selected disabled>Status</option>
                                     @foreach ($status as $key => $s)
-                                        <option value="{{ $s['key'] }}"
-                                            {{ $s['key'] === $data['status_biaya'] ? 'selected' : '' }}>
-                                            {{ $s['value'] }}
-                                        </option>
+                                        @if ($data['tgl_pembayaran_biaya'] != '')
+                                            <option value="{{ $s['key'] }}"
+                                                {{ $s['key'] === $data['status_biaya'] ? 'selected' : '' }}>
+                                                {{ $s['value'] }}
+                                            </option>
+                                        @else
+                                            @if ($s['key'] === $data['status_biaya'])
+                                                <option value="{{ $s['key'] }}"
+                                                    {{ $s['key'] === $data['status_biaya'] ? 'selected' : '' }}>
+                                                    {{ $s['value'] }}
+                                                </option>
+                                            @endif
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

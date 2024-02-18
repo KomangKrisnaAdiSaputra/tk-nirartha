@@ -8,6 +8,7 @@
     <title>TK Niratha II - Dashboard</title>
     <link rel="stylesheet" href="{{ asset('front/dist/main.css') }}">
     <link rel="stylesheet" href="{{ asset('front/dist/style-custom.css') }}">
+    <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -162,6 +163,11 @@
                                         class="{{ $data['menu_bottom'] === 'pendaftaran ulang siswa' ? 'active' : '' }}">Pendaftaran
                                         Ulang Siswa</a>
                                 </li>
+                                <li class="list-inline-item mt-4"><a
+                                        href="{{ route('orangTua.dataPembayaranSiswa') }}"
+                                        class="{{ $data['menu_bottom'] === 'pembayaran' ? 'active' : '' }}">Pembayaran
+                                        Siswa</a>
+                                </li>
                                 <li class="list-inline-item"><a href="{{ route('logout_orang_tua') }}"
                                         class="mr-0">Keluar</a></li>
                             </ul>
@@ -247,6 +253,7 @@
     <script src="{{ asset('front/src/scss/vendors/plugin/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('front/dist/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('DataTables/datatables.js') }}"></script>
 
     <script>
         $(document).ready(function() {

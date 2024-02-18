@@ -156,12 +156,12 @@ class KelasController extends Controller
             if (session()->has('kelas')) {
                 if (session('kelas') != $cek['last_update']) {
                     session()->put('kelas', $cek['last_update']);
-                    return true;
+                    return response()->json(true);
                 }
             } else {
                 session()->put('kelas', $cek['last_update']);
             }
         }
-        return false;
+        return response()->json(false);
     }
 }

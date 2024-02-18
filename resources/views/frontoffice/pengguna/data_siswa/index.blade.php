@@ -11,7 +11,7 @@
                     <button type="button" class="btn btn-primary mb-4">Tambah Siswa</button>
                 </a>
                 <div class="table-responsive" id="canvasTabel-tabelPengguna">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered DataTables" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N0</th>
@@ -36,11 +36,11 @@
                                     <td>{{ $value['tgl_diterima_siswa'] === '' ? '-' : $value['tgl_diterima_siswa'] }}</td>
                                     <td class="d-flex justify-content-center">
                                         <a href="{{ route('orangTua.editDataSiswa', $value['id_siswa']) }}"
-                                            class="btn btn-info btn-circle">
+                                            class="btn btn-info btn-circle" style="padding: 10px 15px !important;">
                                             <i class="fas fa-edit"></i>
                                         </a>&emsp;
                                         <a href="{{ route('orangTua.detailDataSiswa', $value['id_siswa']) }}"
-                                            class="btn btn-primary btn-circle">
+                                            class="btn btn-primary btn-circle" style="padding: 10px 15px !important;">
                                             <i class="fas fa-info"></i>
                                         </a>
                                         {{-- <form action="{{ route('pegawai.destroy', $value['id_pegawai']) }}" method="post">

@@ -67,7 +67,6 @@ Route::group(['middleware' => ['checkauth:0,2']], function () {
     Route::get('cek-siswa', [SiswaController::class, 'cek'])->name('cek_siswa');
     Route::resource('siswa', SiswaController::class, ['names' => 'siswa']);
 
-    Route::resource('kepala-sekolah', KepalaSekolahController::class, ['names' => 'kepalaSekolah']);
 
     Route::get('cek-pegawai', [PegawaiController::class, 'cekPegawai'])->name('cek_pegawai');
     Route::resource('data-pegawai', PegawaiController::class, ['names' => 'pegawai']);
@@ -110,6 +109,9 @@ Route::group(['middleware' => ['checkauth:3']], function () {
 
     Route::get('orang-tua/pendaftaran-ulang-siswa', [OrangTuaController::class, 'pendaftaranUlangSiswa'])->name('orangTua.pendaftaranUlangSiswa');
     Route::get('orang-tua/from-pendaftaran-ulang-siswa', [OrangTuaController::class, 'formPendaftaranUlangSiswa'])->name('orangTua.formPendaftaranUlangSiswa');
+
+    Route::get('orang-tua/form-pembayaran-siswa/{id}', [OrangTuaController::class, 'formPembayaranSiswa'])->name('orangTua.formPembayaranSiswa');
+    Route::get('orang-tua/data-pembayaran-siswa', [OrangTuaController::class, 'dataPembayaranSiswa'])->name('orangTua.dataPembayaranSiswa');
 
     Route::get('/logout-orang-tua', [AuthController::class, 'logout_orang_tua'])->name('logout_orang_tua');
 
