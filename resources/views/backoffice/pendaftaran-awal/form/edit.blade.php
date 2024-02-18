@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label for="">Status Pendaftaran</label>
                                 <select class="form-control" name="status_pendaftaran_awal" required>
-                                    <option selected disabled>Status</option>
+                                    <option value="" selected disabled>Status</option>
                                     <option value="0" {{ $data['status_pendaftaran_awal'] === '0' ? 'selected' : '' }}>
                                         Proses</option>
                                     <option value="1" {{ $data['status_pendaftaran_awal'] === '1' ? 'selected' : '' }}>

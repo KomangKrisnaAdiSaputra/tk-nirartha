@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <label for="">Kelas</label>
                                 <select class="form-control" name="id_kelas" required>
-                                    <option selected disabled>List Kelas</option>
+                                    <option value="" selected disabled>List Kelas</option>
                                     @foreach ($dataKelas as $key => $value)
                                         <option value="{{ $value['id_kelas'] }}"
                                             {{ $value['id_kelas'] === $data['id_kelas'] ? 'selected' : '' }}>
@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <label for="">Status Siswa</label>
                                 <select class="form-control" name="status_siswa" required>
-                                    <option selected disabled>Status</option>
+                                    <option value="" selected disabled>Status</option>
                                     @foreach ($statusSiswa as $key => $value)
                                         <option value="{{ $value['key'] }}"
                                             {{ $value['key'] === $data['status_siswa'] ? 'selected' : '' }}>

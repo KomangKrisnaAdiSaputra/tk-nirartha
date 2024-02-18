@@ -17,7 +17,7 @@
                             <div class="form-group">
                                 <label for="">Nama Siswa</label>
                                 <select class="form-control" name="id_siswa" required>
-                                    <option selected disabled>List Siswa</option>
+                                    <option value="" selected disabled>List Siswa</option>
                                     @foreach ($data as $key => $value)
                                         <option value="{{ $value['id_siswa'] }}">{{ $value['nama_siswa'] }}</option>
                                     @endforeach
@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label for="">Status Pembayaran</label>
                                 <select class="form-control" name="status_biaya" required>
-                                    <option selected disabled>Status</option>
+                                    <option value="" selected disabled>Status</option>
                                     @foreach ($status as $key => $s)
                                         <option value="{{ $s['key'] }}">{{ $s['value'] }}</option>
                                     @endforeach

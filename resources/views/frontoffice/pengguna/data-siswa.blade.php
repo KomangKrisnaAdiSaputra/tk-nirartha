@@ -57,7 +57,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <select class="form-control" name="agama_siswa" required>
-                            <option selected disabled>Agama Siswa</option>
+                            <option value="" selected disabled>Agama Siswa</option>
                             <option value="Islam"
                                 {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === 'Islam' ? 'selected' : '' }}>
                                 Islam</option>
@@ -86,7 +86,7 @@
                 <div class="col-12" style="margin-top: 18%;">
                     <div class="form-group">
                         <select class="form-control" name="jk_siswa" required>
-                            <option selected disabled>Jenis Kelamin</option>
+                            <option value="" selected disabled>Jenis Kelamin</option>
                             <option value="1"
                                 {{ (isset($data['siswa']['jk_siswa']) ? (string) $data['siswa']['jk_siswa'] : '') === '1' ? 'selected' : '' }}>
                                 Wanita</option>

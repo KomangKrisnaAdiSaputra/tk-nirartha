@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label for="">Agama Ayah</label>
                                     <select class="form-control" name="agama_ayah" required>
-                                        <option selected disabled>Pilih Agama</option>
+                                        <option value="" selected disabled>Pilih Agama</option>
                                         @foreach (getDataAgama() as $key => $a)
                                             <option value="{{ $a }}"
                                                 {{ $data['orang_tua']['agama_ayah'] === $a ? 'selected' : '' }}>
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="">Pendidikan Terakhir Ayah</label>
                                     <select class="form-control" name="pendidikan_terakhir_ayah" required>
-                                        <option selected disabled>Pilih Pendidikan</option>
+                                        <option value="" selected disabled>Pilih Pendidikan</option>
                                         @foreach (getDataPendidikan() as $key => $p)
                                             <option value="{{ $p }}"
                                                 {{ $data['orang_tua']['pendidikan_terakhir_ayah'] === $p ? 'selected' : '' }}>
@@ -114,7 +114,7 @@
                                 <div class="form-group">
                                     <label for="">Agama Ibu</label>
                                     <select class="form-control" name="agama_ibu" required>
-                                        <option selected disabled>Pilih Agama</option>
+                                        <option value="" selected disabled>Pilih Agama</option>
                                         @foreach (getDataAgama() as $key => $a)
                                             <option value="{{ $a }}"
                                                 {{ $data['orang_tua']['agama_ibu'] === $a ? 'selected' : '' }}>
@@ -128,7 +128,7 @@
                                 <div class="form-group">
                                     <label for="">Pendidikan Terakhir Ibu</label>
                                     <select class="form-control" name="pendidikan_terakhir_ibu" required>
-                                        <option selected disabled>Pilih Pendidikan</option>
+                                        <option value="" selected disabled>Pilih Pendidikan</option>
                                         @foreach (getDataPendidikan() as $key => $p)
                                             <option value="{{ $p }}"
                                                 {{ $data['orang_tua']['pendidikan_terakhir_ibu'] === $p ? 'selected' : '' }}>

@@ -23,16 +23,16 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="">Isi Pengumuman</label>
+                                <label for="">Catatan Kelas</label>
                                 <textarea class="form-control" id="catatan_kelas" name="catatan_kelas" cols="20" rows="5"
-                                    placeholder="Isi Pengumuman" required>{{ $data['catatan_kelas'] }}</textarea>
+                                    placeholder="Catatan Kelas" required>{{ $data['catatan_kelas'] }}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="">Status</label>
                                 <select class="form-control" name="status_kelas" required>
-                                    <option selected disabled>Status</option>
+                                    <option value="" selected disabled>Status</option>
                                     @foreach ($status as $key => $value)
                                         <option value="{{ $value['key'] }}"
                                             {{ $value['key'] === $data['status_kelas'] ? 'selected' : '' }}>

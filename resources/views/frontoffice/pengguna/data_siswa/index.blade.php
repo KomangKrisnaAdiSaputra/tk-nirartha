@@ -28,7 +28,8 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $value['nama_siswa'] }}</td>
-                                    <td>{{ getJkPegawai($value['jk_siswa']) }}</td>
+                                    <td>{{ $value['jk_siswa'] != '' ? getJkPegawai($value['jk_siswa']) : 'Jenis Kelamin Kosong' }}
+                                    </td>
                                     <td>
                                         {{ $value['id_kelas'] != '' ? getDataKelas($value['id_kelas'])['nama_kelas'] : 'Kelas Tidak Ditemukan!' }}
                                     </td>

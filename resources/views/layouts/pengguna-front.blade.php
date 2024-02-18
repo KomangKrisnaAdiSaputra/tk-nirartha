@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TK Niratha II - Dashboard</title>
+    <title>TK Nirata II - Dashboard</title>
     <link rel="stylesheet" href="{{ asset('front/dist/main.css') }}">
     <link rel="stylesheet" href="{{ asset('front/dist/style-custom.css') }}">
     <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet">
@@ -25,7 +25,7 @@
                                         <i class="far fa-envelope"></i>
                                     </div>
                                     <div class="text">
-                                        <span>tknirathaii@gmail.com</span>
+                                        <span>tknirata02@gmail.com</span>
                                     </div>
                                 </div>
                                 <div class="cta">
@@ -33,7 +33,7 @@
                                         <i class="fas fa-mobile-alt"></i>
                                     </div>
                                     <div class="text">
-                                        <span>+8801658 874521</span>
+                                        <span>+62-895-394086579</span>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
                             <a href="{{ route('/') }}">
-                                <h2>TK Niratha II</h2>
+                                <h2>TK Nirata II</h2>
                             </a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
@@ -99,7 +99,7 @@
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
                             <a href="#">
-                                <h2>TK Niratha II</h2>
+                                <h2>TK Nirata II</h2>
                             </a>
                         </div>
                         <div class="hamburger-menu">
@@ -188,7 +188,7 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <h2 class="text-white">TK Nirathan II</h2>
+                        <h2 class="text-white">TK Nirata II</h2>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
@@ -197,7 +197,7 @@
                 </div>
                 <div class="col-lg-2 offset-lg-2 col-md-4 col-sm-6 col-12">
                     <div class="main-footer-quicklinks">
-                        <h6>TK Nirathan II</h6>
+                        <h6>TK Nirata II</h6>
                         <ul class="quicklink">
                             <li><a href="#">Beranda</a></li>
                             <li><a href="#">Profil</a></li>
@@ -231,7 +231,7 @@
                 <div class="col-lg-12">
                     <div class="copyright d-flex justify-content-between align-items-center">
                         <div class="copyright-text order-2 order-lg-1">
-                            <p>&copy; 2023. TK Niratha II</p>
+                            <p>&copy; 2023. TK Nirata II</p>
                         </div>
                         <div class="copyright-links order-1 order-lg-2">
                             <a href="#" class="ml-0"><i class="fab fa-facebook-f"></i></a>

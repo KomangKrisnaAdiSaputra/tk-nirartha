@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <label for="">Jenis Kelamin</label>
                                     <select class="form-control" name="jk_pegawai" required>
-                                        <option selected disabled>Jenis Kelamin</option>
+                                        <option value="" selected disabled>Jenis Kelamin</option>
                                         @foreach ($jenis_kelamin as $key => $value)
                                             <option value="{{ $value['key'] }}"
                                                 {{ getDataPegawai(session('firebaseUserId'))['jk_pegawai'] === $value['key'] ? 'selected' : '' }}>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TK Niratha I - Beranda</title>
+    <title>TK Nirata I - Beranda</title>
     <link rel="stylesheet" href="{{ asset('front/dist/main.css') }}">
     <link rel="stylesheet" href="{{ asset('front/dist/style-custom.css') }}">
 </head>
@@ -32,7 +32,7 @@
                                         <i class="fas fa-mobile-alt"></i>
                                     </div>
                                     <div class="text">
-                                        <span>+8801658 874521</span>
+                                        <span>+62-895-394086579</span>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
                             <a href="{{ url('landing/') }}">
-                                <h2>TK Niratha I</h2>
+                                <h2>TK Nirata I</h2>
                             </a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
@@ -129,7 +129,7 @@
                 </div>
                 <div class="col-lg-2 offset-lg-2 col-md-4 col-sm-6 col-12">
                     <div class="main-footer-quicklinks">
-                        <h6>TK Niratha I</h6>
+                        <h6>TK Nirata I</h6>
                         <ul class="quicklink">
                             <li><a href="#">Beranda</a></li>
                             <li><a href="#">Profil</a></li>

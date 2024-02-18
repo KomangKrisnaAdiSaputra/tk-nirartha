@@ -38,13 +38,13 @@
                                             class="btn btn-info btn-circle">
                                             <i class="fas fa-edit"></i>
                                         </a>&emsp;
-                                        <form action="{{ route('kelas.destroy', $value['id_kelas']) }}" method="post">
+                                        {{-- <form action="{{ route('kelas.destroy', $value['id_kelas']) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-hapus-data-kulkul">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </form>
+                                        </form> --}}
                                     </td>
                                 </tr>
                             @endforeach

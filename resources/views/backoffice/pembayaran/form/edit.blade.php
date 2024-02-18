@@ -51,7 +51,7 @@
                             <div class="form-group">
                                 <label for="">Status Pembayaran</label>
                                 <select class="form-control" name="status_biaya" required>
-                                    <option selected disabled>Status</option>
+                                    <option value="" selected disabled>Status</option>
                                     @foreach ($status as $key => $s)
                                         @if ($data['tgl_pembayaran_biaya'] != '')
                                             <option value="{{ $s['key'] }}"

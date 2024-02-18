@@ -53,7 +53,14 @@ class SiswaController extends Controller
         $menu = 'siswa';
         $data = (new TblSiswa)->getOneData($id);
         $dataKelas = (new TblKelas)->getDataAllKelas() ?? [];
-        if (count($dataKelas) > 0) unset($dataKelas['last_update']);
+
+        if (count($dataKelas) > 0) {
+            unset($dataKelas['last_update']);
+            $dataKelas = array_values(array_filter($dataKelas, function ($item) {
+                return (string) $item['status_kelas'] === "1";
+            }));
+        }
+
         $statusSiswa = (new TblSiswa)->get('status');
         return view('backoffice.siswa.form.edit', compact('menu', 'data', 'dataKelas', 'statusSiswa'));
     }

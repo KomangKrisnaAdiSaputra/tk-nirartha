@@ -65,7 +65,7 @@
                     <div class="form-group">
                         <label for="">Agama Siswa</label>
                         <select class="form-control" name="agama_siswa" required>
-                            <option selected disabled>Pilih Agama</option>
+                            <option value="" selected disabled>Pilih Agama</option>
                             @foreach (getDataAgama() as $key => $a)
                                 <option value="{{ $a }}"
                                     {{ (isset($data['siswa']['agama_siswa']) ? $data['siswa']['agama_siswa'] : '') === $a ? 'selected' : '' }}>
@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label for="">Jenis Kelamin Siswa</label>
                         <select class="form-control" name="jk_siswa" required>
-                            <option selected disabled>Jenis Kelamin</option>
+                            <option value="" selected disabled>Jenis Kelamin</option>
                             <option value="1"
                                 {{ (isset($data['siswa']['jk_siswa']) ? (string) $data['siswa']['jk_siswa'] : '') === '1' ? 'selected' : '' }}>
                                 Wanita</option>
@@ -138,7 +138,7 @@
                     <div class="form-group">
                         <label for="">Golongan Darah</label>
                         <select class="form-control" name="golongan_darah" required>
-                            <option selected disabled>Pilih golongan Darah</option>
+                            <option value="" selected disabled>Pilih golongan Darah</option>
                             @foreach (golDarah() as $key => $gd)
                                 <option value="{{ $gd }}"
                                     {{ (isset($data['siswa']['golongan_darah']) ? $data['siswa']['golongan_darah'] : '') === $gd ? 'selected' : '' }}>
