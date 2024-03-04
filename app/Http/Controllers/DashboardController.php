@@ -13,6 +13,18 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $data = [
+            'menu' => 'dashboard',
+            'dataProses' => 0,
+            'dataSiswa' => 0,
+            'dataPendaftaranAwal' => 0,
+            'dataPendaftaranUlang' => 0
+        ];
+        return view('backoffice.index', $data);
+    }
+
+    function getDataDashboard()
+    {
         $tblPendaftaranAwal = (new TblPendaftaranAwal)->getDataAll() ?? [];
         $tblPendaftaranUlang = (new TblPendaftaranUlang)->getDataAll() ?? [];
         if (count($tblPendaftaranAwal) > 0) unset($tblPendaftaranAwal['last_update']);
@@ -37,17 +49,16 @@ class DashboardController extends Controller
             return $item['status_pendaftaran_ulang'] === "1";
         }));
 
-
-
         $data = [
-            'menu' => 'dashboard',
             'dataProses' => count($dataPendaftaranAwal) + count($dataPendaftaranUlang),
             'dataSiswa' => count($dataSiswa),
             'dataPendaftaranAwal' => count($dataPendaftaranAwalS),
             'dataPendaftaranUlang' => count($dataPendaftaranUlangS)
         ];
-        return view('backoffice.index', $data);
+
+        return response()->json($data);
     }
+
     public function tampil_data_kepala_sekolah()
     {
     }

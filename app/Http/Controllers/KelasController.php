@@ -15,10 +15,7 @@ class KelasController extends Controller
     public function index()
     {
         $menu = 'kelas';
-        $data = (new TblKelas)->getDataAllKelas() ?? [];
-        if (count($data) > 0) {
-            unset($data['last_update']);
-        }
+        $data = [];
         return view('backoffice.kelas.index', compact('menu', 'data'));
     }
 
@@ -69,7 +66,11 @@ class KelasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = (new TblKelas)->getDataAllKelas() ?? [];
+        if (count($data) > 0) {
+            unset($data['last_update']);
+        }
+        return view('backoffice.kelas.tabel.index', compact('data'));
     }
 
     /**

@@ -13,8 +13,8 @@
                 <a href="{{ route('kelas.create') }}">
                     <button type="button" class="btn btn-primary mb-4">Tambah {{ ucwords($menu) }}</button>
                 </a>
-                <div class="table-responsive" id="canvasTabel-tabelPengguna">
-                    <table class="table table-bordered DataTables" id="dataTable" width="100%" cellspacing="0">
+                <div class="table-responsive" id="tabel-kelas">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N0</th>
@@ -26,10 +26,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $value)
+                            <tr>
+                                <td colspan="6">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <div class="spinner-border text-primary spinner-icon" role="status"></div>
+                                        <p>Data Sedang Di Muat</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{-- @foreach ($data as $key => $value)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ getDataPegawai($value['id_pegawai'])['nama_pegawai'] }}</td>
+                                    <td>{{ getDataPegawai($value['id_pegawai'])['nama_pegawai'] ?? '-' }}</td>
                                     <td>{{ $value['nama_kelas'] }}</td>
                                     <td>{{ $value['catatan_kelas'] }}</td>
                                     <td>{{ getStatusPengumuman($value['status_kelas']) }}</td>
@@ -38,16 +46,9 @@
                                             class="btn btn-info btn-circle">
                                             <i class="fas fa-edit"></i>
                                         </a>&emsp;
-                                        {{-- <form action="{{ route('kelas.destroy', $value['id_kelas']) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-circle btn-hapus-data-kulkul">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form> --}}
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -71,6 +72,16 @@
                 }
             });
         }, 10000);
+
+        $.get("{{ route('kelas.show', 1) }}", {})
+            .done(function(data, status) {
+                let tabel = $('#tabel-kelas');
+                tabel.html("");
+                tabel.html(data);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            });
     </script>
 @endsection
 @endsection

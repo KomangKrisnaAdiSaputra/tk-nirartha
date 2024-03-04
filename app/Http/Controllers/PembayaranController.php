@@ -16,8 +16,7 @@ class PembayaranController extends Controller
     public function index()
     {
         $menu = 'pembayaran';
-        $data = (new TblBiayaSekolah)->getAllData() ?? [];
-        if (count($data) > 0) unset($data['last_update']);
+        $data = [];
         return view('backoffice.pembayaran.index', compact('menu', 'data'));
     }
 
@@ -81,7 +80,9 @@ class PembayaranController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = (new TblBiayaSekolah)->getAllData() ?? [];
+        if (count($data) > 0) unset($data['last_update']);
+        return view('backoffice.pembayaran.tabel.index', compact('data'));
     }
 
     /**

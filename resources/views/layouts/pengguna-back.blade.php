@@ -13,14 +13,26 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('back/css/main.css') }}" rel="stylesheet">
-    <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet">
+    <style>
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Atur animasi untuk ikon */
+        .spinner-icon {
+            animation: spin 1s linear infinite;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -113,16 +125,6 @@
                 Pengguna
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-
-            <!-- Nav Item - Charts -->
-            {{-- <li class="nav-item {{ $menu == 'kepala sekolah' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('kepalaSekolah.index') }}">
-                    <i class="fas fa-users"></i>
-                    <span>Kepala Sekolah</span>
-                </a>
-            </li> --}}
-
             <!-- Nav Item - Tables -->
             <li class="nav-item {{ $menu == 'pegawai' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('pegawai.index') }}">
@@ -130,13 +132,6 @@
                     <span>Pegawai</span>
                 </a>
             </li>
-
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-users"></i>
-                    <span>Orang Tua</span>
-                </a>
-            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -233,70 +228,6 @@
                 </div>
 
             </div>
-
-            <!-- firebase -->
-            <script type="module">
-                // Import the functions you need from the SDKs you need
-                import {
-                    initializeApp
-                } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-                import {
-                    getAnalytics
-                } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
-                import {
-                    getDatabase,
-                    ref,
-                    set
-                } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-                // TODO: Add SDKs for Firebase products that you want to use
-                // https://firebase.google.com/docs/web/setup#available-libraries
-                // Your web app's Firebase configuration
-                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-                const firebaseConfig = {
-                    apiKey: "{{ config('services.firebase.apiKey') }}",
-                    authDomain: "{{ config('services.firebase.authDomain') }}",
-                    databaseURL: "{{ config('services.firebase.databaseURL') }}",
-                    projectId: "{{ config('services.firebase.projectId') }}",
-                    storageBucket: "{{ config('services.firebase.storageBucket') }}",
-                    messagingSenderId: "{{ config('services.firebase.messagingSenderId') }}",
-                    appId: "{{ config('services.firebase.appId') }}",
-                    measurementId: "{{ config('services.firebase.measurementId') }}"
-                };
-                // Initialize Firebase
-                const app = initializeApp(firebaseConfig);
-                const analytics = getAnalytics(app);
-                const database = getDatabase(app);
-
-                const db = getDatabase();
-                const starCountRef = ref(db, 'pegawai/' + postId + '/starCount');
-                onValue(starCountRef, (snapshot) => {
-                    const data = snapshot.val();
-                    updateStarCount(postElement, data);
-                });
-                // var dbRef = firebase.database().ref();
-                // console.log(dbRef);
-                // dbRef.child("pegawai").child(userId).get().then((snapshot) => {
-                // if (snapshot.exists()) {
-                //     console.log(snapshot.val());
-                // } else {
-                //     console.log("No data available");
-                // }
-                // }).catch((error) => {
-                // console.error(error);
-                // });
-
-
-                // const db = app.database();
-                // const pegawai = db.ref('pegawai').on('value', handleSuccess, handleError)
-
-                // function handleSuccess (items){
-                //     console.log(items);
-                // }
-                // function handleError (error){
-                //     console.log(error);
-                // }
-            </script>
-
             <!-- Bootstrap core JavaScript-->
             <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
             <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -316,17 +247,10 @@
                 <script src="{{ asset('back/js/demo/chart-pie-demo.js') }}"></script>
             @endif
 
-            <script src="{{ asset('DataTables/datatables.js') }}"></script>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             <script>
                 $(document).ready(function() {
-                    $('.DataTables').DataTable({
-                        pageLength: 10,
-                        language: {
-                            url: "{{ asset('/DataTables/bahasa.json') }}",
-                        }
-                    });
                     if ('{{ session()->has('success') }}') {
                         Swal.fire({
                             position: 'top-end',

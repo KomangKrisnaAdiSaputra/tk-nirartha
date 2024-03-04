@@ -10,8 +10,8 @@
                 <h6 class="m-0 font-weight-bold text-primary">Tabel {{ ucwords($menu) }}</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive" id="canvasTabel-tabelPengguna">
-                    <table class="table table-bordered DataTables" id="dataTable" width="100%" cellspacing="0">
+                <div class="table-responsive" id="tabel-pendaftaran-awal">
+                    <table class="table table-bordered "" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N0</th>
@@ -25,7 +25,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $value)
+                            <tr>
+                                <td colspan="8">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <div class="spinner-border text-primary spinner-icon" role="status"></div>
+                                        <p>Data Sedang Di Muat</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{-- @foreach ($data as $key => $value)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $value['id_pendaftaran_awal'] }}</td>
@@ -42,7 +50,7 @@
                                         </a>&emsp;
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -71,6 +79,16 @@
                         console.error("Error:", errorThrown);
                     });
             }, 10000);
+
+            $.get("{{ route('pendaftaranAwal.create') }}", {})
+                .done(function(data, status) {
+                    let tabel = $('#tabel-pendaftaran-awal');
+                    tabel.html("");
+                    tabel.html(data);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error:", errorThrown);
+                });
         });
     </script>
 @endsection

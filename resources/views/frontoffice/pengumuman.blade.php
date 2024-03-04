@@ -21,7 +21,7 @@
         <!-- Section Start-->
 
         <!-- Section Star -->
-        <section class="populerproduct">
+        {{-- <section class="populerproduct">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6">
@@ -152,7 +152,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- Section End -->
 
     </main>

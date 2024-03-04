@@ -20,7 +20,8 @@
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Total Pendaftaran Awal
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $dataPendaftaranAwal }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="dataPendaftaranAwal">
+                                    {{ $dataPendaftaranAwal }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,7 +39,8 @@
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Total Pendaftaran Ulang
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $dataPendaftaranUlang }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="dataPendaftaranUlang">
+                                    {{ $dataPendaftaranUlang }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -58,7 +60,8 @@
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $dataSiswa }}</div>
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="dataSiswa">
+                                            {{ $dataSiswa }}</div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
@@ -85,7 +88,8 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Data Belum Di Proses
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $dataProses }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="dataProses">{{ $dataProses }}
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -172,6 +176,13 @@
     <!-- End Page Content -->
 @section('js')
     <script>
+        $.get("{{ route('dashboard.get_data_dashboard') }}", {}, function(data, status) {
+            $('#dataPendaftaranAwal').html(data.dataPendaftaranAwal);
+            $('#dataPendaftaranUlang').html(data.dataPendaftaranUlang);
+            $('#dataSiswa').html(data.dataSiswa);
+            $('#dataProses').html(data.dataProses);
+        });
+
         $.get("{{ route('dashboard.daftar_ulang') }}", {}, function(data, status) {
             var ctx = document.getElementById("myAreaChart");
             var myLineChart = new Chart(ctx, {

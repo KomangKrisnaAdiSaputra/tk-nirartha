@@ -15,7 +15,7 @@ class SiswaController extends Controller
     public function index()
     {
         $menu = 'siswa';
-        $data = (new TblSiswa)->getDataAll() ?? [];
+        $data =  [];
 
         if (count($data) > 0) unset($data['last_update']);
         return view('backoffice.siswa.index', compact('menu', 'data'));
@@ -26,7 +26,10 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        $data = (new TblSiswa)->getDataAll() ?? [];
+
+        if (count($data) > 0) unset($data['last_update']);
+        return view('backoffice.siswa.tabel.index', compact('data'));
     }
 
     /**

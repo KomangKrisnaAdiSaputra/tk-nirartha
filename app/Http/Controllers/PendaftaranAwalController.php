@@ -14,9 +14,7 @@ class PendaftaranAwalController extends Controller
     public function index()
     {
         $menu = 'pendaftaran awal';
-        $tblPendaftaranAwal = (new TblPendaftaranAwal);
-        $data = $tblPendaftaranAwal->getDataAll() ?? [];
-        if (count($data) > 0) unset($data['last_update']);
+        $data = [];
         return view('backoffice.pendaftaran-awal.index', compact('menu', 'data'));
     }
 
@@ -25,7 +23,10 @@ class PendaftaranAwalController extends Controller
      */
     public function create()
     {
-        //
+        $tblPendaftaranAwal = (new TblPendaftaranAwal);
+        $data = $tblPendaftaranAwal->getDataAll() ?? [];
+        if (count($data) > 0) unset($data['last_update']);
+        return view('backoffice.pendaftaran-awal.tabel.index', compact('data'));
     }
 
     /**

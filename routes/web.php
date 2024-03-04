@@ -76,6 +76,7 @@ Route::group(['middleware' => ['checkauth:0,2']], function () {
 Route::group(['middleware' => ['checkauth:0,1,2']], function () {
     Route::prefix('dashboard/')->name('dashboard.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard_index');
+        Route::get('/get-data-dashboard', [DashboardController::class, 'getDataDashboard'])->name('get_data_dashboard');
         Route::get('/daftar-ulang', [DashboardController::class, 'dataDaftarUlang'])->name('daftar_ulang');
         Route::get('/data-user', [DashboardController::class, 'dataUser'])->name('data_user');
         Route::get('/logout-pegawai', [AuthController::class, 'logout_pegawai'])->name('logout_pegawai');
@@ -92,6 +93,7 @@ Route::group(['middleware' => ['checkauth:0,1,2']], function () {
     })->name('getDataPendaftaranUlang');
 });
 Route::group(['middleware' => ['checkauth:2']], function () {
+    Route::get('cek-pengumuman', [PengumumanController::class, 'cek'])->name('cek_pengumuman');
     Route::resource('pengumuman', PengumumanController::class, ['names' => 'pengumuman']);
     Route::resource('kelas', KelasController::class, ['names' => 'kelas']);
 });

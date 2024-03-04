@@ -13,8 +13,8 @@
                 <a href="{{ route('pengumuman.create') }}">
                     <button type="button" class="btn btn-primary mb-4">Tambah Pengumuman</button>
                 </a>
-                <div class="table-responsive" id="canvasTabel-tabelPengguna">
-                    <table class="table table-bordered DataTables" id="dataTable" width="100%" cellspacing="0">
+                <div class="table-responsive" id="tabel-pengumuman">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N0</th>
@@ -26,7 +26,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $value)
+                            <tr>
+                                <td colspan="5">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <div class="spinner-border text-primary spinner-icon" role="status"></div>
+                                        <p>Data Sedang Di Muat</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{-- @foreach ($data as $key => $value)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ getDataPegawai($value['id_pegawai'])['nama_pegawai'] }}</td>
@@ -48,7 +56,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -77,6 +85,16 @@
                         console.error("Error:", errorThrown);
                     });
             }, 10000);
+
+            $.get("{{ route('pengumuman.show', 1) }}", {})
+                .done(function(data, status) {
+                    let tabel = $('#tabel-pengumuman');
+                    tabel.html("");
+                    tabel.html(data);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error:", errorThrown);
+                });
         });
     </script>
 @endsection

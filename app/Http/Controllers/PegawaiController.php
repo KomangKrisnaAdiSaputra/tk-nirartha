@@ -18,17 +18,7 @@ class PegawaiController extends Controller
     public function index()
     {
         $menu = 'pegawai';
-        $tbUser = (new TblUser);
-        $data = (new TblPegawai)->getDataAllPegawai() ?? [];
-        if (count($data) > 0) {
-            unset($data['last_update']);
-            $data = array_values(array_filter($data, function ($item) use ($tbUser) {
-                $cekDataUser = $tbUser->getOneDataUser($item['id_user']);
-                if ($cekDataUser != null) {
-                    return (string) $cekDataUser['tipe_user'] === "2" && $item['id_user'] != session('firebaseUserId');
-                }
-            }));
-        }
+        $data = [];
         return view('backoffice.pegawai.index', compact('data', 'menu'));
     }
 
@@ -136,7 +126,18 @@ class PegawaiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tbUser = (new TblUser);
+        $data = (new TblPegawai)->getDataAllPegawai() ?? [];
+        if (count($data) > 0) {
+            unset($data['last_update']);
+            $data = array_values(array_filter($data, function ($item) use ($tbUser) {
+                $cekDataUser = $tbUser->getOneDataUser($item['id_user']);
+                if ($cekDataUser != null) {
+                    return (string) $cekDataUser['tipe_user'] === "2" && $item['id_user'] != session('firebaseUserId');
+                }
+            }));
+        }
+        return view('backoffice.pegawai.tabel.index', compact('data'));
     }
 
     /**

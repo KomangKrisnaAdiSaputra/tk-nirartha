@@ -14,10 +14,7 @@ class PendaftaranUlangController extends Controller
     public function index()
     {
         $menu = 'pendaftaran ulang';
-        $tblPendaftaranUlang = (new TblPendaftaranUlang);
-        $data = $tblPendaftaranUlang->getDataAll() ?? [];
-
-        if (count($data) > 0) unset($data['last_update']);
+        $data = [];
         return view('backoffice.pendaftaran-ulang.index', compact('menu', 'data'));
     }
 
@@ -26,7 +23,11 @@ class PendaftaranUlangController extends Controller
      */
     public function create()
     {
-        //
+        $tblPendaftaranUlang = (new TblPendaftaranUlang);
+        $data = $tblPendaftaranUlang->getDataAll() ?? [];
+
+        if (count($data) > 0) unset($data['last_update']);
+        return view('backoffice.pendaftaran-ulang.tabel.index', compact('data'));
     }
 
     /**

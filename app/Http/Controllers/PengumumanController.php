@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailPengumuman;
 use App\Models\Firebase\TblPengumuman;
+use App\Models\Firebase\TblUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -16,10 +19,7 @@ class PengumumanController extends Controller
     public function index()
     {
         $menu = 'pengumuman';
-        $data = (new TblPengumuman)->getDataPengumuman() ?? [];
-        if (count($data) > 0) {
-            unset($data['last_update']);
-        }
+        $data = [];
         return view('backoffice.pengumuman.index', compact('menu', 'data'));
     }
 
@@ -64,6 +64,18 @@ class PengumumanController extends Controller
         $tbPengumuman->getDatabase(true, $customKey)->set($data);
         session()->put('pengumuman', $dataLastUpdate['value']);
 
+        $orangtua = (new TblUser)->getDataUsers();
+        if (count($orangtua) > 0) unset($orangtua['last_update']);
+
+        $orangtua = array_values(array_filter($orangtua, function ($item) {
+            return (string) $item['tipe_user'] === '3';
+        }));
+
+        if (count($orangtua) > 0) {
+            foreach ($orangtua as $value) {
+                Mail::to($value['email_user'])->send(new SendMailPengumuman("huhu"));
+            }
+        }
         return redirect()->route('pengumuman.index');
     }
 
@@ -72,7 +84,11 @@ class PengumumanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = (new TblPengumuman)->getDataPengumuman() ?? [];
+        if (count($data) > 0) {
+            unset($data['last_update']);
+        }
+        return view('backoffice.pengumuman.tabel.index', compact('data'));
     }
 
     /**
