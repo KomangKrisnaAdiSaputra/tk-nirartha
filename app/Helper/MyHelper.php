@@ -81,7 +81,7 @@ function getDataPendidikan()
 
 function carbon($parse = false, $key = null, $format_before = null, $format_after = null)
 {
-  return ($parse) ?  Carbon::createFromFormat($format_before, $key)->format($format_after) : Carbon::now();
+  return ($parse) ?  Carbon::createFromFormat($format_before, $key)->isoFormat($format_after) : Carbon::now();
 }
 
 function golDarah()

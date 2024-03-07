@@ -336,6 +336,7 @@ class OrangTuaController extends Controller
             $idPembayaran = $request->id_biaya;
             $dataPembayaran = $tblPembayaran->getOneData($idPembayaran);
             $dataPembayaran['tgl_pembayaran_biaya'] = Carbon::now()->toDateString();
+            $dataPembayaran['status_biaya'] = '0';
 
             // Bukti Pembayaran
             if ($request->hasFile('foto_pembayaran') === true) {
@@ -347,6 +348,15 @@ class OrangTuaController extends Controller
                     $path = public_path('image/fotoPembayaran/');
                     !is_dir($path) &&
                         mkdir($path, 0777, true);
+
+                    if (count($dataPembayaran) > 0) {
+                        if ($dataPembayaran['foto_pembayaran'] != "") {
+                            $imagePathFotoPembayaran = getcwd() . '/image/fotoPembayaran/' . $dataPembayaran['foto_pembayaran'];
+                            if (File::exists($imagePathFotoPembayaran)) {
+                                File::delete($imagePathFotoPembayaran);
+                            }
+                        }
+                    }
 
                     $foto_pembayaran = time() . '.' . $buktiPembayaran->extension();
                     $buktiPembayaran->move($path, $foto_pembayaran);
@@ -401,6 +411,17 @@ class OrangTuaController extends Controller
 
     function dataSiswa()
     {
+
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'data siswa',
+            'siswa' => []
+        ];
+        return view('frontoffice.pengguna.data_siswa.index', compact('data'));
+    }
+
+    function tabelDataSiswa()
+    {
         $dataSiswa = (new TblSiswa)->getDataAll() ?? [];
         if (count($dataSiswa) > 0) unset($dataSiswa['last_update']);
         $data = [
@@ -410,7 +431,7 @@ class OrangTuaController extends Controller
                 return $item['id_orang_tua'] === session('firebaseUserId');
             }))
         ];
-        return view('frontoffice.pengguna.data_siswa.index', compact('data'));
+        return view('frontoffice.pengguna.data_siswa.tabel.index', compact('data'));
     }
 
     function tambahDataSiswa()
@@ -453,6 +474,16 @@ class OrangTuaController extends Controller
 
     function pendaftaranAwalSiswa()
     {
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'pendaftaran siswa',
+            'pendaftaran_awal' => []
+        ];
+        return view('frontoffice.pengguna.data_pendaftaran.index', compact('data'));
+    }
+
+    function tabelPendaftaranAwalSiswa()
+    {
         $tblSiswa = (new TblSiswa);
         $tblPendaftaranAwal = (new TblPendaftaranAwal)->getDataAll() ?? [];
 
@@ -470,7 +501,7 @@ class OrangTuaController extends Controller
             'menu_bottom' => 'pendaftaran siswa',
             'pendaftaran_awal' => $dataPendaftaranAwal
         ];
-        return view('frontoffice.pengguna.data_pendaftaran.index', compact('data'));
+        return view('frontoffice.pengguna.data_pendaftaran.tabel.index', compact('data'));
     }
 
     function formPendaftaranAwalSiswa()
@@ -494,7 +525,81 @@ class OrangTuaController extends Controller
         return view('frontoffice.pengguna.data_pendaftaran.form.tambah', compact('data'));
     }
 
+    function formEditPendaftaranAwalSiswa($id)
+    {
+        $tblPendaftaranAwal = (new TblPendaftaranAwal);
+        $dataDaftarAwal = $tblPendaftaranAwal->getOneData($id);
+
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'pendaftaran siswa',
+            'pendaftaran' => $dataDaftarAwal
+        ];
+
+        return view('frontoffice.pengguna.data_pendaftaran.form.edit', compact('data'));
+    }
+
+    function updatePendaftaranAwalSiswa(Request $request, $id)
+    {
+        $tblPendaftaranAwal = (new TblPendaftaranAwal);
+        $dataDaftarAwal = $tblPendaftaranAwal->getOneData($id);
+        $dataDaftarAwal['status_pendaftaran_awal'] = '0';
+
+
+        // Bukti Pembayaran
+        if ($request->hasFile('bukti_pembayaran_pendaftaran_awal') === true) {
+            $buktiPembayaran = $request->file('bukti_pembayaran_pendaftaran_awal');
+            $ekstensi_diperbolehkan    = array('image/png', 'image/jpg', 'image/jpeg');
+            $ekstensi = $buktiPembayaran->getClientMimeType();
+
+            if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                $path = public_path('image/pendaftaranAwal/');
+                !is_dir($path) &&
+                    mkdir($path, 0777, true);
+
+                if ($dataDaftarAwal['bukti_pembayaran_pendaftaran_awal'] != "") {
+                    $imagePathFotoPembayaran = getcwd() . '/image/pendaftaranAwal/' . $dataDaftarAwal['bukti_pembayaran_pendaftaran_awal'];
+                    if (File::exists($imagePathFotoPembayaran)) {
+                        File::delete($imagePathFotoPembayaran);
+                    }
+                }
+
+                $bukti_pembayaran_pendaftaran_awal = time() . '.' . $buktiPembayaran->extension();
+                $buktiPembayaran->move($path, $bukti_pembayaran_pendaftaran_awal);
+                $dataDaftarAwal['bukti_pembayaran_pendaftaran_awal'] = $bukti_pembayaran_pendaftaran_awal;
+            } else {
+                return redirect()->back()->with('error', 'Upload Kartu Sia Siswa Dengan Ekstensi png/jpg/jpeg!');
+            }
+        } // End Bukti Pembayaran
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblPendaftaranAwal->getOneData($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblPendaftaranAwal->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tblPendaftaranAwal->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+
+        $tblPendaftaranAwal->getDatabase()->update([$id => $dataDaftarAwal]);
+        return redirect()->route('orangTua.pendaftaranSiswa');
+    }
+
     function pendaftaranUlangSiswa()
+    {
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'pendaftaran ulang siswa',
+            'pendaftaran_ulang' => []
+        ];
+        return view('frontoffice.pengguna.data_pendaftaran_ulang.index', compact('data'));
+    }
+
+    function tabelPendaftaranUlangSiswa()
     {
         $tblSiswa = (new TblSiswa);
         $tblPendaftaranUlang = (new TblPendaftaranUlang)->getDataAll() ?? [];
@@ -513,7 +618,7 @@ class OrangTuaController extends Controller
             'menu_bottom' => 'pendaftaran ulang siswa',
             'pendaftaran_ulang' => $dataPendaftaranUlang
         ];
-        return view('frontoffice.pengguna.data_pendaftaran_ulang.index', compact('data'));
+        return view('frontoffice.pengguna.data_pendaftaran_ulang.tabel.index', compact('data'));
     }
 
     function formPendaftaranUlangSiswa()
@@ -544,7 +649,81 @@ class OrangTuaController extends Controller
         return view('frontoffice.pengguna.data_pendaftaran_ulang.form.tambah', compact('data'));
     }
 
+    function formEditPendaftaranUlangSiswa($id)
+    {
+        $tblPendaftaranUlang = (new TblPendaftaranUlang);
+        $dataDaftarUlang = $tblPendaftaranUlang->getOneData($id);
+
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'pendaftaran ulang siswa',
+            'pendaftaran' => $dataDaftarUlang
+        ];
+
+        return view('frontoffice.pengguna.data_pendaftaran_ulang.form.edit', compact('data'));
+    }
+
+    function updatePendaftaranUlangSiswa(Request $request, $id)
+    {
+        $tblPendaftaranUlang = (new TblPendaftaranUlang);
+        $dataDaftarUlang = $tblPendaftaranUlang->getOneData($id);
+        $dataDaftarUlang['status_pendaftaran_ulang'] = '0';
+
+
+        // Bukti Pembayaran
+        if ($request->hasFile('bukti_pembayaran_pendaftaran_ulang') === true) {
+            $buktiPembayaran = $request->file('bukti_pembayaran_pendaftaran_ulang');
+            $ekstensi_diperbolehkan    = array('image/png', 'image/jpg', 'image/jpeg');
+            $ekstensi = $buktiPembayaran->getClientMimeType();
+
+            if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                $path = public_path('image/pendaftaranUlang/');
+                !is_dir($path) &&
+                    mkdir($path, 0777, true);
+
+                if ($dataDaftarUlang['bukti_pembayaran_pendaftaran_ulang'] != "") {
+                    $imagePathFotoPembayaran = getcwd() . '/image/pendaftaranUlang/' . $dataDaftarUlang['bukti_pembayaran_pendaftaran_ulang'];
+                    if (File::exists($imagePathFotoPembayaran)) {
+                        File::delete($imagePathFotoPembayaran);
+                    }
+                }
+
+                $bukti_pembayaran_pendaftaran_ulang = time() . '.' . $buktiPembayaran->extension();
+                $buktiPembayaran->move($path, $bukti_pembayaran_pendaftaran_ulang);
+                $dataDaftarUlang['bukti_pembayaran_pendaftaran_ulang'] = $bukti_pembayaran_pendaftaran_ulang;
+            } else {
+                return redirect()->back()->with('error', 'Upload Kartu Sia Siswa Dengan Ekstensi png/jpg/jpeg!');
+            }
+        } // End Bukti Pembayaran
+
+        $dataLastUpdate = [
+            'key' => 'last_update',
+            'value' => Carbon::now()->toDateTimeString()
+        ];
+        $cek = $tblPendaftaranUlang->getOneData($dataLastUpdate['key']);
+        if ($cek === null) {
+            $tblPendaftaranUlang->getDatabase(true, $dataLastUpdate['key'])->set($dataLastUpdate['value']);
+        } else {
+            $tblPendaftaranUlang->getDatabase()->update([
+                $dataLastUpdate['key'] => $dataLastUpdate['value']
+            ]);
+        }
+
+        $tblPendaftaranUlang->getDatabase()->update([$id => $dataDaftarUlang]);
+        return redirect()->route('orangTua.pendaftaranUlangSiswa');
+    }
+
     function dataPembayaranSiswa()
+    {
+        $data = [
+            'menu' => 'orang tua',
+            'menu_bottom' => 'pembayaran',
+            'pembayaran' => []
+        ];
+        return view('frontoffice.pengguna.data_pembayaran.index', compact('data'));
+    }
+
+    function tabelPembayaranSiswa()
     {
         $id = session('firebaseUserId');
         $dataSiswa = (new TblSiswa)->getDataAll() ?? [];
@@ -567,7 +746,7 @@ class OrangTuaController extends Controller
             'menu_bottom' => 'pembayaran',
             'pembayaran' => $pembayaran
         ];
-        return view('frontoffice.pengguna.data_pembayaran.index', compact('data'));
+        return view('frontoffice.pengguna.data_pembayaran.tabel.index', compact('data'));
     }
 
     function formPembayaranSiswa($id)

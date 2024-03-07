@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailPembayaran;
 use App\Models\Firebase\TblBiayaSekolah;
 use App\Models\Firebase\TblSiswa;
+use App\Models\Firebase\TblUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class PembayaranController extends Controller
@@ -72,6 +75,12 @@ class PembayaranController extends Controller
         $tblPembayaran->getDatabase(true, $id_biaya)->set($dataPembayaran);
         session()->put('pembayaran', $dataLastUpdate['value']);
 
+        $dataSiswa = getDataSiswa($dataPembayaran['id_siswa']);
+        $orangtua = (new TblUser)->getOneDataUser($dataSiswa['id_orang_tua']);
+
+        Mail::to($orangtua['email_user'])->send(new SendMailPembayaran($dataPembayaran));
+
+
         return redirect()->route('pembayaran.index');
     }
 
@@ -132,7 +141,10 @@ class PembayaranController extends Controller
 
         $tblPembayaran->getDatabase()->update($dataUpdate);
         session()->put('pembayaran', $dataLastUpdate['value']);
+        $dataSiswa = getDataSiswa($dataPembayaran['id_siswa']);
+        $orangtua = (new TblUser)->getOneDataUser($dataSiswa['id_orang_tua']);
 
+        Mail::to($orangtua['email_user'])->send(new SendMailPembayaran($dataPembayaran));
         return redirect()->route('pembayaran.index');
     }
 

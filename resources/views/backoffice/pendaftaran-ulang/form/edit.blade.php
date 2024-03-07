@@ -65,7 +65,7 @@
                     <div class="col d-flex pr-0 justify-content-end">
                         <a href="{{ route('pendaftaranUlang.index') }}"
                             class="btn bg-outline-secondary-modif mr-3">Kembali</a>
-                        @if ($data['status_pendaftaran_ulang'] === '0')
+                        @if ($data['status_pendaftaran_ulang'] === '0' || $data['status_pendaftaran_ulang'] === '2')
                             <button type="submit" class="btn bg-primary text-white">Simpan</button>
                         @endif
                     </div>

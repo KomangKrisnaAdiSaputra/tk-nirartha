@@ -10,8 +10,8 @@
                 <a href="{{ route('orangTua.tambahDataSiswa') }}">
                     <button type="button" class="btn btn-primary mb-4">Tambah Siswa</button>
                 </a>
-                <div class="table-responsive" id="canvasTabel-tabelPengguna">
-                    <table class="table table-bordered DataTables" id="dataTable" width="100%" cellspacing="0">
+                <div class="table-responsive" id="tabel-siswa">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>N0</th>
@@ -24,7 +24,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data['siswa'] as $key => $value)
+                            <tr>
+                                <td colspan="7">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <div class="spinner-border text-primary spinner-icon" role="status"></div>
+                                        <p>Data Sedang Di Muat</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{-- @foreach ($data['siswa'] as $key => $value)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $value['nama_siswa'] }}</td>
@@ -44,20 +52,33 @@
                                             class="btn btn-primary btn-circle" style="padding: 10px 15px !important;">
                                             <i class="fas fa-info"></i>
                                         </a>
-                                        {{-- <form action="{{ route('pegawai.destroy', $value['id_pegawai']) }}" method="post">
+                                        <form action="{{ route('pegawai.destroy', $value['id_pegawai']) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-hapus-data-kulkul">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </form> --}}
+                                        </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+@section('js')
+    <script>
+        $.get("{{ route('orangTua.tabelDataSiswa') }}", {})
+            .done(function(data, status) {
+                let tabel = $('#tabel-siswa');
+                tabel.html("");
+                tabel.html(data);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            });
+    </script>
+@endsection
 @endsection

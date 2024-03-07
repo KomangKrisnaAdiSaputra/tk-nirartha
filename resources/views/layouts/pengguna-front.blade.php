@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="{{ asset('front/dist/main.css') }}">
     <link rel="stylesheet" href="{{ asset('front/dist/style-custom.css') }}">
     <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet">
+    <style>
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Atur animasi untuk ikon */
+        .spinner-icon {
+            animation: spin 1s linear infinite;
+        }
+    </style>
 </head>
 
 <body>
@@ -347,4 +363,6 @@
             this.style.borderColor = "";
         });
     </script>
+
+    @yield('js')
 </body>

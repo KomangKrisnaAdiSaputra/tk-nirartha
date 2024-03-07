@@ -73,7 +73,7 @@ class PengumumanController extends Controller
 
         if (count($orangtua) > 0) {
             foreach ($orangtua as $value) {
-                Mail::to($value['email_user'])->send(new SendMailPengumuman("huhu"));
+                Mail::to($value['email_user'])->send(new SendMailPengumuman($data));
             }
         }
         return redirect()->route('pengumuman.index');

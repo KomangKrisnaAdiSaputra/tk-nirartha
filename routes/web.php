@@ -13,6 +13,7 @@ use App\Http\Controllers\PendaftaranUlangController;
 use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
+use App\Mail\SendMailPembayaran;
 use App\Models\Firebase\TblPendaftaranAwal;
 use App\Models\Firebase\TblPendaftaranUlang;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -36,6 +37,11 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/landing', function () {
 //     return view('frontoffice.index');
 // });
+
+Route::get('/voucher', function () {
+
+    return new SendMailPembayaran('');
+});
 
 Route::prefix('secure/auth/')->name('auth.')->group(function () {
     // REGISTER
@@ -103,16 +109,24 @@ Route::group(['middleware' => ['checkauth:3']], function () {
     Route::get('orang-tua/data-siswa', [OrangTuaController::class, 'dataSiswa'])->name('orangTua.dataSiswa');
 
     Route::get('orang-tua/tambah-data-siswa', [OrangTuaController::class, 'tambahDataSiswa'])->name('orangTua.tambahDataSiswa');
+    Route::get('orang-tua/tabel-data-siswa', [OrangTuaController::class, 'tabelDataSiswa'])->name('orangTua.tabelDataSiswa');
     Route::get('orang-tua/edit-data-siswa/{id}', [OrangTuaController::class, 'editDataSiswa'])->name('orangTua.editDataSiswa');
     Route::get('orang-tua/detail-data-siswa/{id}', [OrangTuaController::class, 'detailDataSiswa'])->name('orangTua.detailDataSiswa');
 
     Route::get('orang-tua/pendaftaran-awal-siswa', [OrangTuaController::class, 'pendaftaranAwalSiswa'])->name('orangTua.pendaftaranSiswa');
-    Route::get('orang-tua/from-pendaftaran-awal-siswa', [OrangTuaController::class, 'formPendaftaranAwalSiswa'])->name('orangTua.formPendaftaranSiswa');
+    Route::get('orang-tua/tabel-pendaftaran-awal-siswa', [OrangTuaController::class, 'tabelPendaftaranAwalSiswa'])->name('orangTua.tabelPendaftaranSiswa');
+    Route::get('orang-tua/form-pendaftaran-awal-siswa', [OrangTuaController::class, 'formPendaftaranAwalSiswa'])->name('orangTua.formPendaftaranSiswa');
+    Route::get('orang-tua/form-edit-pendaftaran-awal-siswa/{id}', [OrangTuaController::class, 'formEditPendaftaranAwalSiswa'])->name('orangTua.formEditPendaftaranSiswa');
+    Route::post('orang-tua/update-pendaftaran-awal-siswa/{id}', [OrangTuaController::class, 'updatePendaftaranAwalSiswa'])->name('orangTua.updatePendaftaranSiswa');
 
     Route::get('orang-tua/pendaftaran-ulang-siswa', [OrangTuaController::class, 'pendaftaranUlangSiswa'])->name('orangTua.pendaftaranUlangSiswa');
-    Route::get('orang-tua/from-pendaftaran-ulang-siswa', [OrangTuaController::class, 'formPendaftaranUlangSiswa'])->name('orangTua.formPendaftaranUlangSiswa');
+    Route::get('orang-tua/tabel-pendaftaran-ulang-siswa', [OrangTuaController::class, 'tabelPendaftaranUlangSiswa'])->name('orangTua.tabelPendaftaranUlangSiswa');
+    Route::get('orang-tua/form-pendaftaran-ulang-siswa', [OrangTuaController::class, 'formPendaftaranUlangSiswa'])->name('orangTua.formPendaftaranUlangSiswa');
+    Route::get('orang-tua/form-edit-pendaftaran-ulang-siswa/{id}', [OrangTuaController::class, 'formEditPendaftaranUlangSiswa'])->name('orangTua.formEditPendaftaranUlangSiswa');
+    Route::post('orang-tua/update-pendaftaran-ulang-siswa/{id}', [OrangTuaController::class, 'updatePendaftaranUlangSiswa'])->name('orangTua.updatePendaftaranUlangSiswa');
 
     Route::get('orang-tua/form-pembayaran-siswa/{id}', [OrangTuaController::class, 'formPembayaranSiswa'])->name('orangTua.formPembayaranSiswa');
+    Route::get('orang-tua/tabel-pembayaran-siswa', [OrangTuaController::class, 'tabelPembayaranSiswa'])->name('orangTua.tabelPembayaranSiswa');
     Route::get('orang-tua/data-pembayaran-siswa', [OrangTuaController::class, 'dataPembayaranSiswa'])->name('orangTua.dataPembayaranSiswa');
 
     Route::get('/logout-orang-tua', [AuthController::class, 'logout_orang_tua'])->name('logout_orang_tua');
