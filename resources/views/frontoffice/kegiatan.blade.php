@@ -24,132 +24,29 @@
         <section class="populerproduct">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="detail-kegiatan.html"><img src="../public/front/dist/images/kegiatan/kegiatan-1.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
+                    @foreach ($kegiatan as $key => $value)
+                        <div class="col-md-4 col-sm-6">
+                            <div class="product-item">
+                                <div class="product-item-image">
+                                    <img src="{{ $value['image'] }}" alt="Product Name" class="img-fluid"
+                                        style="height: 300px; object-fit: cover; width: 100%;">
+                                    {{-- <div class="cart-icon">
                                     <a href="detail-kegiatan.html"><i class="fas fa-search"></i></a>
+                                </div> --}}
                                 </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="detail-kegiatan.html">Perayaan Hari Pahlawan</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
+                                <div class="product-item-info">
+                                    <a href="detail-kegiatan.html">{{ $value['title'] }}</a>
+                                    <div class="d-flex sectionPengumuman-profilUser">
+                                        <i class="fa fa-user"></i>
+                                        <div class="d-grid ml-2">
+                                            <p>{{ $value['author'] }}</p>
+                                            <p>{{ $value['date'] }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="../public/front/dist/images/kegiatan/kegiatan-1.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="#">Perayaan Hari Pahlawan</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="../public/front/dist/images/kegiatan/kegiatan-1.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="#">Perayaan Hari Pahlawan</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="../public/front/dist/images/kegiatan/kegiatan-1.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="#">Perayaan Hari Pahlawan</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="../public/front/dist/images/kegiatan/kegiatan-1.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="#">Perayaan Hari Pahlawan</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="#"><img src="../public/front/dist/images/kegiatan/kegiatan-1.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="#">Perayaan Hari Pahlawan</a>
-                                <div class="d-flex sectionPengumuman-profilUser">
-                                    <i class="fa fa-user"></i>
-                                    <div class="d-grid ml-2">
-                                        <p>Admin</p>
-                                        <p>12 Maret 2023</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>

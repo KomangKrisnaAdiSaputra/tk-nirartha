@@ -59,7 +59,8 @@
                             {{-- <li><a class="{{ ($menu == 'galeri') ? 'active' : '' }}" href="{{ url('landing/galeri') }}">Galeri</a></li> --}}
                             <li><a class="{{ $menu == 'pengumuman' ? 'active' : '' }}"
                                     href="{{ url('landing/pengumuman') }}">Pengumuman</a></li>
-                            {{-- <li><a class="{{ ($menu == 'kegiatan') ? 'active' : '' }}" href="{{ url('landing/kegiatan') }}">Kegiatan</a></li> --}}
+                            <li><a class="{{ $menu == 'kegiatan' ? 'active' : '' }}"
+                                    href="{{ url('landing/kegiatan') }}">Kegiatan</a></li>
                             <li><a class="{{ $menu == 'kontak' ? 'active' : '' }}"
                                     href="{{ url('landing/kontak') }}">Kontak</a></li>
                         </ul>

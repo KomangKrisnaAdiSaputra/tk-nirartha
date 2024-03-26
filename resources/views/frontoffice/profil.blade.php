@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-lg-5">
                             <div class="about-area-content-img">
-                                <img src="dist/images/beranda-2.jpg" class="img-fluid" alt=""
+                                <img src="{{ asset('image/landingPages/Gambar2.jpg') }}" class="img-fluid" alt=""
                                     style="border-radius: 86px 24px 0 24px;">
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                     <div class="row align-items-center position-relative">
                         <div class="col-lg-6 ">
                             <div class="about-area-content-img">
-                                <img src="{{ asset('front/dist/images/beranda-2.jpg') }}" alt="img" class="img-fluid">
+                                <img src="{{ asset('image/landingPages/Gambar3.jpg') }}" alt="img" class="img-fluid">
                             </div>
                         </div>
                         <div class="col-lg-6">

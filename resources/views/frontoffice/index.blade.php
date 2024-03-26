@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
                         <div class="banner-area__img">
-                            <img src="{{ asset('front/dist/images/beranda-1.jpg') }}" alt="banner-img" class="img-fluid">
+                            <img src="{{ asset('image/landingPages/Gambar1.jpg') }}" alt="banner-img" class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 ">
                             <div class="about-area-content-img">
-                                <img src="{{ asset('front/dist/images/beranda-2.jpg') }}" alt="img" class="img-fluid">
+                                <img src="{{ asset('image/landingPages/Gambar3.jpg') }}" alt="img" class="img-fluid">
                             </div>
                         </div>
                         <div class="col-lg-6">
