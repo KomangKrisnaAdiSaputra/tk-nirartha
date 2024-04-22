@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="">Nama Biaya</label>
+                                <label for="">Nama</label>
                                 <input type="text" class="form-control form-control-user form-control-lg fs-6"
                                     name="nama_biaya" placeholder="Nama Biaya" value="{{ $data['nama_biaya'] }}" required>
                             </div>

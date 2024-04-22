@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\PendaftaranUlangController;
 use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
+use App\Mail\SendMailForgotPass;
 use App\Mail\SendMailPembayaran;
 use App\Models\Firebase\TblPendaftaranAwal;
 use App\Models\Firebase\TblPendaftaranUlang;
@@ -30,9 +32,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 // Route::post('/landing', 'LandingController@index')->name('landing');
 // Route::get('/landing', function () {
 //     return view('frontoffice.index');
@@ -57,9 +56,25 @@ Route::prefix('secure/auth/')->name('auth.')->group(function () {
         Route::get('/orangtua', [AuthController::class, 'form_login_orang_tua'])->name('form_login_orang_tua');
         Route::post('/orangtua', [AuthController::class, 'login_orang_tua'])->name('login_orang_tua');
     });
+
+    Route::prefix('lupa-password/')->name('lupa_pass.')->group(function () {
+        Route::get('/orangtua', function () {
+            return view('frontoffice.auth.lupa_pass');
+        })->name('orangtua');
+        Route::post('/orangtua', [AuthController::class, 'lupa_pass_orangtua'])->name('form_orangtua');
+
+        Route::get('/pegawai', function () {
+            return view('backoffice.auth.lupa_pass');
+        })->name('pegawai');
+        Route::post('/pegwai', [AuthController::class, 'lupa_pass_pegawai'])->name('form_pegawai');
+    });
 });
 
 // Dashboard Pengguna Back
+Route::group(['middleware' => ['checkauth:0']], function () {
+    Route::get('cek-admin-data-orang-tua', [AdminController::class, 'cek'])->name('cek_admin_dataOrangTua');
+    Route::resource('data-orang-tua', AdminController::class, ['names' => 'dataOrangTua']);
+});
 Route::group(['middleware' => ['checkauth:0,2']], function () {
     Route::get('cek-pendaftaran-awal', [PendaftaranAwalController::class, 'cek'])->name('cek_pendaftaran_awal');
     Route::resource('pendaftaran-awal', PendaftaranAwalController::class, ['names' => 'pendaftaranAwal']);

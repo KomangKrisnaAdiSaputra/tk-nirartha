@@ -38,33 +38,19 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center pb-5">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Forgot Password!</h1>
                                     </div>
-                                    <form action="{{ route('auth.login.login_pegawai') }}" method="post">
+                                    <form action="{{ route('auth.lupa_pass.form_pegawai') }}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user" id="email"
-                                                placeholder="Enter email..." name="email" required>
+                                                placeholder="Masukkan Email Anda" name="email" required>
                                             <div class="invalid-feedback">
                                                 error
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="password"
-                                                placeholder="Enter password..." name="password" required>
-                                            <div class="invalid-feedback">
-                                                error
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="form-check-input"
-                                                    id="inputCheck-showPassword" onclick="showPass('password')">
-                                                <label class="form-check-label" for="customCheck">Show Password</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <a href="{{ route('auth.lupa_pass.pegawai') }}">Lupa Password?</a>
+                                            <a href="{{ route('auth.login.login_pegawai') }}">Kembali</a>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login

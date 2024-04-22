@@ -4,10 +4,10 @@
         <tr>
             <th>N0</th>
             <th>Nama Siswa</th>
-            <th>Nama Biaya</th>
-            <th>Bulan Biaya</th>
-            <th>Tahun Biaya</th>
-            <th>Tanggal Pembayaran Biaya</th>
+            <th>Nama</th>
+            <th>Bulan Nominal</th>
+            <th>Tahun Nominal</th>
+            <th>Tanggal Pembayaran Nominal</th>
             <th>Bukti Pembayaran</th>
             <th>Status</th>
             <th></th>

@@ -45,7 +45,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('dashboard') }}">
-                <div class="sidebar-brand-text mx-3">TK Nirartha <sup>II</sup></div>
+                <div class="sidebar-brand-text mx-3">TK Nirartha II</div>
             </a>
 
             <!-- Divider -->
@@ -132,6 +132,14 @@
                     <span>Pegawai</span>
                 </a>
             </li>
+            @if ((string) getDataUser(session('firebaseUserId'))['tipe_user'] === '0')
+                <li class="nav-item {{ $menu == 'data orang tua' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('dataOrangTua.index') }}">
+                        <i class="fas fa-users"></i>
+                        <span>Orang Tua</span>
+                    </a>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

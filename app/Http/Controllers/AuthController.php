@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailForgotPass;
 use App\Models\Firebase\FirebaseDb;
 use App\Models\Firebase\TblOrangTua;
 use App\Models\Firebase\TblUser;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Kreait\Firebase\Contract\Database;
@@ -191,5 +193,62 @@ class AuthController extends Controller
         } else {
             return redirect()->back()->with('error', 'Anda Belum Login');
         }
+    }
+
+
+    function lupa_pass_orangtua(Request $request)
+    {
+        $tblOrangTua = (new TblUser);
+        $email = $request->email;
+
+        $dataOrangTua = $tblOrangTua->getDataUsers();
+        if (count($dataOrangTua) > 0) unset($dataOrangTua['last_update']);
+        $cekData =  array_values(array_filter($dataOrangTua, function ($item) use ($email) {
+            return (string) $item['email_user'] === $email;
+        }));
+
+        if (count($cekData) <= 0) return redirect()->back()->with('error', 'Email Tidak Ditemukan!');
+
+        $idUser = $cekData[0]['id_user'];
+        $nameUser = $cekData[0]['username_user'];
+        $emailUser = $cekData[0]['email_user'];
+        $auth = (new FirebaseDb)->getAuth();
+        $newRandPass = Str::random(6);
+        $auth->changeUserPassword($idUser, $newRandPass);
+        $dataUser = (object) [
+            'name' => $nameUser,
+            'new_pass' => $newRandPass,
+            'link_login' => route('auth.login.login_orang_tua')
+        ];
+        Mail::to($emailUser)->send(new SendMailForgotPass($dataUser));
+        return redirect()->route('auth.login.login_orang_tua')->with('success', 'Lihat Email Untuk Password Baru!');
+    }
+
+    function lupa_pass_pegawai(Request $request)
+    {
+        $tblPegawai = (new TblUser);
+        $email = $request->email;
+
+        $dataPegawai = $tblPegawai->getDataUsers();
+        if (count($dataPegawai) > 0) unset($dataPegawai['last_update']);
+        $cekData =  array_values(array_filter($dataPegawai, function ($item) use ($email) {
+            return (string) $item['email_user'] === $email;
+        }));
+
+        if (count($cekData) <= 0) return redirect()->back()->with('error', 'Email Tidak Ditemukan!');
+
+        $idUser = $cekData[0]['id_user'];
+        $nameUser = $cekData[0]['username_user'];
+        $emailUser = $cekData[0]['email_user'];
+        $auth = (new FirebaseDb)->getAuth();
+        $newRandPass = Str::random(6);
+        $auth->changeUserPassword($idUser, $newRandPass);
+        $dataUser = (object) [
+            'name' => $nameUser,
+            'new_pass' => $newRandPass,
+            'link_login' => route('auth.login.login_pegawai')
+        ];
+        Mail::to($emailUser)->send(new SendMailForgotPass($dataUser));
+        return redirect()->route('auth.login.login_pegawai')->with('success', 'Lihat Email Untuk Password Baru!');
     }
 }

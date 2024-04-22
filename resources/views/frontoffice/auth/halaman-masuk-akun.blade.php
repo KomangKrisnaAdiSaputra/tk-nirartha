@@ -35,6 +35,10 @@
                                     <p>Belum punya akun? <a href="{{ url('secure/auth/register/orangtua') }}">Daftar
                                             disini!</a></p>
                                 </div>
+                                <div class="col mt-1">
+                                    <p>Lupa Password? <a href="{{ route('auth.lupa_pass.orangtua') }}">Klik
+                                            disini!</a></p>
+                                </div>
                             </form>
                         </div>
                     </div>
